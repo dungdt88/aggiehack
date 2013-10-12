@@ -1,0 +1,94 @@
+{% extends 'VisaRouteFinderBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="span5">
+            <div id="map-canvas"></div>
+            <div class="row">
+                <div class="span12 form-horizontal">
+                    
+                </div>
+            </div>
+        </div>
+        <div class="span5">
+            <form action="javascript:void(0)">
+                <input type="text" id="from-coordinate-lat" name="from_coordinate_lat" />
+                <input type="text" id="from-coordinate-long" name="from_coordinate_lat" />
+                <input type="text" id="to-coordinate-lat" name="to_coordinate_lat" />
+                <input type="text" id="to-coordinate-long" name="to_coordinate_long" />
+                
+                <fieldset>
+                    <legend>Search Locations</legend>
+                    <div class="form-group">
+                        <label for="from-location">From Location:</label>
+                        <input type="text" class="form-control" id="from-location" placeholder="Enter Location">
+                    </div>
+                    <div class="form-group">
+                        <label for="to-location">To Location:</label>
+                        <input type="text" class="form-control" id="to-location" placeholder="Enter Location">
+                    </div>
+                </fieldset>
+                
+                <fieldset>
+                    <legend>Calculate Route</legend>
+                    <div class="form-group">
+                        <label for="target">Expected Start Time:</label>
+                        <div class="input-append bootstrap-timepicker">
+                            <input id="timepicker1" type="text" class="input-small">
+                            <span class="add-on"><i class="icon-time"></i></span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-default">Calculate Route</button>
+                </fieldset>
+            </form>
+        </div>
+        
+    </div>
+    <div class="row">
+        <div id="search-results" class="span10">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Time</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>109 Maple ave, College Station, TX</td>
+                        <td>Somewhere</td>
+                        <td>23:00</td>
+                        <td>Walk</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>109 Maple ave, College Station, TX</td>
+                        <td>Somewhere</td>
+                        <td>23:00</td>
+                        <td>Bus</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>109 Maple ave, College Station, TX</td>
+                        <td>Somewhere</td>
+                        <td>23:00</td>
+                        <td>Bus</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>109 Maple ave, College Station, TX</td>
+                        <td>Somewhere</td>
+                        <td>23:00</td>
+                        <td>Busw</td>
+                    </tr>
+                </tbody>
+                
+            </table>
+        </div>
+    </div>
+    
+{% endblock %}

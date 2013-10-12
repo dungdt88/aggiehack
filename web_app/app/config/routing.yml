@@ -1,0 +1,8 @@
+visa_route_finder:
+    resource: "@VisaRouteFinderBundle/Resources/config/routing.xml"
+    prefix:   /
+
+visa_demo:
+    resource: "@VisaDemoBundle/Resources/config/routing.xml"
+    prefix:   /demo
+
