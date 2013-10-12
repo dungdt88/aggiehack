@@ -1,0 +1,15 @@
+composer.lock
+phpunit.xml
+/web_app/web/bundles/
+/web_app/web/.htaccess
+/web_app/app/bootstrap.php.cache
+/web_app/app/cache/*
+/web_app/app/config/parameters.yml
+/web_app/app/logs/*
+!app/cache/.gitkeep
+!app/logs/.gitkeep
+/web_app/build/
+/web_app/vendor/
+/web_app/bin/
+composer.phar
+sublime-project
