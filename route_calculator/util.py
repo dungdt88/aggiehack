@@ -3,18 +3,26 @@ import math
 import heapq, random, sys
 
 MAX_DISTANCE = 1000
+VELOCITY = 40 #miles/h
 
 class PriorityQueue:
     def  __init__(self):
         self.heap = []
+        #self.qset = ()
 
     def push(self, item, priority):
         pair = (priority,item)
         heapq.heappush(self.heap,pair)
+        #self.qset.add(item.node.id)
 
     def pop(self):
         (priority,item) = heapq.heappop(self.heap)
         return item
+
+    # def search(self, node):
+    #     if node.id not in self.qset:
+    #         return False
+    #     return True
 
     def isEmpty(self):
         return len(self.heap) == 0
@@ -49,14 +57,18 @@ def distance(node1, node2):
 
 
 #for test only
+node11 = Node("node1", "node1", 10,10)
 node22 = Node("node2", "node2", 20,20)
 node33 = Node("node3", "node3", 30,30)
 node44 = Node("node4", "node4", 40,40)
 
-step23 = Step(node22, node33, 10, 12, "bus23")
+step12 = Step(node11, node22, 10, 11, "bus12")
+step13 = Step(node11, node33, 10, 12, "bus13")
 step24 = Step(node22, node44, 10, 13, "bus24")
 step34 = Step(node22, node33, 11.5, 12.5, "bus44")
 
+
+stepw12 = Step(node11, node22, 10, 11.5, "walk")
 stepw23 = Step(node22, node33, 10, 15, "walk")
 stepw24 = Step(node22, node44, 10, 18, "walk")
 stepw34 = Step(node33, node44, 16, 19, "walk")
@@ -64,21 +76,23 @@ stepw34 = Step(node33, node44, 16, 19, "walk")
 
 #get available nodes
 def get_avai_nodes():
-	return [node33, node22, node44]
+	return [node22, node33, node44]
 
 
 #get next bus steps from current state from mySQL
+#started_time of bus-steps get from DB, and always has to >= (arrived_time of current_step + walking time from current to bus)
 def get_next_bus_steps(current_state):
-	steps = [step23, step24, step34]
+	steps = [step12, step13]
 	return steps
 
 
 #get walking_step from current state
 #from google API
+#Note: started_time of walkinng-step is always = arrived-time of current_state
 def get_walking_steps(current_state):
 	#next_nodes = util.get_avai_nodes()
 	#dist_list = dict()
-	steps = [stepw23, stepw24, stepw34]
+	steps = [stepw12]
 	return steps
 
 
