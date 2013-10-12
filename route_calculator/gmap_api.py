@@ -1,26 +1,30 @@
+import util
 
-def distance_gmap(orig_coord, dest_coord):
-	import json as simplejson, urllib
+def distance_gmap(node1, node2):
+	# import json as simplejson, urllib
 
-	# driving vs. walking
-	#url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins={0}&destinations={1}&mode=driving&language=en-EN&sensor=false".format(str(orig_coord),str(dest_coord))
-	url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins={0}&destinations={1}&mode=walking&language=en-EN&sensor=false".format(str(orig_coord),str(dest_coord))
+	# # driving vs. walking
+	# #url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins={0}&destinations={1}&mode=driving&language=en-EN&sensor=false".format(str(orig_coord),str(dest_coord))
+	# url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins={0}&destinations={1}&mode=walking&language=en-EN&sensor=false".format(str(orig_coord),str(dest_coord))
 	
-	result= simplejson.load(urllib.urlopen(url))
-	distance = result['rows'][0]['elements'][0]['distance']['value']
-	print distance
+	# result= simplejson.load(urllib.urlopen(url))
+	# print result
+	# distance = result['rows'][0]['elements'][0]['distance']['value']
+
+	return util.distance(node1[0], node1[1], node2[0], node2[1])
 
 
-def moving_time_gmap(orig_coord, dest_coord):
-	import json as simplejson, urllib
+def moving_time_gmap(node1, node2):
+	# import json as simplejson, urllib
 	
-	# driving vs. walking
-	#url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins={0}&destinations={1}&mode=driving&language=en-EN&sensor=false".format(str(orig_coord),str(dest_coord))
-	url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins={0}&destinations={1}&mode=walking&language=en-EN&sensor=false".format(str(orig_coord),str(dest_coord))
+	# # driving vs. walking
+	# #url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins={0}&destinations={1}&mode=driving&language=en-EN&sensor=false".format(str(orig_coord),str(dest_coord))
+	# url = "http://maps.googleapis.com/maps/api/distancematrix/json?origins={0}&destinations={1}&mode=walking&language=en-EN&sensor=false".format(str(orig_coord),str(dest_coord))
 	
-	result= simplejson.load(urllib.urlopen(url))
-	moving_time = result['rows'][0]['elements'][0]['duration']['value']
-	print moving_time
+	# result= simplejson.load(urllib.urlopen(url))
+	# #print result['rows'][0]
+	# moving_time = result['rows'][0]['elements'][0]['duration']['value']
+	return util.distance(node1[0], node1[1], node2[0], node2[1])/10.0
 
 
 # example 
