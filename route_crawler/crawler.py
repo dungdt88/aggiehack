@@ -22,17 +22,21 @@ for route_page in route_pages:
 
 	data =  bs(bus_page)
 
+	# store schedule for this particular route
 	route_bus_stops = []
 	
 
-	geo_data = data.find('input', {'id': 'routeDataHiddenField'})['value']
-	geo_json = json.loads(geo_data)
-	geo_list = geo_json['pattern']
+	# # coordinates 
+	# geo_data = data.find('input', {'id': 'routeDataHiddenField'})['value']
+	# geo_json = json.loads(geo_data)
+	# geo_list = geo_json['pattern']
 
-	print route_page
-	print len(geo_list)
-	print [x['key'] for x in geo_list]
+	# print route_page
+	# print len(geo_list)
+	# print [x['key'] for x in geo_list]
 
+
+	# get all bus stops and their schedule
 	for table in data.findAll('table'):
 		#get bus stop names
 		for tr in table.findAll('tr')[1]:
@@ -54,19 +58,19 @@ print 'Schedule:', len(schedule)
 # print pprint(schedule)
 
 
-
-# db calls
+# db calls to populate tables: location and schedule
+# location latitude and longitude not populate yet - need to run updatecoord.sql
 db = MySQLdb.connect("localhost", "testuser", "test606", "aggiehack")
 cursor = db.cursor()
 
 for loc in all_bus_stops:
 
-	# check if location exists, if not then insert
+	# only insert when location not exists
 	sql = "SELECT * FROM location WHERE name = %s" 
 	cursor.execute(sql, loc)
 
 	if cursor.fetchone() == None:
-			sql = "INSERT INTO location (name, longitude, latitude) VALUES (%s, %s, %s)"
+			sql = "INSERT INTO location (name, latitude, longitude) VALUES (%s, %s, %s)"
 			cursor.execute(sql, (db.escape_string(loc), 0.0, 0.0))
 			db.commit()
 
@@ -75,10 +79,14 @@ sql = "SELECT id, name FROM location ORDER BY id"
 cursor.execute(sql)
 
 all_loc = {} # {name: id}
-
 for loc in cursor.fetchall(): #return list of list
 	all_loc[loc[1]] = loc[0]
 
+sql = "DELETE * FROM schedule"
+cursor.execute(sql)
+db.commit()
+
+# populate table schedule
 for item in schedule:
 	start_loc = all_loc[item[0]]
 	start_time = datetime.date.today().strftime("%y-%m-%d") + ' ' + strftime("%H:%M:%S", time.strptime(item[1], "%I:%M %p")) 
@@ -93,3 +101,9 @@ for item in schedule:
 	db.commit()
 
 db.close()
+
+
+
+
+
+
