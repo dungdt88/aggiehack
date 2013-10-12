@@ -25,10 +25,10 @@
 </head>
 <body>
     <div class="container">
+        {% include 'VisaRouteFinderBundle:Layout:_header.html.twig' %}
         <div class="row">
             <div class="span1"></div>
             <div class="span10">
-                {% include 'VisaRouteFinderBundle:Layout:_header.html.twig' %}
                 {% block content %}{% endblock %}
             </div>
             <div class="span1"></div>

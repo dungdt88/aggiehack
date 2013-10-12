@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"set",
+				"setLocationFrom"
+			],
+			[
+				"locat",
+				"locationName"
+			],
+			[
+				"margin",
+				"margin-top"
+			],
+			[
 				"var",
 				"var_dump"
 			],
@@ -40,83 +52,50 @@
 	"buffers":
 	[
 		{
-			"file": "/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/createTable.sql",
+			"file": "/E/CodeBase/TAMU/aggieHack/src/.gitignore",
 			"settings":
 			{
-				"buffer_size": 1035,
+				"buffer_size": 301,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/E/WebServer/apache/conf/extra/httpd-vhosts.conf",
+			"settings":
+			{
+				"buffer_size": 3056,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/insertLocation.sql",
+			"file": "schema/schema.sql",
 			"settings":
 			{
-				"buffer_size": 204,
+				"buffer_size": 755,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "web/css/styles.css",
+			"settings":
+			{
+				"buffer_size": 66,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "web/js/app.js",
+			"settings":
+			{
+				"buffer_size": 3553,
 				"line_ending": "Windows",
-				"name": "insert"
+				"name": "totalMarkers = 0;"
 			}
 		},
 		{
-			"file": "/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/insertCurrency.sql",
 			"settings":
 			{
-				"buffer_size": 286,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/insertStore.sql",
-			"settings":
-			{
-				"buffer_size": 253,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/insertBrand.sql",
-			"settings":
-			{
-				"buffer_size": 258,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/insertCategory.sql",
-			"settings":
-			{
-				"buffer_size": 157,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/insertProduct.sql",
-			"settings":
-			{
-				"buffer_size": 901,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/insertPricing.sql",
-			"settings":
-			{
-				"buffer_size": 268,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/dropTable.sql",
-			"settings":
-			{
-				"buffer_size": 145,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "INSERT INTO Currency (`name`, symbol, isoCode, exchangeRate)\n        VALUES ('United States Dollar', '$', 'USD', 1);\nINSERT INTO Currency (`name`, symbol, isoCode, exchangeRate)\n        VALUES ('Australia Dollar', 'A$', 'AUD', 0.94);\nINSERT INTO Currency (`name`, symbol, isoCode, exchangeRate)\n        VALUES ('United Kingdom Pound', '£', 'GBP', 1.61);\nINSERT INTO Currency (`name`, symbol, isoCode, exchangeRate)\n        VALUES ('Euro Member Countries', '€', 'EUR', 1.36);\nINSERT INTO Currency (`name`, symbol, isoCode, exchangeRate)\n        VALUES ('Singapore Dollar', 'S$', 'SGD', 0.8);\n\nINSERT INTO Location(zipCode, city, state)\n        VALUES (705, 'AIBONITO', 'PR');\nINSERT INTO Location(zipCode, city, state)\n        VALUES (610, 'ANASCO', 'PR');\nINSERT INTO Location(zipCode, city, state)\n        VALUES (612, 'ARECIBO', 'PR');\nINSERT INTO Location(zipCode, city, state)\n        VALUES (601, 'ADJUNTAS', 'PR');\nINSERT INTO Location(zipCode, city, state)\n        VALUES (602, 'AGUADA', 'PR');\nINSERT INTO Location(zipCode, city, state)\n        VALUES (77840, 'COLLEGE STATION', 'TX');\n\nINSERT INTO Store(`name`, description, zipCode)\n        VALUES ('College Station', 'College Station Store', 77840);\nINSERT INTO Store(`name`, description, zipCode)\n        VALUES ('Dallas', 'Dallas Store', 75201);\nINSERT INTO Store(`name`, description, zipCode)\n        VALUES ('Houston', 'Houston Store', 77002);\nINSERT INTO Store(`name`, description, zipCode)\n        VALUES ('Austin', 'Austin Store', 78701);\nINSERT INTO Store(`name`, description, zipCode)\n        VALUES ('Bryan', 'Bryan Store', 77801);\n\nINSERT INTO Brand(`name`, logo, url)\n        VALUES ('Calvin Klein', 'calvin_klein.jpg', 'www.calvinklein.com');\nINSERT INTO Brand(`name`, logo, url)\n        VALUES ('DKNY', 'dkny.jpg', 'www.dkny.com');\nINSERT INTO Brand(`name`, logo, url)\n        VALUES ('Gucci', 'gucci.jpg', 'www.gucci.com');\nINSERT INTO Brand(`name`, logo, url)\n        VALUES ('Bebe', 'bebe.jpg', 'www.bebe.com');\nINSERT INTO Brand(`name`, logo, url)\n        VALUES ('Mango', 'mango.jpg', 'url');\n\nINSERT IGNORE INTO Category (`name`, description)\n        VALUES ('accessories', 'accessories');\nINSERT INTO Product (sku, `name`, description, mainImage, size, color, storeName, categoryName, brandName)\n        VALUES ('21435001160001', 'Geometric Body Jewelry', 'Geometric beads and delicate chain that hangs around your body just right make this piece of bebe body jewelry a sexy addition to your summer wardrobe.', 'http://s7d9.scene7.com/is/image/bebe/bb-214350-gol-i1?$Main$', 'xxxl', 'blue', 'College Station', 'accessories', 'Bebe');\nINSERT INTO Pricing(sku, isoCode, price)\n            VALUES ('21435001160001', 'USD', 24.99);\nINSERT IGNORE INTO Category (`name`, description)\n        VALUES ('dresses', 'dresses');\nINSERT INTO Product (sku, `name`, description, mainImage, size, color, storeName, categoryName, brandName)\n        VALUES ('20626204210063', 'Contour Ribbed Bodycon Dress', 'With a sporty body-contouring print and ultra-soft and lightweight stretch; this snug bebe bodycon is sure to turn heads. Try it with a pair of black sandals and statement bracelet for an effortless going-out look.', 'http://s7d9.scene7.com/is/image/bebe/bb-206262-b_w-i1?$Main$', 'xxl', 'pink', 'College Station', 'dresses', 'Bebe');\nINSERT INTO Pricing(sku, isoCode, price)\n            VALUES ('20626204210063', 'USD', 69.00);\nINSERT IGNORE INTO Category (`name`, description)\n        VALUES ('shirts', 'shirts');\nINSERT INTO Product (sku, `name`, description, mainImage, size, color, storeName, categoryName, brandName)\n        VALUES ('21473103000007', 'Logo Colorblock High Low Tank', 'With high-contrast colorblocking; tiny Swarovski crystal-embellished logo at shoulder and comfy fit; this bebe logo tank top is an effortlessly-cute way to go off-duty. Try it with anything from boyfriends jeans to cuffed shorts.', 'http://s7d9.scene7.com/is/image/bebe/bb-214731-w_b-i1?$Main$', 's', 'red', 'College Station', 'shirts', 'Bebe');\nINSERT INTO Pricing(sku, isoCode, price)\n            VALUES ('21473103000007', 'USD', 29.99);\nINSERT IGNORE INTO Category (`name`, description)\n        VALUES ('shirts', 'shirts');\nINSERT INTO Product (sku, `name`, description, mainImage, size, color, storeName, categoryName, brandName)\n        VALUES ('21473103000013', 'Logo Colorblock High Low Tank', 'With high-contrast colorblocking; tiny Swarovski crystal-embellished logo at shoulder and comfy fit; this bebe logo tank top is an effortlessly-cute way to go off-duty. Try it with anything from boyfriends jeans to cuffed shorts.', 'http://s7d9.scene7.com/is/image/bebe/bb-214731-w_b-i1?$Main$', 'xxxl', 'red', 'College Station', 'shirts', 'Bebe');\nINSERT INTO Pricing(sku, isoCode, price)\n            VALUES ('21473103000013', 'USD', 29.99);\nINSERT IGNORE INTO Category (`name`, description)\n        VALUES ('shirts', 'shirts');\nINSERT INTO Product (sku, `name`, description, mainImage, size, color, storeName, categoryName, brandName)\n        VALUES ('21473103000020', 'Logo Colorblock High Low Tank', 'With high-contrast colorblocking; tiny Swarovski crystal-embellished logo at shoulder and comfy fit; this bebe logo tank top is an effortlessly-cute way to go off-duty. Try it with anything from boyfriends jeans to cuffed shorts.', 'http://s7d9.scene7.com/is/image/bebe/bb-214731-w_b-i1?$Main$', 'l', 'yellow', 'College Station', 'shirts', 'Bebe');\nINSERT INTO Pricing(sku, isoCode, price)\n            VALUES ('21473103000020', 'USD', 29.99);\nINSERT IGNORE INTO Category (`name`, description)\n        VALUES ('shirts', 'shirts');\nINSERT INTO Product (sku, `name`, description, mainImage, size, color, storeName, categoryName, brandName)\n        VALUES ('21473103000054', 'Logo Colorblock High Low Tank', 'With high-contrast colorblocking; tiny Swarovski crystal-embellished logo at shoulder and comfy fit; this bebe logo tank top is an effortlessly-cute way to go off-duty. Try it with anything from boyfriends jeans to cuffed shorts.', 'http://s7d9.scene7.com/is/image/bebe/bb-214731-w_b-i1?$Main$', 'xxl', 'red', 'College Station', 'shirts', 'Bebe');\nINSERT INTO Pricing(sku, isoCode, price)\n            VALUES ('21473103000054', 'USD', 29.99);\nINSERT IGNORE INTO Category (`name`, description)\n        VALUES ('shirts', 'shirts');\nINSERT INTO Product (sku, `name`, description, mainImage, size, color, storeName, categoryName, brandName)\n        VALUES ('21473103000025', 'Logo Colorblock High Low Tank', 'With high-contrast colorblocking; tiny Swarovski crystal-embellished logo at shoulder and comfy fit; this bebe logo tank top is an effortlessly-cute way to go off-duty. Try it with anything from boyfriends jeans to cuffed shorts.', 'http://s7d9.scene7.com/is/image/bebe/bb-214731-w_b-i1?$Main$', 'xxl', 'green', 'College Station', 'shirts', 'Bebe');\nINSERT INTO Pricing(sku, isoCode, price)\n            VALUES ('21473103000025', 'USD', 29.99);\nINSERT IGNORE INTO Category (`name`, description)\n        VALUES ('dresses', 'dresses');\nINSERT INTO Product (sku, `name`, description, mainImage, size, color, storeName, categoryName, brandName)\n        VALUES ('20626204210016', 'Contour Ribbed Bodycon Dress', 'With a sporty body-contouring print and ultra-soft and lightweight stretch; this snug bebe bodycon is sure to turn heads. Try it with a pair of black sandals and statement bracelet for an effortless going-out look.', 'http://s7d9.scene7.com/is/image/bebe/bb-206262-b_w-i1?$Main$', 'xxl', 'pink', 'College Station', 'dresses', 'Bebe');\nINSERT INTO Pricing(sku, isoCode, price)\n            VALUES ('20626204210016', 'USD', 69.00);\n",
-			"settings":
-			{
-				"buffer_size": 7616,
+				"buffer_size": 0,
 				"line_ending": "Windows"
 			}
 		}
@@ -188,8 +167,22 @@
 	},
 	"file_history":
 	[
-		"/E/CodeBase/TAMU/aggieHack/src/web_app/.gitignore",
+		"/E/CodeBase/MySite/bootstrap/index.php",
+		"/E/CodeBase/MySite/bootstrap/css/styles.css",
+		"/E/CodeBase/MySite/bootstrap/index.html",
+		"/E/WebServer/mysql/my.ini",
+		"/E/CodeBase/SmartOSC/2013/Tarazz/tarazz_sf/schema/schema.sql",
 		"/E/CodeBase/TAMU/aggieHack/src/.gitignore",
+		"/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/dropTable.sql",
+		"/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/insertPricing.sql",
+		"/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/insertProduct.sql",
+		"/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/insertCategory.sql",
+		"/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/insertBrand.sql",
+		"/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/insertStore.sql",
+		"/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/insertCurrency.sql",
+		"/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/insertLocation.sql",
+		"/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/createTable.sql",
+		"/E/CodeBase/TAMU/aggieHack/src/web_app/.gitignore",
 		"/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/selectSyntheticDataLog.txt",
 		"/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/selectSyntheticData.sql",
 		"/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/insertSyntheticData.sql",
@@ -213,7 +206,6 @@
 		"/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/syntheticData.txt",
 		"/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/createLog.txt",
 		"/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/realData.txt",
-		"/E/WebServer/mysql/my.ini",
 		"/E/CodeBase/TAMU/CSCE608_DatabaseSystems/Project/src/out.txt",
 		"/E/CodeBase/MySite/test.php",
 		"/E/CodeBase/TAMU/CSCE608_DatabaseSystems/Project/src/currency.sql",
@@ -227,7 +219,6 @@
 		"/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/src/Importer.php",
 		"/E/CodeBase/SmartOSC/2013/Tarazz/data/Feed Data/bebe_com-Bebe_Product_Catalog.txt",
 		"/E/CodeBase/SmartOSC/2013/Tarazz/data/Feed Data/Bluefly-Product_Catalog.txt",
-		"/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/insertStore.sql",
 		"/E/CodeBase/TAMU/yourChallenger/src/module/mail/install/version/2.0.0.xml.php",
 		"/E/CodeBase/TAMU/yourChallenger/src/include/setting/dev.sett.php",
 		"/E/CodeBase/SmartOSC/2013/Tarazz/tarazz_sf/src/Tarazz/DataAgentBundle/Service/Implementation/ProductDataImpl.php",
@@ -278,7 +269,6 @@
 		"/E/CodeBase/Symfony/sf235/app/config/parameters.yml.dist",
 		"/E/CodeBase/Symfony/sf235/app/phpunit.xml.dist",
 		"/E/CodeBase/TAMU/yourChallenger/src/include/library/phpfox/setting/setting.class.php",
-		"/E/CodeBase/SmartOSC/2013/Tarazz/tarazz_sf/schema/schema.sql",
 		"/E/CodeBase/TAMU/yourChallenger/training/practice_project_1/employee.sql",
 		"/F/Game/Pro.Evolution.Soccer.2014-RELOADED/RARBG.com.txt",
 		"/E/CodeBase/Symfony/sf235/web/app_dev.php",
@@ -304,18 +294,7 @@
 		"/F/Data/Thunderbird/signature/thunderbird.signature.gmail.html",
 		"/E/SmartOSC/Sales/Projects/2013/[IE] Joval/meeting notes",
 		"/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Homework/hw1.txt",
-		"/F/Data/bigdata/visa.txt",
-		"/E/SmartOSC/Sales/Projects/2013/[BL] Joval/meeting notes",
-		"/E/CodeBase/SmartOSC/2013/Tarazz/tarazz_sf/schema/data.init.sql",
-		"/C/Users/Dung/Downloads/Chrome/pages/ALLLINESMUSTMATCH(INSTRUCTIONS).txt",
-		"/C/Users/Dung/Downloads/Chrome/pages/ChangeThisHtml.txt",
-		"/C/Users/Dung/Downloads/Chrome/pages/EndingHtmlLocation.txt",
-		"/C/Users/Dung/Downloads/Chrome/pages/StartingHtml.txt",
-		"/C/Users/Dung/Downloads/Chrome/pages/StartingHtmlLocation.txt",
-		"/D/CodeBase/SmartOSC/2013/Tarazz/tarazz_sf/[Tarazz] StoreFront.sql",
-		"/D/CodeBase/SmartOSC/2013/Tarazz/tarazz_sf/tarazz.sublime-project",
-		"/D/CodeBase/SmartOSC/2013/Tarazz/tarazz_sf/src/Tarazz/CatalogBundle/Service/ProductListing.php",
-		"/D/CodeBase/SmartOSC/2013/Tarazz/tarazz_sf/src/Tarazz/CatalogBundle/Model/ProductManager.php"
+		"/F/Data/bigdata/visa.txt"
 	],
 	"find":
 	{
@@ -359,6 +338,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"Home",
+			"address",
+			"mysqld",
 			";",
 			"INSERT INTO Location(zipCode, city, state) VALUES ",
 			"\n        VALUES ",
@@ -525,29 +507,29 @@
 	"groups":
 	[
 		{
-			"selected": 9,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/createTable.sql",
+					"file": "/E/CodeBase/TAMU/aggieHack/src/.gitignore",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1035,
+						"buffer_size": 301,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								1035
+								301,
+								301
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/SQL/SQL.tmLanguage"
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -557,39 +539,40 @@
 				},
 				{
 					"buffer": 1,
-					"file": "/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/insertLocation.sql",
+					"file": "/E/WebServer/apache/conf/extra/httpd-vhosts.conf",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 204,
+						"buffer_size": 3056,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								204
+								2717,
+								2717
 							]
 						],
 						"settings":
 						{
-							"auto_name": "insert",
-							"syntax": "Packages/SQL/SQL.tmLanguage"
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1266.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/insertCurrency.sql",
+					"file": "schema/schema.sql",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 286,
+						"buffer_size": 755,
 						"regions":
 						{
 						},
@@ -597,12 +580,11 @@
 						[
 							[
 								0,
-								286
+								755
 							]
 						],
 						"settings":
 						{
-							"spell_check": true,
 							"syntax": "Packages/SQL/SQL.tmLanguage"
 						},
 						"translation.x": 0.0,
@@ -613,24 +595,26 @@
 				},
 				{
 					"buffer": 3,
-					"file": "/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/insertStore.sql",
+					"file": "web/css/styles.css",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 253,
+						"buffer_size": 66,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								253
+								66,
+								66
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/SQL/SQL.tmLanguage"
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -640,38 +624,40 @@
 				},
 				{
 					"buffer": 4,
-					"file": "/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/insertBrand.sql",
+					"file": "web/js/app.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 258,
+						"buffer_size": 3553,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								258
+								2371,
+								2383
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/SQL/SQL.tmLanguage"
+							"auto_name": "totalMarkers = 0;",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1136.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 5,
-					"file": "/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/insertCategory.sql",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 157,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
@@ -679,123 +665,15 @@
 						[
 							[
 								0,
-								157
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/SQL/SQL.tmLanguage"
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/insertProduct.sql",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 901,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								901
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/SQL/SQL.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/insertPricing.sql",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 268,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								268
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/SQL/SQL.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "/E/TAMU/Courses/2013/CSCE-608_DatabaseSystems/Project/Task 2/dropTable.sql",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 145,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								145
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/SQL/SQL.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7616,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								7616
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/SQL/SQL.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 348.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

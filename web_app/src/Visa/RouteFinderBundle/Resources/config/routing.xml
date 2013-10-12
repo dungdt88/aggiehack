@@ -4,7 +4,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <route id="visa_route_finder_index" pattern="/">
+    <route id="visa_route_finder.default.index" pattern="/">
         <default key="_controller">VisaRouteFinderBundle:Default:index</default>
+    </route>
+
+    <route id="visa_route_finder.default.ajax_calculate_route" pattern="/ajax/calculate-route">
+        <default key="_controller">VisaRouteFinderBundle:Default:ajaxCalculateRoute</default>
     </route>
 </routes>
