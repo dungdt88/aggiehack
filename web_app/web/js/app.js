@@ -1,9 +1,11 @@
 geocoder = new google.maps.Geocoder();
+totalMarkers = 0;
 
 function initialize() 
 {
     var mapOptions = {
         zoom: 15,
+        disableDefaultUI: true,
         center: new google.maps.LatLng(30.627904, -96.334927),
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
@@ -59,7 +61,9 @@ function placeMarker(name, position, map)
         draggable: true,
         position: position,
         map: map,
-        name: name
+        name: name,
+        icon: 'img/' + name + '.png',
+        title: 'mk1' === name ? 'From Location' : 'To Location' 
     });
 //            map.panTo(position);
     google.maps.event.addListener(marker, 'mouseup', function(e) {
@@ -121,21 +125,37 @@ function updateLocationName(name, latitude, longitude)
 }
 
 $(document).ready(function() {
-    totalMarkers = 0;
     google.maps.event.addDomListener(window, 'load', initialize);
 
     $('#start-time').timepicker();
 
     $('#route-form').submit(function() {
         $form = $(this);
+
         $.ajax({
             url: $form.attr('action'),
             type: 'post',
             data: $form.serialize(),
-            sucess: function(data) {
+            success: function(data) {
                 console.log(data);
+                if (!data.error && typeof data.routes !== 'undefined') {
+                    html = '';
+                    for (i in data.routes) {
+                        step = i + 1;
+                        html += '<tr><td>' + step + '</td>';
+                        html += '<td>' + data.routes[i].from + '</td>';
+                        html += '<td>' + data.routes[i].to + '</td>';
+                        html += '<td>' + data.routes[i].time + '</td>';
+                        html += '<td>' + data.routes[i].type + '</td>';
+                        html += '</tr>';
+                    }
+
+                    $('#search-results table tbody').html(html);
+                }
             },
-            error: function() {}
+            error: function(data) {
+                console.log(data)
+            }
         });
     })
 });

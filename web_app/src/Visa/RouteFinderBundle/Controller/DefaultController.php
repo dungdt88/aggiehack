@@ -27,8 +27,20 @@ class DefaultController extends Controller
      */
     public function ajaxCalculateRouteAction()
     {
+//        $path = $this->get('kernel')->getRootDir() . '../../../';
+//        $path = realpath($path) . '/route_calculator';
+//        var_dump(sprintf('python %s 2>&1', $path . '/test.py'));
+//        $handle = popen(sprintf('python %s', $path . '/test.py'), 'r');
+////        echo "'$handle'; " . gettype($handle) . "\n";
+//        var_dump(fread($handle, 100));
+//        pclose($handle);
+//
+//        die;
+        
         /** @var $request Request */
         $request = $this->getRequest();
+        /** @var $routeFinder RouteFinder */
+        $routeFinder = $this->get('visa_route_finder.service.route_finder');
 
         $data = $request->request->all();
         $responseData = array();
@@ -39,10 +51,8 @@ class DefaultController extends Controller
             || empty($data['from_coordinate_lat'])) {
             return new JsonResponse($responseData);
         }
-        
-        /** @var $routeFinder RouteFinder */
-        $routeFinder = $this->get('visa_route_finder.service.route_finder');
-        
+
+
         $routes = $routeFinder->findRoutes(
             $data['from_coordinate_lat'],
             $data['from_coordinate_long'],

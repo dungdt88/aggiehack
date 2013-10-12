@@ -4,19 +4,19 @@
     <div class="row">
         <div class="span5">
             <div id="map-canvas"></div>
-            <div class="form-horizontal">
+            <div class="form-inline search-location">
                 <div class="form-group">
-                    <label for="from-location">Search</label>
+                    <label for="from-location">Search Location: &nbsp;</label>
                     <input type="text" class="form-control" id="target" placeholder="Enter Location">
                 </div>
             </div>
         </div>
         <div class="span5">
             <form action="{{ url('visa_route_finder.default.ajax_calculate_route') }}" id="route-form" action="post" onsubmit="return false;">
-                <input type="text" id="from-coordinate-lat" name="from_coordinate_lat" />
-                <input type="text" id="from-coordinate-long" name="from_coordinate_long" />
-                <input type="text" id="to-coordinate-lat" name="to_coordinate_lat" />
-                <input type="text" id="to-coordinate-long" name="to_coordinate_long" />
+                <input type="hidden" id="from-coordinate-lat" name="from_coordinate_lat" />
+                <input type="hidden" id="from-coordinate-long" name="from_coordinate_long" />
+                <input type="hidden" id="to-coordinate-lat" name="to_coordinate_lat" />
+                <input type="hidden" id="to-coordinate-long" name="to_coordinate_long" />
                 
                 <fieldset>
                     <legend>Calculate Route</legend>
@@ -42,10 +42,11 @@
         </div>
         
     </div>
+    <hr>
     <div class="row">
         
         <div id="search-results" class="span10">
-            <h3>Route 1</h3>
+            <h3>Found Routes</h3>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -57,80 +58,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>109 Maple ave, College Station, TX</td>
-                        <td>Somewhere</td>
-                        <td>23:00</td>
-                        <td>Walk</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>109 Maple ave, College Station, TX</td>
-                        <td>Somewhere</td>
-                        <td>23:00</td>
-                        <td>Bus</td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>109 Maple ave, College Station, TX</td>
-                        <td>Somewhere</td>
-                        <td>23:00</td>
-                        <td>Bus</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>109 Maple ave, College Station, TX</td>
-                        <td>Somewhere</td>
-                        <td>23:00</td>
-                        <td>Busw</td>
-                    </tr>
                 </tbody>
                 
-            </table>
-
-            <h3>Route 2</h3>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>From</th>
-                        <th>To</th>
-                        <th>Time</th>
-                        <th>Type</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>109 Maple ave, College Station, TX</td>
-                        <td>Somewhere</td>
-                        <td>23:00</td>
-                        <td>Walk</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>109 Maple ave, College Station, TX</td>
-                        <td>Somewhere</td>
-                        <td>23:00</td>
-                        <td>Bus</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>109 Maple ave, College Station, TX</td>
-                        <td>Somewhere</td>
-                        <td>23:00</td>
-                        <td>Bus</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>109 Maple ave, College Station, TX</td>
-                        <td>Somewhere</td>
-                        <td>23:00</td>
-                        <td>Busw</td>
-                    </tr>
-                </tbody>
-
             </table>
         </div>
     </div>
