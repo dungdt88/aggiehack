@@ -13,3 +13,4 @@ phpunit.xml
 /web_app/bin/
 composer.phar
 sublime-project
+.idea
