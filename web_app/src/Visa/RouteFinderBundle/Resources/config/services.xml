@@ -22,6 +22,8 @@
     </parameters>
     
     <services>
-        <service id="visa_route_finder.service.route_finder" class="%visa_route_finder.service.route_finder_class%" />
+        <service id="visa_route_finder.service.route_finder" class="%visa_route_finder.service.route_finder_class%">
+            <argument>%kernel.root_dir%/../../route_calculator</argument>
+        </service>
     </services>
 </container>

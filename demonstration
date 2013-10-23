@@ -1,0 +1,29 @@
+Demonstration
+	1. Context - Problem
+		- Current TAMU bus webpage can only give information on one bus route at a time. 
+			. If they need to take more than one bus to get to the final destination, have to pull up several bus routes and try to figure out what the best solution is.
+				* manual process
+				* takes time
+				* not guarantee to find the fastest way
+	2. Why - How - What
+		- How can solve the problem?
+			. We automate that process so that the users don't have to do anything on their own to get the fastest way.
+			. Save time for users
+			. Always suggest the optimal solution.
+			. Take into consideration the walking time between bus stops if there is no direct route.
+		- What we have?
+			. We present the users with a web app that allows them to only enter their starting point, desired destination, and start time. Our web app will return the fastest route which can be a combination of multiple means: taking bus or walking.
+			. Our web app offers an interactive way for the user to select their locations: a map to click on, then drag and drop to re-select.
+			. Mobile friendly feature: responsive design on all 3 types of device: PC, tablet, and mobile.
+	3. Technologies
+		- Python for back-end, php for front-end, mySQL for database, Apache for web server. 
+		- Search algorithm
+			. A* best first search to find the lowest cost path in terms of time. For example, if the user have to walk but if it can minimize the waiting time, then our algorithm will pick it.
+		- Bus route database
+			. Extract data (routes and their schedule) from TAMU transportation website.
+			. Nightly routine to get fresh data from TAMU to ensure all data is always up-to-date.
+			. All bus stops' coordinates are also recorded. 
+		- Google API
+			. Utilize Google API to find the walking time an distance between bus stops
+			. Display an interactive map to users.
+		- Others: GitHub, Twitter Bootstrap. 
