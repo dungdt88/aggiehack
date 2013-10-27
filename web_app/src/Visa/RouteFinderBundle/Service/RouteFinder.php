@@ -6,6 +6,9 @@ namespace Visa\RouteFinderBundle\Service;
  * Class RouteFinder
  * @package Visa\RouteFinderBundle\Service
  */
+use Visa\RouteFinderBundle\Route\FinderClient;
+use Visa\RouteFinderBundle\Route\StopPoint;
+
 /**
  * Class RouteFinder
  * @package Visa\RouteFinderBundle\Service
@@ -13,17 +16,16 @@ namespace Visa\RouteFinderBundle\Service;
 class RouteFinder
 {
     /**
-     * @var string
+     * @var \Visa\RouteFinderBundle\Route\FinderClient
      */
-    protected $calculatorPath;
+    protected $finderClient;
     
     /**
-     *
+     * @param FinderClient $finderClient
      */
-    public function __construct($calculatorPath)
+    public function __construct(FinderClient $finderClient)
     {
-        $this->calculatorPath = $calculatorPath;
-        $this->calculatorPath = realpath($this->calculatorPath);
+        $this->finderClient = $finderClient;
     }
 
     /**
@@ -32,67 +34,25 @@ class RouteFinder
      * @param $toLatitude
      * @param $toLongitude
      * @param $startTime
+     * @param null $sorting
      * @return array
      */
-    public function findRoutes($fromLatitude, $fromLongitude, $toLatitude, $toLongitude, $startTime)
+    public function findRoutes($fromLatitude, $fromLongitude, $toLatitude, $toLongitude, $startTime, $sorting = null)
     {
-        $startTime = date('H:i:s', strtotime($startTime));
+        $from = new StopPoint($fromLongitude, $fromLatitude);
+        $to = new StopPoint($toLongitude, $toLatitude);
+        $startingTime = new \DateTime(date('H:i:s', strtotime($startTime)));
         
-//        $handle = popen(sprintf('python %s -a %s -b %s -c %s -d %s -s %s',
-//            $this->calculatorPath . '/RouteCalculator.py',
-//            $fromLatitude,
-//            $fromLongitude,
-//            $toLatitude,
-//            $toLongitude,
-//            $startTime
-//            ), 'r');
-//        var_dump(sprintf('python %s -a %s -b %s -c %s -d %s -s %s',
-//            $this->calculatorPath . '/RouteCalculator.py',
-//            $fromLatitude,
-//            $fromLongitude,
-//            $toLatitude,
-//            $toLongitude,
-//            $startTime));
-//        die;
-//        $result = fread($handle, 100);
-//        $result = trim($result, " \n\r\t");
-
-//        $routes = $this->formatResult($result);
-//        
-        $routes = array(
-            array(
-                'from' => '109 Maple ave College Station',
-                'to' => 'Zachry Building',
-                'time' => '20:00:00',
-                'type' => 'Walk',
-            ),
-            array(
-                'from' => '109 Maple ave College Station',
-                'to' => 'Zachry Building',
-                'time' => '20:00:00',
-                'type' => 'Walk',
-            ),
-            array(
-                'from' => '109 Maple ave College Station',
-                'to' => 'Zachry Building',
-                'time' => '20:00:00',
-                'type' => 'Walk',
-            ),
-            array(
-                'from' => '109 Maple ave College Station',
-                'to' => 'Zachry Building',
-                'time' => '20:00:00',
-                'type' => 'Walk',
-            ),
-            array(
-                'from' => '109 Maple ave College Station',
-                'to' => 'Zachry Building',
-                'time' => '20:00:00',
-                'type' => 'Walk',
-            ),
-        );
+        if ($routes = $this->finderClient->findRoutes($from, $to, $startingTime)) {
+            if ($sorting) {
+                $routes = $this->sortRoutes($routes, $sorting);
+            }
+            
+            return $routes;
+        }
         
-        return $routes;
+        
+        return array();
     }
 
     /**
@@ -115,6 +75,17 @@ class RouteFinder
             );
             
         }
+        return $routes;
+    }
+
+    /**
+     * 
+     * @param array $routes
+     * @param string $sorting
+     * @return array
+     */
+    protected function sortRoutes(array $routes, $sorting)
+    {
         return $routes;
     }
 }
