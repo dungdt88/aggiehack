@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    {#<meta name="viewport" content="initial-scale=1.0, user-scalable=no">#}
+    <meta charset="utf-8">
+    <title>Bus Route Finder Application</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-responsive.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-timepicker.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/styles.css') }}" />
+    
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-migrate.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-timepicker.min.js') }}"></script>
+    
+    <script src="{{ asset('js/app.js') }}"></script>
+    
+    
+    <script>
+        
+
+    </script>
+</head>
+<body>
+    {% include 'CsgRouteFinderBundle:Layout:_header.html.twig' %}
+    <div class="container">
+        <div class="row">
+            <div class="span1"></div>
+            <div class="span10">
+                {% block content %}{% endblock %}
+
+                {% include 'CsgRouteFinderBundle:Layout:_footer.html.twig' %}
+            </div>
+            <div class="span1"></div>
+        </div>
+    </div>
+</body>
+</html>

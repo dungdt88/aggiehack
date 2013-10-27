@@ -6,14 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Acme\DemoBundle\Form\ContactType;
 
-// these import the "@Route" and "@Template" annotations
+// these import the "@Finder" and "@Template" annotations
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class DemoController extends Controller
 {
     /**
-     * @Route("/", name="_demo")
+     * @Finder("/", name="_demo")
      * @Template()
      */
     public function indexAction()
@@ -22,7 +22,7 @@ class DemoController extends Controller
     }
 
     /**
-     * @Route("/hello/{name}", name="_demo_hello")
+     * @Finder("/hello/{name}", name="_demo_hello")
      * @Template()
      */
     public function helloAction($name)
@@ -31,7 +31,7 @@ class DemoController extends Controller
     }
 
     /**
-     * @Route("/contact", name="_demo_contact")
+     * @Finder("/contact", name="_demo_contact")
      * @Template()
      */
     public function contactAction()

@@ -137,20 +137,19 @@ $(document).ready(function() {
             type: 'post',
             data: $form.serialize(),
             success: function(data) {
-                console.log(data);
-                if (!data.error && typeof data.routes !== 'undefined') {
-                    html = '';
-                    for (i in data.routes) {
-                        step = i + 1;
-                        html += '<tr><td>' + step + '</td>';
-                        html += '<td>' + data.routes[i].from + '</td>';
-                        html += '<td>' + data.routes[i].to + '</td>';
-                        html += '<td>' + data.routes[i].time + '</td>';
-                        html += '<td>' + data.routes[i].type + '</td>';
-                        html += '</tr>';
-                    }
+                if (!data.error && typeof data.html !== 'undefined') {
+                //     html = '';
+                //     for (i in data.routes) {
+                //         step = i + 1;
+                //         html += '<tr><td>' + step + '</td>';
+                //         html += '<td>' + data.routes[i].from + '</td>';
+                //         html += '<td>' + data.routes[i].to + '</td>';
+                //         html += '<td>' + data.routes[i].time + '</td>';
+                //         html += '<td>' + data.routes[i].type + '</td>';
+                //         html += '</tr>';
+                //     }
 
-                    $('#search-results table tbody').html(html);
+                    $('#search-results').html(data.html);
                 }
             },
             error: function(data) {

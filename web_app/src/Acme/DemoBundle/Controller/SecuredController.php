@@ -9,12 +9,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
- * @Route("/demo/secured")
+ * @Finder("/demo/secured")
  */
 class SecuredController extends Controller
 {
     /**
-     * @Route("/login", name="_demo_login")
+     * @Finder("/login", name="_demo_login")
      * @Template()
      */
     public function loginAction(Request $request)
@@ -32,7 +32,7 @@ class SecuredController extends Controller
     }
 
     /**
-     * @Route("/login_check", name="_security_check")
+     * @Finder("/login_check", name="_security_check")
      */
     public function securityCheckAction()
     {
@@ -40,7 +40,7 @@ class SecuredController extends Controller
     }
 
     /**
-     * @Route("/logout", name="_demo_logout")
+     * @Finder("/logout", name="_demo_logout")
      */
     public function logoutAction()
     {
@@ -48,8 +48,8 @@ class SecuredController extends Controller
     }
 
     /**
-     * @Route("/hello", defaults={"name"="World"}),
-     * @Route("/hello/{name}", name="_demo_secured_hello")
+     * @Finder("/hello", defaults={"name"="World"}),
+     * @Finder("/hello/{name}", name="_demo_secured_hello")
      * @Template()
      */
     public function helloAction($name)
@@ -58,7 +58,7 @@ class SecuredController extends Controller
     }
 
     /**
-     * @Route("/hello/admin/{name}", name="_demo_secured_hello_admin")
+     * @Finder("/hello/admin/{name}", name="_demo_secured_hello_admin")
      * @Template()
      */
     public function helloadminAction($name)
