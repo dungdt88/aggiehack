@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             
             new Csg\RouteFinderBundle\CsgRouteFinderBundle(),
+            new Csg\DataBundle\CsgDataBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

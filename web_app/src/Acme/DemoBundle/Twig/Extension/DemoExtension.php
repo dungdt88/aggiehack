@@ -41,7 +41,7 @@ class DemoExtension extends \Twig_Extension
         $template = str_replace('{% set code = code(_self) %}', '', $template);
 
         return <<<EOF
-<p><strong>Controller Code</strong></p>
+<p><strong>Command Code</strong></p>
 <pre>$controller</pre>
 
 <p><strong>Template Code</strong></p>

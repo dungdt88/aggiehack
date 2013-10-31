@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class DefaultController
- * @package Csg\DemoBundle\Controller
+ * @package Csg\DemoBundle\Command
  */
 class DefaultController extends Controller
 {

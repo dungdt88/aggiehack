@@ -10,7 +10,7 @@ use Csg\RouteFinderBundle\Service\RouteFinder;
 
 /**
  * Class DefaultController
- * @package Csg\RouteFinderBundle\Controller
+ * @package Csg\RouteFinderBundle\Command
  */
 class DefaultController extends Controller
 {

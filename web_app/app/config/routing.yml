@@ -1,3 +1,7 @@
+csg_data:
+    resource: "@CsgDataBundle/Resources/config/routing.xml"
+    prefix:   /
+
 csg_route_finder:
     resource: "@CsgRouteFinderBundle/Resources/config/routing.xml"
     prefix:   /

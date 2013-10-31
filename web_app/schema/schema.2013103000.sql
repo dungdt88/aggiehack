@@ -1,0 +1,1 @@
+ALTER TABLE `location` ADD UNIQUE KEY `idx_name` (`name`);
