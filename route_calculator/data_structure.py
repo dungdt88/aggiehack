@@ -1,5 +1,7 @@
 import constants
+from constants import *
 import util
+import heapq, random, sys
 
 class PriorityQueue:
     def  __init__(self):
@@ -7,12 +9,12 @@ class PriorityQueue:
         self.qset = set()
 
     def push(self, item, priority):
-        pair = (priority,item)
-        heapq.heappush(self.heap,pair)
+        pair = (priority, item)
+        heapq.heappush(self.heap, pair)
         self.qset.add(item.node.id)
 
     def pop(self):
-        (priority,item) = heapq.heappop(self.heap)
+        (priority, item) = heapq.heappop(self.heap)
         return item
 
     def search(self, node):
@@ -64,7 +66,7 @@ class State:
     #Heuristic function
     #Euclidean distance
     def heuristic(self):
-        return util.get_moving_time(util.distance(self.node.latitude, self.node.longitude , self.goal_node.latitude, self.goal_node.longitude), constants.BUS_VELOCITY)
+        return util.get_moving_time(util.distance(self.node.latitude, self.node.longitude , self.goal_node.latitude, self.goal_node.longitude), BUS_VELOCITY)
 
 
     #check if current_state is goal

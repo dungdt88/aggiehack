@@ -1,7 +1,12 @@
 
+# HOST = "localhost"
+# USERNAME = "root"
+# PASSWORD = "triplec"
+# DBNAME = "aggiehack"
+
 HOST = "localhost"
-USERNAME = "root"
-PASSWORD = "triplec"
+USERNAME = "testuser"
+PASSWORD = "test606"
 DBNAME = "aggiehack"
 
 MAX_DISTANCE = 2000

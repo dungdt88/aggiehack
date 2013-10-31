@@ -1,7 +1,16 @@
 import math
 import heapq, random, sys
 import gmap_api
+import datetime
 
+def add_secs(dt, secs):
+    fulldate = datetime.datetime(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
+    fulldate = fulldate + datetime.timedelta(seconds=secs)
+    return fulldate.time()
+
+def convert_sql_datetime_to_datetime(str_value):
+    f = '%Y-%m-%d %H:%M:%S'
+    return datetime.datetime.strptime(str_value, f)
 
 from math import radians, cos, sin, asin, sqrt
 def distance(lat1, lon1, lat2, lon2):

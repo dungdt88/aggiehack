@@ -1,31 +1,22 @@
 import data_structure
+from data_structure import *
+from constants import *
+from db_util import *
 
 def get_next_steps(current_state):
     sql_helper = SqlHelper(HOST, DBNAME, USERNAME, PASSWORD)
-    #2 steps:
-    #step 1: query mysql, table "schedule" for node.nodeID
-    #mysql return all fixed "bus-step" that can be processed.
-    bus_steps = sql_helper.get_next_bus_steps(current_state)
 
-    #step2: also query google map for walking-step
+    bus_steps = sql_helper.get_next_bus_steps(current_state)
     walking_steps = sql_helper.get_next_walking_steps(current_state)
 
     return (bus_steps + walking_steps)
 
 #Generate possible states by consider possible ways to get from 1 States to available nodes around
 def get_next_states(current_state):
-    # next_nodes = util.get_avai_nodes()
-    # dist_list = dict()
-    # for n in next_nodes:
-    #   d = util.distance(n, self.node)
-    #   dist_list[str(d)] = n
 
-    # #[(distance, node), ...]
-    # sorted_dist = sorted(dist_list.items(), key=lambda t: t[0])
-
-    # #get the nearest state in term of time cost
+    # get the nearest state in term of time cost
     next_steps = get_next_steps(current_state)
-    next_states = [] #util.PriorityQueue()
+    next_states = [] 
 
     for step in next_steps:
         new_started_time = step.start_time
@@ -58,3 +49,5 @@ def get_path(final_state):
         string += f + ','+t+','+str(time1)+','+ty+"\n"
 
     return string
+
+

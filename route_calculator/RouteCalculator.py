@@ -1,10 +1,11 @@
 #Anh Nguyen
-import util #util file
+import util 
 import data_structure
 import data_manager
 import json, sys, random
-import simplejson
-
+# import simplejson
+from data_manager import *
+from data_structure import *
 
 class RouteCalculator:
 
@@ -16,13 +17,10 @@ class RouteCalculator:
         #self.start_state = State(self.start, _start_time, _start_time, None, None)
         #self.goal_state = State(self.destination, -1, -1, None, None)
 
-
     def a_search(self):
-        # print 'start a*'
-
     	found = False
     	resign = False
-    	pQueue = util.PriorityQueue()
+    	pQueue = PriorityQueue()
 
     	start_state = State(self.start_node, self.goal_node, self.start_time, self.start_time, None, None)
 
@@ -34,43 +32,40 @@ class RouteCalculator:
     	final_state = None
 
     	while not found and not resign:
-    		if pQueue.isEmpty():
-    			resign = True
-
-    		else:
-    			current_state = pQueue.pop()
+            if pQueue.isEmpty():
+                resign = True
+            else:
+                current_state = pQueue.pop()
                 explored.append(current_state.node.id)
 
                 if current_state.is_goal():
-
-                	found = True
-                	final_state = current_state
-             
-                    path = data_manager.get_path(final_state)
+                    found = True
+                    final_state = current_state
+                    path = get_path(final_state)
                     return path
                 else:
-                	next_states = util.get_next_states(current_state)
-                	for s in next_states:
+                    next_states = get_next_states(current_state)
+                    for s in next_states:
                         if (s.node.id not in explored and pQueue.search(s.node) == False):
                             f = (s.arrived_time - start_state.started_time) + s.heuristic() #f = g + h
                             pQueue.push(s, f)
 
-		path = None
-    	#processing result
-    	if found:
-    		path = data_manager.get_path(final_state)
+        path = None
+        #processing result
+        if found:
+            path = get_path(final_state)
 
-    	return path
+        return path
 
 def main(lat1, long1, lat2, long2, start_time):
 
-	start_node = Node(-1, "start", lat1, long1)
-	goal_node = Node(-2, "goal", lat2, long2)
+    start_node = Node(-1, "start", lat1, long1)
+    goal_node = Node(-2, "goal", lat2, long2)
 
-	calculator = RouteCalculator(start_node, goal_node, start_time)
+    calculator = RouteCalculator(start_node, goal_node, start_time)
     path = calculator.a_search()
 
-	print path
+    print path
 
 
 def default(str):
