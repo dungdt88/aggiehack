@@ -71,13 +71,13 @@ class GoogleDistanceClient
 
         foreach ($destinations as $destination) {
             if (2 === sizeof($destination)) {
-                $destinationCoordinates[] = $$destination[0] . ',' . $$destination[1];
+                $destinationCoordinates[] = $destination[0] . ',' . $destination[1];
             }
         }
         
         $queries['destinations'] = implode('|', $destinationCoordinates);
         $queries['mode'] = $mode;
-        $queries['sensor'] = false;
+        $queries['sensor'] = 'false';
     
         
         $distanceMatrix = $this->googleApiCall($queries);

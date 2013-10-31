@@ -5,8 +5,3 @@ csg_data:
 csg_route_finder:
     resource: "@CsgRouteFinderBundle/Resources/config/routing.xml"
     prefix:   /
-
-#csg_demo:
-#    resource: "@CsgDemoBundle/Resources/config/routing.xml"
-#    prefix:   /demo
-
