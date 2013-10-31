@@ -1,0 +1,12 @@
+
+HOST = "localhost"
+USERNAME = "root"
+PASSWORD = "triplec"
+DBNAME = "aggiehack"
+
+MAX_DISTANCE = 2000
+WALKING_TYPE = "walking"
+BUS_TYPE = "bus"
+BUS_VELOCITY = 35 # average bus velocity km/hr
+WALKING_VELOCITY = 5
+START_NODE_ID = -1
