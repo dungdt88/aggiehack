@@ -19,6 +19,9 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
+        $finderClient = $this->get('csg_data.service.finder_client');
+        die;
+        
         return $this->render('CsgRouteFinderBundle:Default:index.html.twig');
     }
 

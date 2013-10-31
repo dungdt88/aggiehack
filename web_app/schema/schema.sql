@@ -42,6 +42,7 @@ CREATE TABLE `route` (
     `name` varchar(255) NOT NULL,
     `short_name` varchar(15) NOT NULL,
     `description` varchar(255),
+    `url` varchar(255) DEFAULT '',
     PRIMARY KEY (`id`),
     UNIQUE KEY `idx_uid` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

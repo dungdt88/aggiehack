@@ -7,6 +7,7 @@
     <parameters>
         <parameter key="csg_data.service.location_importer_class">Csg\DataBundle\Service\LocationImporter</parameter>
         <parameter key="csg_data.service.route_importer_class">Csg\DataBundle\Service\RouteImporter</parameter>
+        <parameter key="csg_data.service.finder_client_class">Csg\DataBundle\Service\FinderClient</parameter>
     </parameters>
 
     <services>
@@ -17,5 +18,7 @@
         <service id="csg_data.service.route_importer" class="%csg_data.service.route_importer_class%">
             <argument type="service" id="doctrine.dbal.default_connection" />
         </service>
+
+        <service id="csg_data.service.finder_client" class="%csg_data.service.finder_client_class%" />
     </services>
 </container>
