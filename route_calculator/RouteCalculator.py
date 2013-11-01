@@ -12,10 +12,7 @@ class RouteCalculator:
     def __init__(self, _from, _to, _start_time):
         self.start_node = _from
         self.goal_node = _to
-        self.start_time = _start_time * 3600
-
-        #self.start_state = State(self.start, _start_time, _start_time, None, None)
-        #self.goal_state = State(self.destination, -1, -1, None, None)
+        self.start_time = _start_time
 
     def a_search(self):
     	found = False
@@ -47,7 +44,7 @@ class RouteCalculator:
                     next_states = get_next_states(current_state)
                     for s in next_states:
                         if (s.node.id not in explored and pQueue.search(s.node) == False):
-                            f = (s.arrived_time - start_state.started_time) + s.heuristic() #f = g + h
+                            f = (s.arrived_time - start_state.started_time).total_seconds() + s.heuristic() #f = g + h
                             pQueue.push(s, f)
 
         path = None
@@ -56,6 +53,7 @@ class RouteCalculator:
             path = get_path(final_state)
 
         return path
+        
 
 def main(lat1, long1, lat2, long2, start_time):
 

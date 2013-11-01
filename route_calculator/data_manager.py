@@ -39,14 +39,13 @@ def get_path(final_state):
 
     string = ""
     for i, p in enumerate(path):
+        s = p.start_node.name
+        e = p.end_node.name
+        st = p.start_time
+        et = p.end_time
+        type = p.type
         
-
-        f = p.start_node.name
-        t = p.end_node.name
-        time1 = p.start_time
-        ty = p.type
-        
-        string += f + ','+t+','+str(time1)+','+ty+"\n"
+        string += s + ', ' + e + ', ' + str(st) + ', ' + str(et) + ', ' + type + "\n"
 
     return string
 

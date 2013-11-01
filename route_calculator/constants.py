@@ -9,7 +9,7 @@ USERNAME = "testuser"
 PASSWORD = "test606"
 DBNAME = "aggiehack"
 
-MAX_DISTANCE = 2000
+MAX_DISTANCE = 2 #km
 WALKING_TYPE = "walking"
 BUS_TYPE = "bus"
 BUS_VELOCITY = 35 # average bus velocity km/hr
