@@ -23,7 +23,7 @@ def get_next_states(current_state):
         new_arrived_time = new_started_time + (step.end_time - step.start_time)
         new_node = step.end_node
         new_state = State(new_node, current_state.goal_node, new_started_time, new_arrived_time, step, current_state)
-        next_states.append(new_state) #push(new_state, (new_arrived_time - new_started_time)) #push to priority queue
+        next_states.append(new_state)  # push(new_state, (new_arrived_time - new_started_time)) #push to priority queue
 
     return next_states
 
