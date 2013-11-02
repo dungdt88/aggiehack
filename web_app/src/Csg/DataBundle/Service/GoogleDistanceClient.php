@@ -55,7 +55,6 @@ class GoogleDistanceClient
             throw new InvalidArgumentException('Invalid mode.');
         }
 
-        $requestUrl = $this->baseApiUrl . '?';
         $queries = array();
         
         $originCoordinates = array();

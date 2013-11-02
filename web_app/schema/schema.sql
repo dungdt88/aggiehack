@@ -47,3 +47,13 @@ CREATE TABLE `route` (
     UNIQUE KEY `idx_uid` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+CREATE TABLE `distance` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `start_loc_id` int(11) NOT NULL,
+  `end_loc_id` int(11) NOT NULL,
+  `time` int(11) DEFAULT NULL,
+  `distance` decimal(12,8) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `idx_start_end` (`start_loc_id`, `end_loc_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+

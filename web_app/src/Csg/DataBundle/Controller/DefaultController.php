@@ -17,7 +17,6 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        die('asdasd');
         return $this->render('CsgDemoBundle:Default:index.html.twig');
     }
 

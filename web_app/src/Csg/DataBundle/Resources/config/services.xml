@@ -8,6 +8,7 @@
         <parameter key="csg_data.service.location_importer_class">Csg\DataBundle\Service\LocationImporter</parameter>
         <parameter key="csg_data.service.route_importer_class">Csg\DataBundle\Service\RouteImporter</parameter>
         <parameter key="csg_data.service.google_distance_client_class">Csg\DataBundle\Service\GoogleDistanceClient</parameter>
+        <parameter key="csg_data.service.distance_calculator_class">Csg\DataBundle\Service\DistanceCalculator</parameter>
     </parameters>
 
     <services>
@@ -18,7 +19,12 @@
         <service id="csg_data.service.route_importer" class="%csg_data.service.route_importer_class%">
             <argument type="service" id="doctrine.dbal.default_connection" />
         </service>
-
+        
         <service id="csg_data.service.google_distance_client" class="%csg_data.service.google_distance_client_class%" />
+
+        <service id="csg_data.service.distance_calculator" class="%csg_data.service.distance_calculator_class%">
+            <argument type="service" id="doctrine.dbal.default_connection" />
+            <argument type="service" id="csg_data.service.google_distance_client" />
+        </service>
     </services>
 </container>
