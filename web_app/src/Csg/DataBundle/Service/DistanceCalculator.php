@@ -156,6 +156,13 @@ class DistanceCalculator
                                 $updateStmt->bindParam('end_loc_id', $endLocId, \PDO::PARAM_INT);
 
                                 $updateStmt->execute();
+
+                                $updateStmt->bindParam('distance', $responseData[$index]['distance']);
+                                $updateStmt->bindParam('time', $responseData[$index]['time'], \PDO::PARAM_INT);
+                                $updateStmt->bindParam('start_loc_id', $endLocId, \PDO::PARAM_INT);
+                                $updateStmt->bindParam('end_loc_id', $startLocId, \PDO::PARAM_INT);
+
+                                $updateStmt->execute();
                             }
 
                             $index++;
