@@ -1,7 +1,9 @@
 import json, random
+import datetime
 from flask import Flask
 from flask import request
 from flask import jsonify
+
 #from flask import Response
 
 #from json import JSONEncoder
@@ -29,7 +31,7 @@ def dump_result():
 			end = data[random.randint(0,len(data)-1)]
 			typn = trans_type[random.randint(0,1)]
 			duration = random.uniform(10,1000)
-			start_time = random.uniform(10,100)
+			start_time = datetime.datetime.now()
 			one_step = {'start': start, 'end':end, 'type':typn, 'duration': duration, "start_time": start_time}
 
 			#print one_step
@@ -42,6 +44,9 @@ def dump_result():
 @app.route('/lat1/<lat1>/long1/<long1>/lat2/<lat2>/long2/<long2>/time/<start_time>')
 def api_long(lat1, long1, lat2, long2, start_time):
     #req = 'lat1: ' + lat1 + ' long1:' + long1 + ' lat2: ' + lat2 + 'long2: ' + long2 + 'time: ' + start_time
+
+    #data validation
+
     message = dump_result()
     resp = jsonify(message)
     resp.status_code = 200
