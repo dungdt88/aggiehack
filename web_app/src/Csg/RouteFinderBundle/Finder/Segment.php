@@ -9,7 +9,7 @@ namespace Csg\RouteFinderBundle\Finder;
 class Segment
 {
     const TP_BUS = 'bus';
-    const TP_WALK = 'walk';
+    const TP_WALK = 'walking';
     
     /**
      * @var StopPoint

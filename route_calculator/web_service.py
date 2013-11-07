@@ -69,7 +69,7 @@ def api_long(lat1, long1, lat2, long2, start_time):
     print validate_datetime(start_time)
     
     if not validate_datetime(start_time):
-        error += " Date time in the wrong format"
+        error += " and Date time in the wrong format"
 
     if error is not "":
         return not_found(error)
@@ -101,7 +101,7 @@ def internal_error(error=None):
     resp.status_code = 500
     return resp
 
-if __name__ == '__main__':
-    #app.run()
+if __name__ == '__main__'
+    #print validate_datetime(str(datetime.datetime.now()))
+    app.run(host='0.0.0.0')
     #dump_result()
-    print validate_datetime(str(datetime.datetime.now()))
