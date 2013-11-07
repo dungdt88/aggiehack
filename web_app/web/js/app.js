@@ -49,12 +49,13 @@ function initialize()
 
 function placeMarker(name, position, map) 
 {
-    updateLocationName(name, position.lb, position.mb);
+    console.log(position);
+    updateLocationName(name, position.nb, position.ob);
 
     if ('mk1' === name) {
-        setCoordinateFrom(position.lb, position.mb);
+        setCoordinateFrom(position.nb, position.ob);
     } else {
-        setCoordinateTo(position.lb, position.mb);
+        setCoordinateTo(position.nb, position.ob);
     }
 
     var marker = new google.maps.Marker({
@@ -67,12 +68,12 @@ function placeMarker(name, position, map)
     });
 //            map.panTo(position);
     google.maps.event.addListener(marker, 'mouseup', function(e) {
-        updateLocationName(name, e.latLng.lb, e.latLng.mb);
+        updateLocationName(name, e.latLng.nb, e.latLng.ob);
 
         if ('mk1' === name) {
-            setCoordinateFrom(e.latLng.lb, e.latLng.mb);
+            setCoordinateFrom(e.latLng.nb, e.latLng.ob);
         } else {
-            setCoordinateTo(e.latLng.lb, e.latLng.mb);
+            setCoordinateTo(e.latLng.nb, e.latLng.ob);
         }
     });
 }

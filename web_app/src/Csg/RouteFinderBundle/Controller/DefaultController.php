@@ -35,27 +35,25 @@ class DefaultController extends Controller
         $routeFinder = $this->get('csg_route_finder.service.route_finder');
 
 
-        
-
         $data = $request->request->all();
         $responseData = array();
         $responseData['error'] = true;
 
-//        if (empty($data['from_coordinate_lat']) || empty($data['from_coordinate_lat'])
-//            || empty($data['from_coordinate_lat']) || empty($data['from_coordinate_lat'])
-//            || empty($data['from_coordinate_lat'])) {
-//            return new JsonResponse($responseData);
-//        }
-//
-//        $routes = $routeFinder->findRoutes(
-//            $data['from_coordinate_lat'],
-//            $data['from_coordinate_long'],
-//            $data['to_coordinate_lat'],
-//            $data['to_coordinate_long'],
-//            $data['start_time']
-//        );
+        if (empty($data['from_coordinate_lat']) || empty($data['from_coordinate_lat'])
+            || empty($data['from_coordinate_lat']) || empty($data['from_coordinate_lat'])
+            || empty($data['from_coordinate_lat'])) {
+            return new JsonResponse($responseData);
+        }
 
-        $routes = $routeFinder->findRoutes(10, 20, 30, 40, 50);
+        $routes = $routeFinder->findRoutes(
+            $data['from_coordinate_lat'],
+            $data['from_coordinate_long'],
+            $data['to_coordinate_lat'],
+            $data['to_coordinate_long'],
+            $data['start_time']
+        );
+
+//        $routes = $routeFinder->findRoutes(10, 20, 30, 40, 50);
         
         $responseData['error'] = false;
         
