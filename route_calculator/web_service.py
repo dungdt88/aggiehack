@@ -10,9 +10,6 @@ from flask import jsonify
 
 #from json import JSONEncoder
 
-
-	
-
 app = Flask(__name__)
 
 start_node = {'name': 'HEB', 'long':'-96.31823300', 'lat':'30.61206100'}
@@ -101,7 +98,7 @@ def internal_error(error=None):
     resp.status_code = 500
     return resp
 
-if __name__ == '__main__'
+if __name__ == '__main__':
     #print validate_datetime(str(datetime.datetime.now()))
     app.run(host='0.0.0.0')
     #dump_result()
