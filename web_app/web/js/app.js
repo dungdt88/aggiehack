@@ -49,7 +49,6 @@ function initialize()
 
 function placeMarker(name, position, map) 
 {
-    console.log(position);
     updateLocationName(name, position.nb, position.ob);
 
     if ('mk1' === name) {
