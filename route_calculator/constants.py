@@ -1,9 +1,3 @@
-
-# HOST = "localhost"
-# USERNAME = "testuser"
-# PASSWORD = "test606"
-# DBNAME = "busroute_finder"
-
 HOST = "busroutefinder.cqbuu14kpc01.us-west-2.rds.amazonaws.com"
 USERNAME = "admin"
 PASSWORD = "vncsgang!"
