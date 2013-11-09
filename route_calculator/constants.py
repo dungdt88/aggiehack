@@ -1,13 +1,13 @@
 
 # HOST = "localhost"
-# USERNAME = "root"
-# PASSWORD = "triplec"
-# DBNAME = "aggiehack"
+# USERNAME = "testuser"
+# PASSWORD = "test606"
+# DBNAME = "busroute_finder"
 
-HOST = "localhost"
-USERNAME = "testuser"
-PASSWORD = "test606"
-DBNAME = "aggiehack"
+HOST = "busroutefinder.cqbuu14kpc01.us-west-2.rds.amazonaws.com"
+USERNAME = "admin"
+PASSWORD = "vncsgang!"
+DBNAME = "busroute_finder"
 
 MAX_DISTANCE = 2 #km
 WALKING_TYPE = "walking"
