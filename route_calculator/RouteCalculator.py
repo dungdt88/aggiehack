@@ -1,11 +1,9 @@
-#Anh Nguyen
 import util 
 import data_structure
 import data_manager
 import json, sys, random
-# import simplejson
-from data_manager import *
 from data_structure import *
+from data_manager import *
 
 class RouteCalculator:
 
@@ -13,18 +11,15 @@ class RouteCalculator:
         self.start_node = _from
         self.goal_node = _to
         self.start_time = _start_time
+        self.data_manager = DataManager()
 
     def a_search(self):
     	found = False
     	resign = False
     	pQueue = PriorityQueue()
 
-    	start_state = State(self.start_node, self.goal_node, self.start_time, self.start_time, None, None)
-
-        # print 'start state'
-        # start_state.print_info()
-
-    	pQueue.push(start_state, 0)
+    	start_step = Step(self.start_node, self.start_node, self.start_time, self.start_time)
+    	pQueue.push(start_step, 0)
     	explored = []
     	final_state = None
 
@@ -32,25 +27,25 @@ class RouteCalculator:
             if pQueue.isEmpty():
                 resign = True
             else:
-                current_state = pQueue.pop()
-                explored.append(current_state.node.id)
+                current_step = pQueue.pop()
+                explored.append(current_step.start_node.id)
 
-                if current_state.is_goal():
+                if current_step.is_goal(self.goal_node):
                     found = True
-                    final_state = current_state
-                    path = get_path(final_state)
+                    final_step = current_step
+                    path = get_path(final_step)
                     return path
                 else:
-                    next_states = get_next_states(current_state)
-                    for s in next_states:
-                        if (s.node.id not in explored and pQueue.search(s.node) == False):
-                            f = (s.arrived_time - start_state.started_time).total_seconds() + s.heuristic() #f = g + h
+                    next_steps_and_durations = self.data_manager.get_next_steps_and_durations(current_step, self.goal_node) #(next_steps, total_time)
+                    for s, t in next_steps_and_durations:
+                        if (s.end_node.id not in explored and pQueue.search(s.end_node) == False):
+                            f = t + s.heuristic(self.goal_node) #f = g + h
                             pQueue.push(s, f)
 
         path = None
         #processing result
         if found:
-            path = get_path(final_state)
+            path = get_path(final_step) 
 
         return path
         
