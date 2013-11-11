@@ -5,6 +5,7 @@ from db_util import *
 import igraph
 from igraph import *
 
+
 class DataManager:
     def __init__(self):
         self.bus_graph = initialize_graph()
@@ -145,6 +146,15 @@ def initialize_walking_graph():
     # summary(graph)
     return graph
 
+# def process_duration(duration):
+#     days, seconds = duration.days, duration.seconds
+#     hours = days * 24 + seconds // 3600
+#     minutes = (seconds % 3600) // 60
+#     seconds = seconds % 60
+#     #print '{} minutes, {} hours'.format(minutes, hours)
+#     return {'days':days, 'hours':hours, 'minutes':minutes, 'seconds':seconds}
+
+
 #get path from start to goal
 def get_path(final_state):
     prv = final_state
@@ -156,16 +166,32 @@ def get_path(final_state):
 
     path.reverse()
 
-    string = ""
+    steps = []
     for i, p in enumerate(path):
-        s = p.start_node.name
-        e = p.end_node.name
-        st = p.start_time
-        et = p.end_time
-        type = p.trans_type
+        start = {'name' : p.start_node.name, 'long' : str(p.start_node.longitude), 'lat' : str(p.start_node.latitude)}
+        end = {'name' : p.end_node.name, 'long' : str(p.end_node.longitude), 'lat' : str(p.end_node.latitude)}
+        start_time = p.start_time
+        duration = (p.end_time - p.start_time).seconds
+
+        #print duration
+
+        typn = p.trans_type
+        bus_number = ""
+        if typn is not WALKING_TYPE:
+            bus_number = typn
+            typn = BUS_TYPE
+
+        one_step = {'start': start, 'end':end, 'type':typn, 'bus_number': bus_number, 'duration': duration, "start_time": start_time}
+        steps.append(one_step)
+
+    # string = ""
+    # for i, p in enumerate(path):
+    #     s = p.start_node.name
+    #     e = p.end_node.name
+    #     st = p.start_time
+    #     et = p.end_time
+    #     typn = p.trans_type
         
-        string += s + ', ' + e + ', ' + str(st) + ', ' + str(et) + ', ' + type + "\n"
-
-    return string
-
-
+    #     string += s + ', ' + e + ', ' + str(st) + ', ' + str(et) + ', ' + typn + "\n"
+    
+    return steps
