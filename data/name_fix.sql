@@ -1,1 +1,0 @@
-UPDATE location SET name='University Park' WHERE name='Renaissance Park'
