@@ -46,14 +46,14 @@ class DataManager:
                     step = Step(current_step.end_node, next_node, current_step.end_time, util.add_secs(current_step.end_time, moving_time), WALKING_TYPE)
                     next_steps_and_durations.append((step, moving_time))
         else:
-            start_loc = graph.vs.select(id=current_step.start_node.id)
+            start_loc = self.walking_graph.vs.select(id=current_step.start_node.id)
             if len(start_loc) > 0:
                 edges = self.walking_graph.es.select(_source = start_loc[0].index)
                 for e in edges:
                     moving_time = e["duration"]
                     next_node_id = self.walking_graph.vs[e.target]["id"]
-                    print next_node_id, moving_time
-                    next_node = [i for i in nodes if i.id == next_node_id][:1]
+                    # print next_node_id, moving_time
+                    next_node = [i for i in self.nodes if i.id == next_node_id][:1]
                     step = Step(current_step.end_node, next_node, current_step.end_time, util.add_secs(current_step.end_time, moving_time), WALKING_TYPE)
                     next_steps_and_durations.append((step, moving_time))
 
@@ -68,7 +68,7 @@ class DataManager:
 
 # Utility functions outside DataManager class
 def initialize_graph():
-    #TODO: load from application cache if already exists
+    #load from pickle file if already exists
     sql_helper = SqlHelper()
     graph = Graph()
 
@@ -89,11 +89,13 @@ def initialize_graph():
     return graph
 
 def initialize_nodes():
+    #load from pickle file if already exists
     sql_helper = SqlHelper()
     return sql_helper.get_all_nodes()
 
 
 def initialize_walking_graph():
+    #load from pickle file if already exists
     graph = Graph()
     sql_helper = SqlHelper()
 
