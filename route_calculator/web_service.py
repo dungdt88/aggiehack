@@ -30,7 +30,7 @@ trans_type = ['walking', 'bus']
 def validate_datetime(datetime_string):
     print datetime_string
     try:
-        datetime.datetime.strptime(datetime_string,"%Y-%m-%d %H:%M:%S.%f")
+        datetime.datetime.strptime(datetime_string,"%Y%m%d%H%M%S")
         return True
     except ValueError:
         return False
@@ -105,7 +105,7 @@ def api_long(lat1, long1, lat2, long2, start_time):
     #return responding message
     #print 'start_time1: ', start_time
     print lat1, long1, lat2, long2, start_time
-    s_time = datetime.datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S.%f')
+    s_time = datetime.datetime.strptime(start_time, '%Y%m%d%H%M%S')
 
     message = get_results(float(lat1), float(long1), float(lat2), float(long2), s_time)
     resp = jsonify(message)
