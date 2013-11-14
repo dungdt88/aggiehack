@@ -72,6 +72,7 @@ def get_results(lat1, long1, lat2, long2, start_time):
 
     start = clock();
     path = calculator.a_search()
+    print 'path: ', path
     end = clock();
     print "Finish searching in %6.3f seconds" % (end - start)
 
@@ -84,7 +85,7 @@ def get_results(lat1, long1, lat2, long2, start_time):
 def api_long(lat1, long1, lat2, long2, start_time):
     #req = 'lat1: ' + lat1 + ' long1:' + long1 + ' lat2: ' + lat2 + 'long2: ' + long2 + 'time: ' + start_time
 
-    # #data validation
+    #data validation
     # error = ""
     # if lat1 > LATITUDE_UPPER_BOUND or lat1 < LATITUDE_LOWER_BOUND or lat2 > LATITUDE_UPPER_BOUND or lat2 < LATITUDE_LOWER_BOUND:
     # 	error = "Latitude input exceeding boundary"
@@ -94,7 +95,7 @@ def api_long(lat1, long1, lat2, long2, start_time):
     #     else:
     #         error = "Longtitude input exceeding boundary"
 
-    # print validate_datetime(start_time)
+    # # print validate_datetime(start_time)
 
     # if not validate_datetime(start_time):
     #     error += " and Date time in the wrong format"
