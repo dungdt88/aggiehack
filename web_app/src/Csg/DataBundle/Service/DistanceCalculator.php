@@ -112,65 +112,65 @@ class DistanceCalculator
         $updateStmt = $this->conn->prepare($sql);
         
         foreach ($rows as $startLocId => $row) {
-            if ($elementsPerRequestLimit < sizeof($row['end_loc_ids'])) {
-                $endLocIdChunks = array_chunk($row['end_loc_ids'], $elementsPerRequestLimit, true);
+            $endLocIdChunks = $elementsPerRequestLimit < sizeof($row['end_loc_ids']) ? 
+                array_chunk($row['end_loc_ids'], $elementsPerRequestLimit, true)
+                : array($row['end_loc_ids']);
                 
-                foreach ($endLocIdChunks as $endLocIdChunk) {
-                    if ($elementsLimit <= $totalElements) {
-                        return;
-                    }
+            foreach ($endLocIdChunks as $endLocIdChunk) {
+                if ($elementsLimit <= $totalElements) {
+                    return;
+                }
 
-                    $origins = array(
-                        array(
-                            $row['latitude'],
-                            $row['longitude']
-                        )
+                $origins = array(
+                    array(
+                        $row['latitude'],
+                        $row['longitude']
+                    )
+                );
+                $destinations = array();
+                
+                foreach ($endLocIdChunk as $endLocId => $endLoc) {
+                    $destinations[] = array(
+                        $endLoc['latitude'],
+                        $endLoc['longitude'],
                     );
-                    $destinations = array();
-                    
-                    foreach ($endLocIdChunk as $endLocId => $endLoc) {
-                        $destinations[] = array(
-                            $endLoc['latitude'],
-                            $endLoc['longitude'],
+                }
+                
+                $responseObj = $this->googleDistanceClient->getDistanceMatrix($origins, $destinations);
+                $responseData = array();
+
+                if (isset($responseObj->rows[0])) {
+                    foreach ($responseObj->rows[0]->elements as $el) {
+                        $responseData[] = array(
+                            'distance' => $el->distance->value,
+                            'time' => $el->duration->value,
                         );
                     }
-                    
-                    $responseObj = $this->googleDistanceClient->getDistanceMatrix($origins, $destinations);
-                    $responseData = array();
 
-                    if (isset($responseObj->rows[0])) {
-                        foreach ($responseObj->rows[0]->elements as $el) {
-                            $responseData[] = array(
-                                'distance' => $el->distance->value,
-                                'time' => $el->duration->value,
-                            );
+                    // update database
+                    $index = 0;
+                    foreach ($endLocIdChunk as $endLocId => $endLoc) {
+                        if (isset($responseData[$index])) {
+                            $updateStmt->bindParam('distance', $responseData[$index]['distance']);
+                            $updateStmt->bindParam('time', $responseData[$index]['time'], \PDO::PARAM_INT);
+                            $updateStmt->bindParam('start_loc_id', $startLocId, \PDO::PARAM_INT);
+                            $updateStmt->bindParam('end_loc_id', $endLocId, \PDO::PARAM_INT);
+
+                            $updateStmt->execute();
+
+                            $updateStmt->bindParam('distance', $responseData[$index]['distance']);
+                            $updateStmt->bindParam('time', $responseData[$index]['time'], \PDO::PARAM_INT);
+                            $updateStmt->bindParam('start_loc_id', $endLocId, \PDO::PARAM_INT);
+                            $updateStmt->bindParam('end_loc_id', $startLocId, \PDO::PARAM_INT);
+
+                            $updateStmt->execute();
                         }
 
-                        // update database
-                        $index = 0;
-                        foreach ($endLocIdChunk as $endLocId => $endLoc) {
-                            if (isset($responseData[$index])) {
-                                $updateStmt->bindParam('distance', $responseData[$index]['distance']);
-                                $updateStmt->bindParam('time', $responseData[$index]['time'], \PDO::PARAM_INT);
-                                $updateStmt->bindParam('start_loc_id', $startLocId, \PDO::PARAM_INT);
-                                $updateStmt->bindParam('end_loc_id', $endLocId, \PDO::PARAM_INT);
-
-                                $updateStmt->execute();
-
-                                $updateStmt->bindParam('distance', $responseData[$index]['distance']);
-                                $updateStmt->bindParam('time', $responseData[$index]['time'], \PDO::PARAM_INT);
-                                $updateStmt->bindParam('start_loc_id', $endLocId, \PDO::PARAM_INT);
-                                $updateStmt->bindParam('end_loc_id', $startLocId, \PDO::PARAM_INT);
-
-                                $updateStmt->execute();
-                            }
-
-                            $index++;
-                        }
+                        $index++;
                     }
-
-                    $totalElements += sizeof($destinations);
                 }
+
+                $totalElements += sizeof($destinations);
             }
         }
     }

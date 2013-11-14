@@ -63,10 +63,16 @@ class FinderClient
         $routes = array();
         
         $client = new Client($this->apiUrl);
-        $requestPath = sprintf('/lat1/%s/long1/%s/lat2/%s/long2/%s/time/%d', 
-            $from->getLatitude(), $from->getLongitude(), 
-            $to->getLatitude(), $to->getLongitude(), 
-            $startingTime->getTimestamp());
+
+//        localhost:5000/orgLat/30.61393756/orgLong/-96.33965217/desLat/30.62095300/desLong/-96.33822100/time/2013-11-07%2014:48:05.442433
+        
+        $requestPath = sprintf('/orgLat/%s/orgLong/%s/desLat/%s/desLong/%s/time/%s', 
+            number_format($from->getLatitude(), 8), number_format($from->getLongitude(), 8),
+            number_format($to->getLatitude(), 8), number_format($to->getLongitude(), 8), 
+            $startingTime->getTimestamp()
+//            strtotime('2013-11-07 14:48:05.442433'));
+        
+//        $requestPath = '/orgLat/30.61393756/orgLong/-96.33965217/desLat/30.62095300/desLong/-96.33822100/time/2013-11-07%2014:48:05.442433';
         
         $response = $client->get($requestPath)->send();
         
