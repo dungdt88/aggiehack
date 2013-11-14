@@ -35,20 +35,23 @@ if __name__ == '__main__':
 	# for step in next_walking_steps:
 	# 	print step.start_node.id, step.end_node.id, step.start_time, step.end_time, step.type
 	# print len(next_walking_steps)
+
 	start = clock();
 	calculator = RouteCalculator(my_node, goal_node, start_time)
 	end = clock();
 	print "Finish initialization in %6.3f seconds" % (end - start)
 
+	print "from ETB to Wisenbaker"
 	start = clock();
 	path = calculator.a_search()
 	end = clock();
 	print "Finish searching in %6.3f seconds" % (end - start)
-
-	print "from ETB to Wisenbaker"
 	print path
 
-	# calculator = RouteCalculator(home_node, start_node, start_time)
-	# path = calculator.a_search()
-	# print "from Home to MSC"
-	# print path
+	print "from Home to MSC"
+	start = clock();
+	calculator = RouteCalculator(home_node, start_node, start_time)
+	path = calculator.a_search()
+	end = clock();
+	print "Finish searching in %6.3f seconds" % (end - start)	
+	print path

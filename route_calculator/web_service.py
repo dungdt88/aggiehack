@@ -5,6 +5,15 @@ from flask import Flask
 from flask import request
 from flask import jsonify
 
+#crap import
+import RouteCalculator
+from constants import *
+from data_structure import *
+from db_util import *
+from RouteCalculator import *
+from time import clock
+
+
 app = Flask(__name__)
 
 start_node = {'name': 'HEB', 'long':'-96.31823300', 'lat':'30.61206100'}
@@ -27,49 +36,78 @@ def validate_datetime(datetime_string):
         return False
 
 
-def dump_result():
-    num_of_results = random.randint(2,3)
+# def dump_result():
+#     num_of_results = random.randint(2,3)
+#     results = []
+#     for j in range(num_of_results):
+# 	num_of_steps = random.randint(2,3)
+# 	steps = []
+#         for i in range(num_of_steps):
+#             start = data[random.randint(0,len(data)-1)]
+#             end = data[random.randint(0,len(data)-1)]
+#             typn = trans_type[random.randint(0,1)]
+#             duration = random.uniform(10,1000)
+#             start_time = datetime.datetime.now()
+#             one_step = {'start': start, 'end':end, 'type':typn, 'duration': duration, "start_time": start_time}
+#             steps.append(one_step)
+# 	results.append(steps)
+
+#     return {"results": results, "status": "OK"}
+
+#Call AI engine to get the shortest path
+def get_results(lat1, long1, lat2, long2, start_time):
+
+    print 'crap'
+    start_node = Node(-1, "Start", lat1, long1) #ETB
+    goal_node = Node(-2, "End", lat2, long2)
+
+    print 'crap2'
+
+    start = clock();
+    calculator = RouteCalculator(start_node, goal_node, start_time)
+    end = clock();
+    print "Finish initialization in %6.3f seconds" % (end - start)
+
+    print 'crap 3'
+
+    start = clock();
+    path = calculator.a_search()
+    end = clock();
+    print "Finish searching in %6.3f seconds" % (end - start)
+
     results = []
-    for j in range(num_of_results):
-	num_of_steps = random.randint(2,3)
-	steps = []
-        for i in range(num_of_steps):
-            start = data[random.randint(0,len(data)-1)]
-            end = data[random.randint(0,len(data)-1)]
-            typn = trans_type[random.randint(0,1)]
-            duration = random.uniform(10,1000)
-            start_time = datetime.datetime.now()
-            one_step = {'start': start, 'end':end, 'type':typn, 'duration': duration, "start_time": start_time}
-            steps.append(one_step)
-	results.append(steps)
+    results.append(path)
 
     return {"results": results, "status": "OK"}
 
-
-@app.route('/lat1/<lat1>/long1/<long1>/lat2/<lat2>/long2/<long2>/time/<start_time>')
+@app.route('/orgLat/<lat1>/orgLong/<long1>/desLat/<lat2>/desLong/<long2>/time/<start_time>')
 def api_long(lat1, long1, lat2, long2, start_time):
     #req = 'lat1: ' + lat1 + ' long1:' + long1 + ' lat2: ' + lat2 + 'long2: ' + long2 + 'time: ' + start_time
 
-    #data validation
-    error = ""
-    if lat1 > LATITUDE_UPPER_BOUND or lat1 < LATITUDE_LOWER_BOUND or lat2 > LATITUDE_UPPER_BOUND or lat2 < LATITUDE_LOWER_BOUND:
-    	error = "Latitude input exceeding boundary"
-    if long1 < LONGTITUDE_LEFT_BOUND or long1 > LONGTITUDE_RIGHT_BOUND or long2 < LONGTITUDE_LEFT_BOUND or long2 > LONGTITUDE_RIGHT_BOUND:
-    	if error!="":
-            error = error + " and Longtitude input exceeding boundary"
-        else:
-            error = "Longtitude input exceeding boundary"
+    # #data validation
+    # error = ""
+    # if lat1 > LATITUDE_UPPER_BOUND or lat1 < LATITUDE_LOWER_BOUND or lat2 > LATITUDE_UPPER_BOUND or lat2 < LATITUDE_LOWER_BOUND:
+    # 	error = "Latitude input exceeding boundary"
+    # if long1 < LONGTITUDE_LEFT_BOUND or long1 > LONGTITUDE_RIGHT_BOUND or long2 < LONGTITUDE_LEFT_BOUND or long2 > LONGTITUDE_RIGHT_BOUND:
+    # 	if error!="":
+    #         error = error + " and Longtitude input exceeding boundary"
+    #     else:
+    #         error = "Longtitude input exceeding boundary"
 
-    print validate_datetime(start_time)
+    # print validate_datetime(start_time)
 
-    if not validate_datetime(start_time):
-        error += " and Date time in the wrong format"
+    # if not validate_datetime(start_time):
+    #     error += " and Date time in the wrong format"
 
-    if error is not "":
-        return not_found(error)
+    # if error is not "":
+    #     return not_found(error)
 
     #return responding message
-    message = dump_result()
+    #print 'start_time1: ', start_time
+    print lat1, long1, lat2, long2, start_time
+    s_time = datetime.datetime.strptime(start_time, '%Y-%m-%d %H:%M:%S.%f')
+
+    message = get_results(float(lat1), float(long1), float(lat2), float(long2), s_time)
     resp = jsonify(message)
     resp.status_code = 200
     return resp

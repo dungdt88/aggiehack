@@ -4,6 +4,7 @@ import data_manager
 import json, sys, random
 from data_structure import *
 from data_manager import *
+from time import clock
 
 class RouteCalculator:
 
@@ -21,7 +22,7 @@ class RouteCalculator:
     	start_step = Step(self.start_node, self.start_node, self.start_time, self.start_time)
     	pQueue.push(start_step, 0)
     	explored = []
-    	final_state = None
+    	final_step = None
 
     	while not found and not resign:
             if pQueue.isEmpty():
@@ -50,45 +51,48 @@ class RouteCalculator:
         return path
         
 
-def main(lat1, long1, lat2, long2, start_time):
+# def main(lat1, long1, lat2, long2, start_time):
 
-    start_node = Node(-1, "start", lat1, long1)
-    goal_node = Node(-2, "goal", lat2, long2)
+#     start_node = Node(-1, "start", lat1, long1)
+#     goal_node = Node(-2, "goal", lat2, long2)
 
-    calculator = RouteCalculator(start_node, goal_node, start_time)
-    path = calculator.a_search()
+#     calculator = RouteCalculator(start_node, goal_node, start_time)
+#     path = calculator.a_search()
 
-    print path
+#     print path
 
 
-def default(str):
-    return str + ' [Default: %default]'
+#SUFFER NO MORE
 
-def readCommand(argv):
-    from optparse import OptionParser
-    usageStr = """
-    USAGE:      python RouteCalculator.py <options>
-    EXAMPLES:   (1) python RouteCalculator.py -a 5 -b 3 -c 1 -d 2 -s 10
-    """
-    parser = OptionParser(usageStr)
-    parser.add_option('-a', '--lata', dest='lata', type='float',
-        help=default('d'), metavar='LATA', default=0)
-    parser.add_option('-b', '--longa', dest='longa', type='float',
-        help=default('d'), metavar='LONGA', default=0)
-    parser.add_option('-c', '--latb', dest='latb', type='float',
-        help=default('d'), metavar='LATB', default=0)
-    parser.add_option('-d', '--longb', dest='longb', type='float',
-        help=default('d'), metavar='LONGB', default=0)
-    parser.add_option('-s', '--start', dest='start', type='float',
-        help=default('d'), metavar='START', default=0)
+# def default(str):
+#     return str + ' [Default: %default]'
 
-    options, otherjunk = parser.parse_args(argv)
-    if len(otherjunk) != 0:
-        raise Exception('Command line input not understood: ' + str(otherjunk))
-    #parser is incomplete - further enhancement required
-    return options
+# def readCommand(argv):
+#     from optparse import OptionParser
+#     usageStr = """
+#     USAGE:      python RouteCalculator.py <options>
+#     EXAMPLES:   (1) python RouteCalculator.py -a 5 -b 3 -c 1 -d 2 -s 10
+#     """
+#     parser = OptionParser(usageStr)
+#     parser.add_option('-a', '--lata', dest='lata', type='float',
+#         help=default('d'), metavar='LATA', default=0)
+#     parser.add_option('-b', '--longa', dest='longa', type='float',
+#         help=default('d'), metavar='LONGA', default=0)
+#     parser.add_option('-c', '--latb', dest='latb', type='float',
+#         help=default('d'), metavar='LATB', default=0)
+#     parser.add_option('-d', '--longb', dest='longb', type='float',
+#         help=default('d'), metavar='LONGB', default=0)
+#     parser.add_option('-s', '--start', dest='start', type='float',
+#         help=default('d'), metavar='START', default=0)
 
-if __name__ == '__main__':
-    args = readCommand(sys.argv[1:])
-    main(args.lata, args.longa, args.latb, args.longb, args.start)
+#     options, otherjunk = parser.parse_args(argv)
+#     if len(otherjunk) != 0:
+#         raise Exception('Command line input not understood: ' + str(otherjunk))
+#     #parser is incomplete - further enhancement required
+#     return options
+
+# if __name__ == '__main__':
+#     #args = readCommand(sys.argv[1:])
+#     #main(args.lata, args.longa, args.latb, args.longb, args.start)
+#     get_results(10, 10, 10, 10, 10)
 
