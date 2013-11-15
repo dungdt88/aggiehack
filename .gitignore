@@ -16,3 +16,4 @@ sublime-project
 .idea
 *sublime-*
 *.pyc
+/route_calculator/constants.py

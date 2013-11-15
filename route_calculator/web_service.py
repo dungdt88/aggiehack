@@ -72,6 +72,9 @@ def get_results(lat1, long1, lat2, long2, start_time):
 
     start = clock();
     path = calculator.a_search()
+    if path == None:
+        return {"results": "None", "status": "404"}
+
     print 'path: ', path
     end = clock();
     print "Finish searching in %6.3f seconds" % (end - start)
@@ -105,8 +108,10 @@ def api_long(lat1, long1, lat2, long2, start_time):
 
     #return responding message
     #print 'start_time1: ', start_time
-    print lat1, long1, lat2, long2, start_time
-    s_time = datetime.datetime.strptime(start_time, '%Y%m%d%H%M%S')
+
+
+    s_time = datetime.datetime.fromtimestamp(int(start_time))
+    print lat1, long1, lat2, long2, s_time
 
     message = get_results(float(lat1), float(long1), float(lat2), float(long2), s_time)
     resp = jsonify(message)
