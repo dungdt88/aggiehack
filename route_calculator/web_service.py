@@ -72,17 +72,19 @@ def get_results(lat1, long1, lat2, long2, start_time):
 
     start = clock();
     path = calculator.a_search()
-    if path == None:
-        return {"results": "None", "status": "404"}
-
-    print 'path: ', path
     end = clock();
     print "Finish searching in %6.3f seconds" % (end - start)
 
-    results = []
-    results.append(path)
+    print 'crap 4'
 
-    return {"results": results, "status": "OK"}
+    print 'path: ', path
+    
+    if path == None:
+        return {"results": "None", "status": "404"}
+    else:
+        results = []
+        results.append(path)
+        return {"results": results, "status": "OK"}
 
 @app.route('/orgLat/<lat1>/orgLong/<long1>/desLat/<lat2>/desLong/<long2>/time/<start_time>')
 def api_long(lat1, long1, lat2, long2, start_time):
