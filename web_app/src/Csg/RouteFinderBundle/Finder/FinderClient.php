@@ -106,12 +106,12 @@ class FinderClient
 //            } 
 //        }
         
-        $types = array('bus', 'walk');
+        $types = array('bus', 'walking');
         
         for ($i = 0; $i < 3; $i ++) {
             $route = array();
             
-            for ($j = 0; $j < 6; $j++) {
+            for ($j = 0; $j < rand(2, 6); $j++) {
                 $segment = array(
                     'start' => array(
                         'longitude' => 0.0,
