@@ -119,7 +119,37 @@ class Route implements \Iterator
         
         return $duration;
     }
-    
+
+    /**
+     * @return string
+     */
+    public function getNiceDuration()
+    {
+        $duration = $this->getDuration();
+        $niceDuration = '';
+        $mapping = array(
+            86400 => 'd',
+            3600 => 'h',
+            60 => 'm',
+        );
+        
+        foreach ($mapping as $threshold => $text) {
+            if ($duration >= $threshold) {
+                $niceDuration .= (int) ($duration / $threshold) . "$text ";
+                $duration = $duration % $threshold;
+            }
+        }
+        
+        if ($duration > 0) {
+            $niceDuration .= $duration . 's';
+        }
+        
+        return $niceDuration;
+    }
+
+    /**
+     * @return int
+     */
     public function getSegmentCount()
     {
         return sizeof($this->segments);

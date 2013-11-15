@@ -125,7 +125,7 @@ class FinderClient
                     ),
                     'time' => strtotime('2013-10-27 00:00:00'),
                     'type' => $types[rand(0, 1)],
-                    'duration' => 12345,
+                    'duration' => rand(50, 5000),
                 );
                 
                 $route[] = $segment;

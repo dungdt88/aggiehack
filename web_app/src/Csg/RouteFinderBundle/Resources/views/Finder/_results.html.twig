@@ -15,7 +15,7 @@
                     {% for route in routes %}
                     <tr class="route-header {{ loop.first ? 'active' : '' }}" data-detailid="{{ loop.index }}">
                         <td data-value="{{ loop.index }}">{{ loop.index }}</td>
-                        <td data-value="{{ route.duration }}">{{ route.duration }}</td>
+                        <td data-value="{{ route.duration }}">{{ route.niceDuration }}</td>
                         <td data-value="{{ route.segmentCount }}">{{ route.segmentCount }}</td>
                         <td>&nbsp;</td>
                         <td><i class="icon-chevron-right"></i></td>
@@ -43,7 +43,7 @@
                         </td>
                         <td>
                             <i>Start At:</i> {{ segment.time|date('Y-m-d H:i') }}<br />
-                            <i>Duration:</i> {{ segment.duration }}
+                            <i>Duration:</i> {{ segment.niceDuration }}
                         </td>
                         <td>{{ segment.type|capitalize }}</td>
                     </tr>
