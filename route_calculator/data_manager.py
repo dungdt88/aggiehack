@@ -159,6 +159,9 @@ def initialize_walking_graph():
 
 #get path from start to goal
 def get_path(final_state):
+    if final_state == None:
+        return None
+        
     prv = final_state
     path = []
     path.append(prv)
