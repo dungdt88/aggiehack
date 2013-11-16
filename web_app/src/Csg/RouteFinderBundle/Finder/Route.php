@@ -148,6 +148,44 @@ class Route implements \Iterator
     }
 
     /**
+     * @return string
+     */
+    public function getJsonBusStops()
+    {
+        $allStops = array();
+        
+        foreach ($this->segments as $segment) {
+            /** @var $segment Segment */
+            foreach (array($segment->getStart(), $segment->getEnd()) as $stop) {
+                /** @var $stop StopPoint */
+                $isExisting = false;
+                foreach ($allStops as $_stop) {
+                    if ($stop->equals($_stop)) {
+                        $isExisting = true;
+                        break;
+                    }
+                }
+                
+                if (!$isExisting) {
+                    $allStops[] = $stop;
+                }
+            }
+        }
+        
+        $allStopsArray = array();
+        
+        foreach ($allStops as $stop) {
+            $allStopsArray[] = array(
+                'name' => $stop->getName(),
+                'latitude' => $stop->getLatitude(),
+                'longitude' => $stop->getLongitude(),
+            );
+        }
+        
+        return json_encode($allStopsArray);
+    }
+
+    /**
      * @return int
      */
     public function getSegmentCount()

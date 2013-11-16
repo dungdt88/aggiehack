@@ -13,7 +13,8 @@
                 </thead>
                 <tbody>
                     {% for route in routes %}
-                    <tr class="route-header {{ loop.first ? 'active' : '' }}" data-detailid="{{ loop.index }}">
+                    <tr class="route-header {{ loop.first ? 'active' : '' }}" data-detailid="{{ loop.index }}" 
+                        data-busstops="{{ route.jsonBusStops }}">
                         <td data-value="{{ loop.index }}">{{ loop.index }}</td>
                         <td data-value="{{ route.duration }}">{{ route.niceDuration }}</td>
                         <td data-value="{{ route.segmentCount }}">{{ route.segmentCount }}</td>
@@ -97,11 +98,20 @@
     $('#search-results').ready(function() {
         $this = $(this);
         $.bootstrapSortable();
+
+        busStops = eval($('.route-list tbody tr.active', $this).attr('data-busstops'));
+        removeBusMarkers();
+        addBusMarkers(busStops);
+        
         $('.route-list tbody tr', $this).click(function() {
             $('.route-list tbody tr', $this).removeClass('active');
             $(this).addClass('active');
             
             deatailId = this.dataset.detailid;
+            busStops = eval(this.dataset.busstops);
+
+            removeBusMarkers();
+            addBusMarkers(busStops);
             
             $('.route-details tbody', $this).removeClass('active');
             $('.route-details tbody#route-detail-' + deatailId, $this).addClass('active');

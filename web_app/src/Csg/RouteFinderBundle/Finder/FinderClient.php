@@ -114,14 +114,14 @@ class FinderClient
             for ($j = 0; $j < rand(2, 6); $j++) {
                 $segment = array(
                     'start' => array(
-                        'longitude' => 0.0,
-                        'latitude' => 0.0,
-                        'name' => '109 Maple ave College Station',
+                        'latitude' => 30.6215,
+                        'longitude' => -96.3274,
+                        'name' => 'Fish Pond',
                     ),
                     'end' => array(
-                        'longitude' => 0.0,
-                        'latitude' => 0.0,
-                        'name' => '109 Maple ave College Station',
+                        'latitude' => 30.6206,
+                        'longitude' => -96.3212,
+                        'name' => 'Aggie Station',
                     ),
                     'time' => strtotime('2013-10-27 00:00:00'),
                     'type' => $types[rand(0, 1)],

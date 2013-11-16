@@ -1,5 +1,7 @@
-geocoder = new google.maps.Geocoder();
-totalMarkers = 0;
+var geocoder = new google.maps.Geocoder();
+var totalMarkers = 0;
+var busMarkers = [];
+var map = null;
 
 function initialize() 
 {
@@ -9,7 +11,7 @@ function initialize()
         center: new google.maps.LatLng(30.627904, -96.334927),
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-    var map = new google.maps.Map(document.getElementById('map-canvas'),
+    map = new google.maps.Map(document.getElementById('map-canvas'),
             mapOptions);
 
     var input = document.getElementById('target');
@@ -49,7 +51,6 @@ function initialize()
 
 function placeMarker(name, position, map) 
 {
-    console.log(position);
     updateLocationName(name, position.ob, position.pb);
 
     if ('mk1' === name) {
@@ -58,6 +59,7 @@ function placeMarker(name, position, map)
         setCoordinateTo(position.ob, position.pb);
     }
 
+    // create new marker
     var marker = new google.maps.Marker({
         draggable: true,
         position: position,
@@ -67,6 +69,8 @@ function placeMarker(name, position, map)
         title: 'mk1' === name ? 'From Location' : 'To Location' 
     });
 //            map.panTo(position);
+
+    // bind action when moving marker
     google.maps.event.addListener(marker, 'mouseup', function(e) {
         updateLocationName(name, e.latLng.ob, e.latLng.pb);
 
@@ -104,25 +108,56 @@ function updateLocationName(name, latitude, longitude)
 {
     locationName = 'Unknown';
 
-        var latlng = new google.maps.LatLng(latitude, longitude);
-        geocoder.geocode({'latLng': latlng}, function(results, status, locationName) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                locationName = '';
+    var latlng = new google.maps.LatLng(latitude, longitude);
+    geocoder.geocode({'latLng': latlng}, function(results, status, locationName) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            locationName = '';
 
-                for (index in results[0].address_components) {
-                    locationName += results[0].address_components[index].long_name + ', ';
-                }
-                locationName = $.trim(locationName, ',');
-                
-                if ('mk1' === name) {
-                    setLocationFrom(locationName);
-                } else {
-                    setLocationTo(locationName);
-                }
-            }/* else {
-                alert("Geocoder failed due to: " + status);
-            }*/
-        });
+            for (index in results[0].address_components) {
+                locationName += results[0].address_components[index].long_name + ', ';
+            }
+            locationName = $.trim(locationName, ',');
+            
+            if ('mk1' === name) {
+                setLocationFrom(locationName);
+            } else {
+                setLocationTo(locationName);
+            }
+        }/* else {
+            alert("Geocoder failed due to: " + status);
+        }*/
+    });
+}
+
+function addBusMarker(name, latitude, longitude)
+{
+    position = new google.maps.LatLng(latitude, longitude);
+
+    var marker = new google.maps.Marker({
+        position: position,
+        map: map,
+        name: name,
+        icon: 'img/mk3.png',
+        title: name
+    });
+
+    busMarkers.push(marker);
+}
+
+function addBusMarkers(markerData)
+{
+    for (i in markerData) {
+        addBusMarker(markerData[i].name, markerData[i].latitude, markerData[i].longitude);
+    }
+}
+
+function removeBusMarkers()
+{
+    for (var i = 0; i < busMarkers.length; i++) {
+        busMarkers[i].setMap(null);
+    }
+
+    busMarkers = [];
 }
 
 $(document).ready(function() {
@@ -139,17 +174,6 @@ $(document).ready(function() {
             data: $form.serialize(),
             success: function(data) {
                 if (!data.error && typeof data.html !== 'undefined') {
-                //     html = '';
-                //     for (i in data.routes) {
-                //         step = i + 1;
-                //         html += '<tr><td>' + step + '</td>';
-                //         html += '<td>' + data.routes[i].from + '</td>';
-                //         html += '<td>' + data.routes[i].to + '</td>';
-                //         html += '<td>' + data.routes[i].time + '</td>';
-                //         html += '<td>' + data.routes[i].type + '</td>';
-                //         html += '</tr>';
-                //     }
-
                     $('#search-results').html(data.html);
                 }
             },
@@ -157,11 +181,9 @@ $(document).ready(function() {
                 console.log(data)
             }
         });
-    })
+    });
 });
 
 
         
-        
-
         
