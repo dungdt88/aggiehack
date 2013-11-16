@@ -11,14 +11,14 @@ class PriorityQueue:
     def push(self, item, priority):
         pair = (priority, item)
         heapq.heappush(self.heap, pair)
-        self.qset.add(item.end_node.id)
+        self.qset.add(item)
 
     def pop(self):
         (priority, item) = heapq.heappop(self.heap)
         return item
 
-    def search(self, node):
-        if node.id not in self.qset:
+    def search(self, item):
+        if item not in self.qset:
             return False
         return True
 
@@ -34,10 +34,12 @@ class Node:
 		self.latitude = float(_lat)
 		self.longitude = float(_long)
 
-	def isEqual(self, checking_node):
-		return abs(float(self.latitude) - float(checking_node.latitude)) < 0.001 and  \
-			abs(float(self.longitude) - float(checking_node.longitude)) < 0.001
+	def __eq__(self, other):
+		return self.id == other.id
 
+	def isEqual(self, checking_node):
+		return abs(float(self.latitude) - float(checking_node.latitude)) < 0.001 and abs(float(self.longitude) - float(checking_node.longitude)) < 0.001
+    
 
 # #Datastructure for step
 # class Step:
@@ -48,6 +50,7 @@ class Node:
 # 		self.end_time = _end_time
 # 		self.type = _type
 
+        
 class WalkingTime:
   def __init__(self, _start, _end, _time):
         self.start_loc_id = _start
@@ -65,6 +68,17 @@ class Step:
         self.trans_type = _trans_type
         self.previous_step = _previous_step
 
+    def __eq__(self, other): 
+        return self.start_node == other.start_node and \
+               self.end_node == other.end_node and \
+               self.start_time == other.start_time and \
+               self.end_time == other.end_time and \
+               self.trans_type == other.trans_type and \
+               self.previous_step == other.trans_type
+
+    def __hash__(self):
+        return hash(str(self))
+
     #Heuristic function
     #Euclidean distance
     def heuristic(self, goal_node):
@@ -77,7 +91,8 @@ class Step:
 
 
     def print_info(self):
-        print 'Start node= %s, end node=%s, start_time= %f, end_time= %f' %(self.start_node.name, self.end_node, self.start_time, self.end_time)
+        print 'Start node=%s %s, end node=%s %s, start_time=%s, end_time=%s, by=%s' \
+            %(self.start_node.id, self.start_node.name, self.end_node.id, self.end_node.name, self.start_time, self.end_time, self.trans_type)
 
 
 

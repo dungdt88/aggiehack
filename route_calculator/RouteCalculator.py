@@ -23,12 +23,16 @@ class RouteCalculator:
     	explored = []
     	final_state = None
 
-    	while not found and not resign:
+        count = 100
+    	while not found and not resign and count > 0:
+            count = count - 1
             if pQueue.isEmpty():
                 resign = True
             else:
                 current_step = pQueue.pop()
-                explored.append(current_step.start_node.id)
+                explored.append(current_step)
+                print "Pop"
+                current_step.print_info() 
 
                 if current_step.is_goal(self.goal_node):
                     found = True
@@ -38,9 +42,12 @@ class RouteCalculator:
                 else:
                     next_steps_and_durations = self.data_manager.get_next_steps_and_durations(current_step, self.goal_node) #(next_steps, total_time)
                     for s, t in next_steps_and_durations:
-                        if (s.end_node.id not in explored and pQueue.search(s.end_node) == False):
-                            f = t + s.heuristic(self.goal_node) #f = g + h
+                        if (s not in explored and pQueue.search(s) == False):
+                            f = (s.end_time - start_step.start_time).total_seconds() + s.heuristic(self.goal_node) #f = g + h
                             pQueue.push(s, f)
+                            # s.print_info()
+                            # print "Total time so far", (s.end_time - start_step.start_time).total_seconds() 
+                            # print f
 
         path = None
         #processing result
