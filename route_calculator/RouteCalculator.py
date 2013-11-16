@@ -2,9 +2,8 @@ import util
 import data_structure
 import data_manager
 import json, sys, random
-from data_structure import *
 from data_manager import *
-from time import clock
+from data_structure import *
 
 class RouteCalculator:
 
@@ -15,91 +14,51 @@ class RouteCalculator:
         self.data_manager = DataManager()
 
     def a_search(self):
-    	found = False
-    	resign = False
-    	pQueue = PriorityQueue()
+        found = False
+        resign = False
+        pQueue = PriorityQueue()
 
-    	start_step = Step(self.start_node, self.start_node, self.start_time, self.start_time)
-    	pQueue.push(start_step, 0)
-    	explored = []
-    	final_step = None
+        start_state = State(self.start_node, self.start_time, None, None)
+        pQueue.push(start_state, 0)
+        explored = []
+        final_state = None
 
-        count = 100
-    	while not found and not resign and count > 0:
-            count = count - 1
+        count = 0
+        while not found and not resign:
+            count = count + 1
+
             if pQueue.isEmpty():
                 resign = True
             else:
-                current_step = pQueue.pop()
-                explored.append(current_step)
-                print "Pop"
-                current_step.print_info() 
+                current_state = pQueue.pop()
+                explored.append(current_state.node.id)
 
-                if current_step.is_goal(self.goal_node):
+                # print "Pop", count
+                # current_state.print_info()
+
+                if current_state.is_goal(self.goal_node):
                     found = True
-                    final_step = current_step
-                    path = get_path(final_step)
+                    final_state = current_state
+                    path = get_path(final_state)
                     return path
                 else:
-                    next_steps_and_durations = self.data_manager.get_next_steps_and_durations(current_step, self.goal_node) #(next_steps, total_time)
-                    for s, t in next_steps_and_durations:
-                        if (s not in explored and pQueue.search(s) == False):
-                            f = (s.end_time - start_step.start_time).total_seconds() + s.heuristic(self.goal_node) #f = g + h
-                            pQueue.push(s, f)
-                            # s.print_info()
-                            # print "Total time so far", (s.end_time - start_step.start_time).total_seconds() 
-                            # print f
+                    next_states = self.data_manager.get_next_states(current_state, self.goal_node)
+                    for s in next_states:
+                        f = (s.arrived_time - self.start_time).total_seconds() + s.heuristic(self.goal_node) #f = g + h
+                        pQueue.push(s, f)
+
+                        # if (s.node.id not in explored and pQueue.search(s.node) == False):
+                        #     f = (s.arrived_time - self.start_time).total_seconds() + s.heuristic(self.goal_node) #f = g + h
+                        #     pQueue.push(s, f)
+
 
         path = None
         #processing result
         if found:
-            path = get_path(final_step) 
+            path = get_path(final_state)
+            # print 'Total time: %s' %(final_state.arrived_time - self.start_time).total_seconds() 
+
+        print "Queue length: ", pQueue.length(), "; Iteration: ", count
 
         return path
         
-
-# def main(lat1, long1, lat2, long2, start_time):
-
-#     start_node = Node(-1, "start", lat1, long1)
-#     goal_node = Node(-2, "goal", lat2, long2)
-
-#     calculator = RouteCalculator(start_node, goal_node, start_time)
-#     path = calculator.a_search()
-
-#     print path
-
-
-#SUFFER NO MORE
-
-# def default(str):
-#     return str + ' [Default: %default]'
-
-# def readCommand(argv):
-#     from optparse import OptionParser
-#     usageStr = """
-#     USAGE:      python RouteCalculator.py <options>
-#     EXAMPLES:   (1) python RouteCalculator.py -a 5 -b 3 -c 1 -d 2 -s 10
-#     """
-#     parser = OptionParser(usageStr)
-#     parser.add_option('-a', '--lata', dest='lata', type='float',
-#         help=default('d'), metavar='LATA', default=0)
-#     parser.add_option('-b', '--longa', dest='longa', type='float',
-#         help=default('d'), metavar='LONGA', default=0)
-#     parser.add_option('-c', '--latb', dest='latb', type='float',
-#         help=default('d'), metavar='LATB', default=0)
-#     parser.add_option('-d', '--longb', dest='longb', type='float',
-#         help=default('d'), metavar='LONGB', default=0)
-#     parser.add_option('-s', '--start', dest='start', type='float',
-#         help=default('d'), metavar='START', default=0)
-
-#     options, otherjunk = parser.parse_args(argv)
-#     if len(otherjunk) != 0:
-#         raise Exception('Command line input not understood: ' + str(otherjunk))
-#     #parser is incomplete - further enhancement required
-#     return options
-
-# if __name__ == '__main__':
-#     #args = readCommand(sys.argv[1:])
-#     #main(args.lata, args.longa, args.latb, args.longb, args.start)
-#     get_results(10, 10, 10, 10, 10)
-

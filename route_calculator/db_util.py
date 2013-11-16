@@ -31,7 +31,7 @@ class SqlHelper:
 		for row in cur.fetchall():
 			start_node = Node(row[0], row[1], row[2], row[3])
 			end_node = Node(row[4], row[5], row[6], row[7])
-			step = Step(start_node, end_node, row[8], row[9], row[10], None)
+			step = Step(start_node, end_node, row[8], row[9], row[10])
 			all_steps.append(step)
 		cur.close()
 		return all_steps		
@@ -40,8 +40,8 @@ class SqlHelper:
 		cur = self.query("SELECT start_loc_id, end_loc_id, time FROM `distance`")
 		all_walking_times = []
 		for row in cur.fetchall():
-			edge = WalkingTime(row[0], row[1], row[2])
-			all_walking_times.append(edge)
+			t = WalkingTime(row[0], row[1], row[2])
+			all_walking_times.append(t)
 		cur.close()
 		return all_walking_times		
 
