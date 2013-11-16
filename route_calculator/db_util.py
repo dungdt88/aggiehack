@@ -37,7 +37,8 @@ class SqlHelper:
 		return all_steps		
 
 	def get_all_walking_times(self):
-		cur = self.query("SELECT start_loc_id, end_loc_id, time FROM `distance`")
+		cur = self.query("SELECT d.start_loc_id, d.end_loc_id, d.time FROM `distance` AS d JOIN `schedule`  AS s ON s.start_loc_id = d.start_loc_id AND " + \
+						 "s.end_loc_id = d.end_loc_id" )
 		all_walking_times = []
 		for row in cur.fetchall():
 			t = WalkingTime(row[0], row[1], row[2])
