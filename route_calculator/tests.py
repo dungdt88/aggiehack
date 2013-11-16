@@ -35,6 +35,7 @@ if __name__ == '__main__':
 	# for step in next_walking_steps:
 	# 	print step.start_node.id, step.end_node.id, step.start_time, step.end_time, step.type
 	# print len(next_walking_steps)
+
 	start = clock();
 	calculator = RouteCalculator(my_node, goal_node, start_time)
 	end = clock();
