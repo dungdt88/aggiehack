@@ -15,7 +15,8 @@ class SqlHelper:
 		return cursor
 
 	def get_all_nodes(self):
-		cur = self.query("SELECT id, name, longitude, latitude FROM `location`")
+		cur = self.query("SELECT id, name, longitude, latitude FROM `location` WHERE id IN (SELECT DISTINCT start_loc_id FROM `schedule`) OR " + \
+					     "id IN (SELECT DISTINCT end_loc_id FROM `schedule`)")
 		all_nodes = []
 		for row in cur.fetchall():
 			node = Node(row[0], row[1], row[3], row[2])
