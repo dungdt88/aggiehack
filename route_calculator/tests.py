@@ -17,7 +17,7 @@ if __name__ == '__main__':
 	start_node_2 = Node(-1, "Start at Home", 30.638226, -96.32246)
 	start_node_3 = Node(-1, "Start at Aggie Station", 30.624064,-96.354003)
 
-	start_time = datetime.datetime(2013, 11, 10, 10, 5, 0, 0)
+	start_time = datetime.datetime(2013, 11, 10, 10, 0, 0, 0)
 
 	start = clock();
 	calculator = RouteCalculator(start_node_1, goal_node_2, start_time)
@@ -31,18 +31,18 @@ if __name__ == '__main__':
 	# print "Finish searching in %6.3f seconds" % (end - start)
 	# print path
 
-	# print "From Home to MSC"
-	# start = clock();
-	# calculator = RouteCalculator(start_node_2, goal_node_1, start_time)
-	# path = calculator.a_search()
-	# end = clock();
-	# print "Finish searching in %6.3f seconds" % (end - start)	
-	# print path
-
-	print "From Aggie Station to MSC"
+	print "From Home to MSC"
 	start = clock();
-	calculator = RouteCalculator(start_node_3, goal_node_1, start_time)
+	calculator = RouteCalculator(start_node_2, goal_node_1, start_time)
 	path = calculator.a_search()
 	end = clock();
 	print "Finish searching in %6.3f seconds" % (end - start)	
 	print path
+
+	# print "From Aggie Station to MSC"
+	# start = clock();
+	# calculator = RouteCalculator(start_node_3, goal_node_1, start_time)
+	# path = calculator.a_search()
+	# end = clock();
+	# print "Finish searching in %6.3f seconds" % (end - start)
+	# print path

@@ -41,7 +41,8 @@ class Node:
         return self.id == other.id
 
     def isEqual(self, checking_node):
-        return abs(float(self.latitude) - float(checking_node.latitude)) < 0.0001 and  abs(float(self.longitude) - float(checking_node.longitude)) < 0.0001
+        return abs(float(self.latitude) - float(checking_node.latitude)) < 0.0001 and \
+            abs(float(self.longitude) - float(checking_node.longitude)) < 0.0001
 
 #Datastructure for step
 class Step:

@@ -33,8 +33,8 @@ class RouteCalculator:
                 current_state = pQueue.pop()
                 explored.append(current_state.node.id)
 
-                # print "Pop", count
-                # current_state.print_info()
+                print "Pop", count
+                current_state.print_info()
 
                 if current_state.is_goal(self.goal_node):
                     found = True
