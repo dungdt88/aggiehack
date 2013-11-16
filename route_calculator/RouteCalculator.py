@@ -43,7 +43,9 @@ class RouteCalculator:
                             f = t + s.heuristic(self.goal_node) #f = g + h
                             pQueue.push(s, f)
 
+
         path = None
+
         #processing result
         if found:
             path = get_path(final_step) 
