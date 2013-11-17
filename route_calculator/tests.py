@@ -1,11 +1,13 @@
 import RouteCalculator
 from constants import *
 from data_structure import *
-from db_util import *
+from data_manager import *
 from RouteCalculator import *
 from time import clock
 
 if __name__ == '__main__':
+
+	K_SHORTEST = 3
 
 	# for test_node in testsql.get_all_node():
 	# 	print test_node.id, test_node.name, test_node.latitude, test_node.longitude
@@ -20,29 +22,33 @@ if __name__ == '__main__':
 	start_time = datetime.datetime(2013, 11, 10, 10, 0, 0, 0)
 
 	start = clock();
-	calculator = RouteCalculator(start_node_1, goal_node_2, start_time)
+	calculator = RouteCalculator()
 	end = clock();
 	print "Finish initialization in %6.3f seconds" % (end - start)
 
 	# print "From Applebee's to Wisenbaker"
 	# start = clock();
-	# path = calculator.a_search()
+	# start_state = State(start_node_1, start_time, None, None)
+	# path_list = calculator.search(start_state, goal_node_2, start_time, K_SHORTEST)
 	# end = clock();
 	# print "Finish searching in %6.3f seconds" % (end - start)
-	# print path
 
 	print "From Home to MSC"
 	start = clock();
-	calculator = RouteCalculator(start_node_2, goal_node_1, start_time)
-	path = calculator.a_search()
+	start_state = State(start_node_2, start_time, None, None)
+	path_list = calculator.search(start_state, goal_node_1, start_time, K_SHORTEST)
 	end = clock();
 	print "Finish searching in %6.3f seconds" % (end - start)	
-	print path
+	print "Found", len(path_list)
+	for p in path_list:
+		p.print_info()
 
 	# print "From Aggie Station to MSC"
 	# start = clock();
-	# calculator = RouteCalculator(start_node_3, goal_node_1, start_time)
-	# path = calculator.a_search()
+	# start_state = State(start_node_3, start_time, None, None)
+	# path_list = calculator.search(start_state, goal_node_1, start_time, K_SHORTEST)
 	# end = clock();
-	# print "Finish searching in %6.3f seconds" % (end - start)
-	# print path
+	# print "Finish searching in %6.3f seconds" % (end - start)	
+	# print "Found", len(path_list)
+	# for p in path_list:
+	# 	p.print_info()

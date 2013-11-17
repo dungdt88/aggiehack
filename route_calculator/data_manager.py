@@ -23,7 +23,7 @@ class DataManager:
         next_states = []
 
         for step in next_steps:
-            #step.print_info()
+            # step.print_info()
             new_node = step.end_node
             new_state = State(new_node, step.end_time, step, current_state)
             next_states.append(new_state) 
@@ -121,24 +121,3 @@ def initialize_locations():
 #     return {'days':days, 'hours':hours, 'minutes':minutes, 'seconds':seconds}
 
 
-#get path from start to goal
-def get_path(final_state):
-    path = []
-    prv = final_state
-    while prv.previous_state != None:
-        path.append(prv.previous_step)
-        prv = prv.previous_state
-
-    path.reverse()
-
-    string = ""
-    for i, p in enumerate(path):
-        s = p.start_node.name
-        e = p.end_node.name
-        st = p.start_time
-        et = p.end_time
-        type = p.type
-        
-        string += s + ', ' + e + ', ' + str(st) + ', ' + str(et) + ', ' + type + "\n"
-
-    return string
