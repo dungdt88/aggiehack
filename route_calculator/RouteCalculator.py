@@ -33,14 +33,14 @@ class RouteCalculator:
                 current_state = pQueue.pop()
                 explored.append(current_state.node.id)
 
-                print "Pop", count
-                current_state.print_info()
+                #print "Pop", count
+                #current_state.print_info()
 
                 if current_state.is_goal(self.goal_node):
                     found = True
                     final_state = current_state
-                    path = get_path(final_state)
-                    return path
+                    #path = get_path(final_state)
+                    #return path
                 else:
                     next_states = self.data_manager.get_next_states(current_state, self.goal_node)
                     for s in next_states:
@@ -55,7 +55,7 @@ class RouteCalculator:
         path = None
         #processing result
         if found:
-            path = get_path(final_state)
+            path = data_manager.get_path(final_state)
             # print 'Total time: %s' %(final_state.arrived_time - self.start_time).total_seconds() 
 
         print "Queue length: ", pQueue.length(), "; Iteration: ", count

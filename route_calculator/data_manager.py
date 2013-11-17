@@ -23,7 +23,7 @@ class DataManager:
         next_states = []
 
         for step in next_steps:
-            step.print_info()
+            #step.print_info()
             new_node = step.end_node
             new_state = State(new_node, step.end_time, step, current_state)
             next_states.append(new_state) 
