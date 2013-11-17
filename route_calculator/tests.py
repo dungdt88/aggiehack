@@ -5,31 +5,6 @@ from data_manager import *
 from RouteCalculator import *
 from time import clock
 
-
-def convert_results_to_json(path_list):
-    results_list = []
-    for path in path_list:
-        steps = []
-        for i, state in enumerate(path):
-            if state.previous_step != None:
-                p  = state.previous_step
-                start = {'name': p.start_node.name, 'long': str(p.start_node.longitude), 'lat': str(p.start_node.latitude)}
-                end = {'name': p.end_node.name, 'long': str(p.end_node.longitude), 'lat': str(p.end_node.latitude)}
-                start_time = p.start_time
-                duration = (p.end_time - p.start_time).seconds
-                typn = p.type
-                bus_number = ""
-                if typn is not WALKING_TYPE:
-                    bus_number = typn
-                    typn = BUS_TYPE
-                one_step = {'start': start, 'end':end, 'type':typn, 'bus_number': bus_number, 'duration': duration, "start_time": start_time}
-
-                steps.append(one_step)
-
-        results_list.append(steps)
-    return results_list
-
-
 if __name__ == '__main__':
 
 	K_SHORTEST = 5
@@ -46,6 +21,12 @@ if __name__ == '__main__':
 
 	start_time = datetime.datetime(2013, 11, 10, 10, 30, 0, 0)
 
+	start_time2 = datetime.datetime(2013, 11, 10, 10, 40, 0, 0)
+	start_time3 = datetime.datetime(2013, 11, 10, 10, 45, 0, 0)
+	start_time4 = datetime.datetime(2013, 11, 10, 10, 0, 0, 0)
+
+	time_list = [start_time, start_time2, start_time3, start_time4]
+
 	start = clock();
 	calculator = RouteCalculator()
 	end = clock();
@@ -61,12 +42,14 @@ if __name__ == '__main__':
 	#print "From Home to MSC"
 	start = clock();
 	start_state = State(start_node_2, start_time, None, None)
-	path_list = calculator.search(start_state, goal_node_1, start_time, K_SHORTEST)
+	path_list = calculator.search(start_state, goal_node_1, start_time3, K_SHORTEST)
+
+	# path_list = calculator.shortest_duration_search(start_state, goal_node_1, K_SHORTEST, time_list, None)
+
 	end = clock();
 	print "Finish searching in %6.3f seconds" % (end - start)	
 	#print "Found", len(path_list)
-	
-	print convert_results_to_json(path_list)
+
 
 	# print "From Aggie Station to MSC"
 	# start = clock();
@@ -75,7 +58,6 @@ if __name__ == '__main__':
 	# end = clock();
 	# print "Finish searching in %6.3f seconds" % (end - start)	
 	# print "Found", len(path_list)
-	# for p in path_list:
-	# 	p.print_info()
 
-
+	for p in path_list:
+		p.print_info()

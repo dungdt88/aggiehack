@@ -101,6 +101,27 @@ class RouteCalculator:
 
         return path
 
+    def shortest_duration_search(self, start_node, goal, k_shortest, start_time_list, end_time=None):
+        #sort start_time_list
+        start_time_list = sorted(start_time_list)
+
+        #add constraint for end time
+        if end_time == None:
+            s_time = start_time_list[0]
+            end_time = datetime.datetime(s_time.year, s_time.month, s_time.day, 23, 59, 59)
+
+        results = []
+        for start_time in start_time_list:
+            path = self.a_search(start_node, goal, start_time, None)
+            last_state = path[-1]
+            if path != None:
+                if last_state.arrived_time > end_time:
+                    break
+                else:
+                    results.append(path)
+
+        return results[:k_shortest]
+
 #get path from start to goal
 def get_path(final_state):
     path = []
