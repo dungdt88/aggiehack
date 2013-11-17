@@ -41,10 +41,9 @@ if __name__ == '__main__':
 
 	#print "From Home to MSC"
 	start = clock();
-	start_state = State(start_node_2, start_time, None, None)
-	path_list = calculator.search(start_state, goal_node_1, start_time3, K_SHORTEST)
+	# path_list = calculator.search(start_node_2, goal_node_1, start_time, K_SHORTEST)
 
-	# path_list = calculator.shortest_duration_search(start_state, goal_node_1, K_SHORTEST, time_list, None)
+	path_list = calculator.shortest_duration_search(start_node_2, goal_node_1, K_SHORTEST, time_list, None)
 
 	end = clock();
 	print "Finish searching in %6.3f seconds" % (end - start)	

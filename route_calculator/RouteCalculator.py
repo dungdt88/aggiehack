@@ -12,7 +12,8 @@ class RouteCalculator:
 
     def search(self, start_node, goal, start_time, k_shortest):
         path_list = [] # each list consists of path, which is a list of states
-        path_found = self.a_search(start_node, goal, start_time)
+        start_state = State(start_node, start_time, None, None)
+        path_found = self.a_search(start_state, goal, start_time)
         # path_found.print_info()
         path_list.append(path_found)
 
@@ -34,7 +35,7 @@ class RouteCalculator:
                     prohibited_states.append(spur_node)
                     # print "prohibited length", len(prohibited_states)
 
-                    alternate_path = self.a_search(start_node, goal, start_time, prohibited_states)
+                    alternate_path = self.a_search(start_state, goal, start_time, prohibited_states)
                     # print "Alternate"
                     # alternate_path.print_info()
 
@@ -51,12 +52,12 @@ class RouteCalculator:
             
         return path_list
 
-    def a_search(self, start_node, goal, start_time, prohibited_states=[]):
+    def a_search(self, start_state, goal, start_time, prohibited_states=[]):
         found = False
         resign = False
         pQueue = PriorityQueue()
 
-        pQueue.push(start_node, 0)
+        pQueue.push(start_state, 0)
         # explored = []
         final_state = None
 
@@ -112,7 +113,8 @@ class RouteCalculator:
 
         results = []
         for start_time in start_time_list:
-            path = self.a_search(start_node, goal, start_time, None)
+            start_state = State(start_node, start_time, None, None)
+            path = self.a_search(start_state, goal, start_time, None)
             last_state = path[-1]
             if path != None:
                 if last_state.arrived_time > end_time:
