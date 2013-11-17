@@ -13,6 +13,7 @@ from db_util import *
 from RouteCalculator import *
 from time import clock
 
+K_SHORTEST = 3
 
 app = Flask(__name__)
 
