@@ -17,23 +17,29 @@ class RouteCalculator:
         path_list.append(path_found)
 
         potential_path_list = PriorityQueue()
+        prev_prohibited_states = []
         
-        for k in range(1, k_shortest+1): #from 1 to k
+        for k in range(1, k_shortest): #from 1 to k
             
             if len(path_list) >= k:
                 #remove each state of the final path from the graph
-                for spur_node in path_list[k-1]:
-                    print "Spur"
-                    spur_node.print_info()
-                    prohibited_states = []
-                    prohibited_states.append(spur_node)
-                    print "prohibited length", len(prohibited_states)
-                    
-                    alternate_path = self.a_search(start_node, goal, start_time, prohibited_states)
+                temp_prohibited_states = []
 
-                    if potential_path_list.search(alternate_path) == False and alternate_path not in path_list:
-                        print "Alternate"
-                        alternate_path.print_info()
+                for spur_node in reversed(path_list[k-1]):
+                    # print "Spur"
+                    # spur_node.print_info()
+                    temp_prohibited_states.append(spur_node)
+
+                    prohibited_states = prev_prohibited_states
+                    prohibited_states.append(spur_node)
+                    # print "prohibited length", len(prohibited_states)
+
+                    alternate_path = self.a_search(start_node, goal, start_time, prohibited_states)
+                    # print "Alternate"
+                    # alternate_path.print_info()
+
+                    if potential_path_list.search(alternate_path) == False:
+                        # print "Pushed"
                         path_cost = get_path_cost(alternate_path.get_last(), start_time)
                         potential_path_list.push(alternate_path, path_cost)
 
@@ -41,6 +47,7 @@ class RouteCalculator:
                     path_found = potential_path_list.pop()
                     # path_found.print_info()
                     path_list.append(path_found)
+                    prev_prohibited_states = prev_prohibited_states + temp_prohibited_states
             
         return path_list
 
@@ -90,8 +97,6 @@ class RouteCalculator:
         if found:
             path = get_path(final_state) 
             # print 'Total time: %s' %(final_state.arrived_time - start_time).total_seconds() 
-
-        # print "Queue length: ", pQueue.length(), "; Iteration: ", count
 
         return path
 

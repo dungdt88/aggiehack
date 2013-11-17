@@ -8,6 +8,9 @@ class PriorityQueue:
         self.heap = []
         # self.qset = set()
 
+    def __len__(self):
+        return len(self.heap)
+
     def push(self, item, priority):
         pair = (priority, item)
         heapq.heappush(self.heap, pair)
@@ -26,8 +29,6 @@ class PriorityQueue:
     def isEmpty(self):
         return len(self.heap) == 0
 
-    def get_length(self):
-        return len(self.heap)
 
 class Path:
     def __init__(self, _state_list):
@@ -47,7 +48,7 @@ class Path:
     def __getitem__(self, index):
         return self.state_list[index]
 
-    def get_length(self):
+    def __len__(self):
         return len(self.state_list)
 
     def get_last(self):

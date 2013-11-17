@@ -7,7 +7,7 @@ from time import clock
 
 if __name__ == '__main__':
 
-	K_SHORTEST = 3
+	K_SHORTEST = 5
 
 	# for test_node in testsql.get_all_node():
 	# 	print test_node.id, test_node.name, test_node.latitude, test_node.longitude
@@ -19,7 +19,7 @@ if __name__ == '__main__':
 	start_node_2 = Node(-1, "Start at Home", 30.638226, -96.32246)
 	start_node_3 = Node(-1, "Start at Aggie Station", 30.624064,-96.354003)
 
-	start_time = datetime.datetime(2013, 11, 10, 10, 5, 0, 0)
+	start_time = datetime.datetime(2013, 11, 10, 10, 30, 0, 0)
 
 	start = clock();
 	calculator = RouteCalculator()
