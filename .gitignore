@@ -17,3 +17,4 @@ sublime-project
 *sublime-*
 *.pyc
 /route_calculator/constants.py
+/route_calculator/pickle_files/*.pkl
