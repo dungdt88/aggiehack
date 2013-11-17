@@ -69,7 +69,6 @@ class RouteCalculator:
             else:
                 current_state = pQueue.pop()
                 # explored.append(current_state.node.id)
-
                 # print "Pop", count
                 # current_state.print_info()
                 # print
@@ -77,7 +76,9 @@ class RouteCalculator:
                 if current_state.is_goal(goal):
                     found = True
                     final_state = current_state
-                    break
+                    #path = get_path(final_state)
+                    #return path
+                    #break
                 else:
                     next_states = self.data_manager.get_next_states(current_state, goal)
  
@@ -112,5 +113,4 @@ def get_path(final_state):
     return Path(path) 
 
 def get_path_cost(last_state, start_time):
-    return (last_state.arrived_time - start_time).total_seconds() 
-        
+    return (last_state.arrived_time - start_time).total_seconds()

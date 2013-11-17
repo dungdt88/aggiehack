@@ -32,9 +32,6 @@ if __name__ == '__main__':
 	# path_list = calculator.search(start_state, goal_node_2, start_time, K_SHORTEST)
 	# end = clock();
 	# print "Finish searching in %6.3f seconds" % (end - start)
-	# print "Found", len(path_list)
-	# for p in path_list:
-	# 	p.print_info()
 
 	print "From Home to MSC"
 	start = clock();
