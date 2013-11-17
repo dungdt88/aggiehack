@@ -8,3 +8,9 @@
 .search-location {margin-top: 10px;}
 .header {padding:56px 0 15px; border-bottom: 1px solid #EEE; margin-bottom: 20px;}
 .footer {padding:20px 0; margin-top: 50px;}
+.route-details tbody {display:none;}
+.route-details tbody.active {display:table-row-group;}
+.route-details tbody td label {font-weight: bold;}
+.route-list tbody tr {color: #0088CC; cursor: pointer;}
+.route-list tbody tr.active {background-color: #0088CC; color: #FFF;}
+.route-list tbody tr.active .icon-chevron-right {background-image:url("../img/glyphicons-halflings-white.png"); }

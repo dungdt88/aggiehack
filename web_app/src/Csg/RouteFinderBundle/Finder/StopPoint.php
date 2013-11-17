@@ -93,6 +93,13 @@ class StopPoint
     {
         return $this->name;
     }
-    
-    
+
+    /**
+     * @param StopPoint $stop
+     * @return bool
+     */
+    public function equals(StopPoint $stop)
+    {
+        return $stop->getLatitude() == $this->getLatitude() && $stop->getLongitude() == $this->getLongitude();
+    }
 }

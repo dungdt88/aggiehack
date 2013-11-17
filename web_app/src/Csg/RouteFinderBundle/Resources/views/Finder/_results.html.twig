@@ -1,48 +1,120 @@
-<div class="accordion search-results" id="search-results">
+<div class="search-results" id="search-results">
     <div class="row">
-        <h5 class="span3">Route</h5>
-        <h5 class="span3">Total Duration</h5>
-        <h5 class="span3">Total Segments</h5>
-    </div>
-    {% for route in routes %}
-    <div class="accordion-group">
-        <div class="accordion-heading">
-            <a class="accordion-toggle row" data-toggle="collapse" data-parent="#search-results" href="#collapse{{ loop.index }}">
-                <span class="span3">Route #{{ loop.index }}</span>
-                <span class="span3">{{ route.duration }}</span>
-                <span class="span3">{{ route.segmentCount }}</span>
-            </a>
-        </div>
-        <div id="collapse{{ loop.index }}" class="accordion-body collapse {{ loop.first ? 'in' : 'out' }}">
-            <div class="accordion-inner">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Start</th>
-                            <th>End</th>
-                            <th>Time</th>
-                            <th>Duration</th>
-                            <th>Type</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for segment in route %}
-                        <tr>
-                            <td>{{ segment.start.name }}</td>
-                            <td>{{ segment.end.name }}</td>
-                            <td>{{ segment.time|date('Y-m-d H:i:s') }}</td>
-                            <td>{{ segment.duration }}</td>
-                            <td>{{ segment.type|capitalize }}</td>
-                        </tr>
+        <div class="span4">
+            <table class="table sortable route-list">
+                <thead>
+                    <tr>
+                        <th data-defaultsort="asc">#</th>
+                        <th>Duration</th>
+                        <th>Paths Count</th>
+                        <th>End Time</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for route in routes %}
+                    <tr class="route-header {{ loop.first ? 'active' : '' }}" data-detailid="{{ loop.index }}" 
+                        data-busstops="{{ route.jsonBusStops }}">
+                        <td data-value="{{ loop.index }}">{{ loop.index }}</td>
+                        <td data-value="{{ route.duration }}">{{ route.niceDuration }}</td>
+                        <td data-value="{{ route.segmentCount }}">{{ route.segmentCount }}</td>
+                        <td>&nbsp;</td>
+                        <td><i class="icon-chevron-right"></i></td>
+                    </tr>
                     {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
+        </div>
+        <div class="span6">
+            <table class="table table-striped route-details">
+                <thead>
+                    <tr>
+                        <th>Stops</th>
+                        <th>Time</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                {% for route in routes %}
+                <tbody class="{{ loop.first ? 'active' : '' }}" id="route-detail-{{ loop.index }}">
+                    {% for segment in route %}
+                    <tr>
+                        <td>
+                            <i>From:</i> {{ segment.start.name }}<br />
+                            <i>To:</i> {{ segment.end.name }}
+                        </td>
+                        <td>
+                            <i>Start At:</i> {{ segment.time|date('Y-m-d H:i') }}<br />
+                            <i>Duration:</i> {{ segment.niceDuration }}
+                        </td>
+                        <td>{{ segment.type|capitalize }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                {% endfor %}
+            </table>
         </div>
     </div>
-    {% endfor %}
+    
+    {#{% for route in routes %}#}
+    {#<div class="accordion-group">#}
+        {#<div class="accordion-heading">#}
+            {#<a class="accordion-toggle row" data-toggle="collapse" data-parent="#search-results" href="#collapse{{ loop.index }}">#}
+                {#<span class="span3">Route #{{ loop.index }}</span>#}
+                {#<span class="span3">{{ route.duration }}</span>#}
+                {#<span class="span3">{{ route.segmentCount }}</span>#}
+            {#</a>#}
+        {#</div>#}
+        {#<div id="collapse{{ loop.index }}" class="accordion-body collapse {{ loop.first ? 'in' : 'out' }}">#}
+            {#<div class="accordion-inner">#}
+                {#<table class="table table-striped">#}
+                    {#<thead>#}
+                        {#<tr>#}
+                            {#<th>Start</th>#}
+                            {#<th>End</th>#}
+                            {#<th>Start Time</th>#}
+                            {#<th>Duration</th>#}
+                            {#<th>Type</th>#}
+                        {#</tr>#}
+                    {#</thead>#}
+                    {#<tbody>#}
+                    {#{% for segment in route %}#}
+                        {#<tr>#}
+                            {#<td>{{ segment.start.name }}</td>#}
+                            {#<td>{{ segment.end.name }}</td>#}
+                            {#<td>{{ segment.time|date('Y-m-d H:i:s') }}</td>#}
+                            {#<td>{{ segment.duration }}</td>#}
+                            {#<td>{{ segment.type|capitalize }}</td>#}
+                        {#</tr>#}
+                    {#{% endfor %}#}
+                    {#</tbody>#}
+                {#</table>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
+    {#{% endfor %}#}
 </div>
 
 <script type="text/javascript">
-    $('#search-results').collapse();
+    $('#search-results').ready(function() {
+        $this = $(this);
+        $.bootstrapSortable();
+
+        busStops = eval($('.route-list tbody tr.active', $this).attr('data-busstops'));
+        removeBusMarkers();
+        addBusMarkers(busStops);
+        
+        $('.route-list tbody tr', $this).click(function() {
+            $('.route-list tbody tr', $this).removeClass('active');
+            $(this).addClass('active');
+            
+            deatailId = this.dataset.detailid;
+            busStops = eval(this.dataset.busstops);
+
+            removeBusMarkers();
+            addBusMarkers(busStops);
+            
+            $('.route-details tbody', $this).removeClass('active');
+            $('.route-details tbody#route-detail-' + deatailId, $this).addClass('active');
+        });
+    });
 </script>
