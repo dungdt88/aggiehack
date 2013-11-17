@@ -55,7 +55,7 @@ class Path:
         return self.state_list[len(self.state_list)-1]
 
     def print_info(self):
-        path = []
+        # path = []
         string = ""
         for s in self.state_list:
             if s.previous_step != None:

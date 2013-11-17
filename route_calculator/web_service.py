@@ -16,74 +16,69 @@ from time import clock
 
 app = Flask(__name__)
 
-start_node = {'name': 'HEB', 'long':'-96.31823300', 'lat':'30.61206100'}
-node1 = {'name':'MSC', 'long':'-96.33965217', 'lat':'30.61393756'}
-node2 = {'name': 'Community Center', 'long':'-96.34027000', 'lat': '30.62722200'}
-node3 = {'name': 'Trigon', 'long':'-96.33926200', 'lat': '30.61355700'}
-node4 = {'name': 'ETB', 'lat':'30.630231', 'long': '-96.338425'}
-end_node = {'name': 'Peppertree','long':'-96.29545600', 'lat':'30.59359200'}
 
-data = [node1, node2, node3, node4, start_node, end_node]
-trans_type = ['walking', 'bus']
-
-
-def validate_datetime(datetime_string):
-    print datetime_string
-    try:
-        datetime.datetime.strptime(datetime_string,"%Y%m%d%H%M%S")
-        return True
-    except ValueError:
+def validate_datetime(s_time):
+    now = datetime.datetime.now()
+    if s_time < now:
         return False
+    end_of_the_day = datetime.datetime(s_time.year, s_time.month, s_time.day, 23, 59, 59)
+    if s_time > end_of_the_day:
+        return False
+    return True
 
+def validate_long_lat(longitute, latitude):
+    if float(longitute) < LONGTITUDE_LEFT_BOUND or float(longitute) > LONGTITUDE_RIGHT_BOUND:
+        print 'long exceed'
+        return False
+    if float(latitude) > LATITUDE_UPPER_BOUND or float(latitude) < LATITUDE_LOWER_BOUND:
+        print 'lat exceed'
+        return False
+    return True
 
-# def dump_result():
-#     num_of_results = random.randint(2,3)
-#     results = []
-#     for j in range(num_of_results):
-# 	num_of_steps = random.randint(2,3)
-# 	steps = []
-#         for i in range(num_of_steps):
-#             start = data[random.randint(0,len(data)-1)]
-#             end = data[random.randint(0,len(data)-1)]
-#             typn = trans_type[random.randint(0,1)]
-#             duration = random.uniform(10,1000)
-#             start_time = datetime.datetime.now()
-#             one_step = {'start': start, 'end':end, 'type':typn, 'duration': duration, "start_time": start_time}
-#             steps.append(one_step)
-# 	results.append(steps)
+def convert_results_to_json(path_list):
+    results_list = []
+    for path in path_list:
+        steps = []
+        for i, state in enumerate(path):
+            if state.previous_step != None:
+                p  = state.previous_step
+                start = {'name': p.start_node.name, 'long': str(p.start_node.longitude), 'lat': str(p.start_node.latitude)}
+                end = {'name': p.end_node.name, 'long': str(p.end_node.longitude), 'lat': str(p.end_node.latitude)}
+                start_time = p.start_time
+                duration = (p.end_time - p.start_time).seconds
+                typn = p.type
+                bus_number = ""
+                if typn is not WALKING_TYPE:
+                    bus_number = typn
+                    typn = BUS_TYPE
+                one_step = {'start': start, 'end':end, 'type':typn, 'bus_number': bus_number, 'duration': duration, "start_time": start_time}
 
-#     return {"results": results, "status": "OK"}
+                steps.append(one_step)
+        results_list.append(steps)
+    return results_list
 
 #Call AI engine to get the shortest path
 def get_results(lat1, long1, lat2, long2, start_time):
 
-    print 'crap'
     start_node = Node(-1, "Start", lat1, long1) #ETB
     goal_node = Node(-2, "End", lat2, long2)
 
-    print 'crap2'
-
     start = clock();
-    calculator = RouteCalculator(start_node, goal_node, start_time)
+    calculator = RouteCalculator()
     end = clock();
     print "Finish initialization in %6.3f seconds" % (end - start)
 
-    print 'crap 3'
-
     start = clock();
-    path = calculator.a_search()
+    start_state = State(start_node, start_time, None, None)
+
+    path_list = calculator.search(start_state, goal_node, start_time, K_SHORTEST)
     end = clock();
     print "Finish searching in %6.3f seconds" % (end - start)
-
-    print 'crap 4'
-
-    print 'path: ', path
     
-    if path == None:
+    if len(path_list) == 0:
         return {"results": "None", "status": "404"}
     else:
-        results = []
-        results.append(path)
+        results = convert_results_to_json(path_list)
         return {"results": results, "status": "OK"}
 
 @app.route('/orgLat/<lat1>/orgLong/<long1>/desLat/<lat2>/desLong/<long2>/time/<start_time>')
@@ -91,28 +86,20 @@ def api_long(lat1, long1, lat2, long2, start_time):
     #req = 'lat1: ' + lat1 + ' long1:' + long1 + ' lat2: ' + lat2 + 'long2: ' + long2 + 'time: ' + start_time
 
     #data validation
-    # error = ""
-    # if lat1 > LATITUDE_UPPER_BOUND or lat1 < LATITUDE_LOWER_BOUND or lat2 > LATITUDE_UPPER_BOUND or lat2 < LATITUDE_LOWER_BOUND:
-    # 	error = "Latitude input exceeding boundary"
-    # if long1 < LONGTITUDE_LEFT_BOUND or long1 > LONGTITUDE_RIGHT_BOUND or long2 < LONGTITUDE_LEFT_BOUND or long2 > LONGTITUDE_RIGHT_BOUND:
-    # 	if error!="":
-    #         error = error + " and Longtitude input exceeding boundary"
-    #     else:
-    #         error = "Longtitude input exceeding boundary"
-
-    # # print validate_datetime(start_time)
-
-    # if not validate_datetime(start_time):
-    #     error += " and Date time in the wrong format"
-
-    # if error is not "":
-    #     return not_found(error)
-
-    #return responding message
-    #print 'start_time1: ', start_time
-
+    # validate latitude and longitude
+    if (not validate_long_lat(long1, lat1)) or (not validate_long_lat(long2, lat2)):
+        err = "Longitude and latitude exceeding boundary"
+        return not_found(err)
 
     s_time = datetime.datetime.fromtimestamp(int(start_time))
+    #validate datetime
+    #time must between now and end of the day
+
+    # comment temporary for testing
+    # if not validate_datetime(s_time):
+    #     error = "Date time is out of boundary"
+    #     return not_found(error)
+
     print lat1, long1, lat2, long2, s_time
 
     message = get_results(float(lat1), float(long1), float(lat2), float(long2), s_time)

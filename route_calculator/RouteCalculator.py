@@ -57,7 +57,7 @@ class RouteCalculator:
         pQueue = PriorityQueue()
 
         pQueue.push(start_node, 0)
-        explored = []
+        # explored = []
         final_state = None
 
         count = 0
