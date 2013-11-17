@@ -22,11 +22,11 @@
                     <legend>Calculate Route</legend>
                     <div class="form-group">
                         <label for="from-location">From Location:</label>
-                        <input type="text" readonly class="form-control input-xlarge" id="from-location" value="">
+                        <input type="text" readonly class="form-control input-xlarge" name="from_name" id="from-location" value="">
                     </div>
                     <div class="form-group">
                         <label for="to-location">To Location:</label>
-                        <input type="text" readonly class="form-control input-xlarge" id="to-location" value="">
+                        <input type="text" readonly class="form-control input-xlarge" name="to_name" id="to-location" value="">
                     </div>
                     
                     <div class="form-group">
@@ -36,15 +36,13 @@
                             <span class="add-on"><i class="icon-time"></i></span>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-default">Calculate Route</button>
+                    <button type="submit" class="btn btn-primary">Calculate Route</button>
                 </fieldset>
             </form>
         </div>
-        
     </div>
     <hr>
     <div class="row">
-        
         <div class="span10">
             <h3>Found Routes</h3>
             <div id="search-results"></div>

@@ -14,3 +14,12 @@
 .route-list tbody tr {color: #0088CC; cursor: pointer;}
 .route-list tbody tr.active {background-color: #0088CC; color: #FFF;}
 .route-list tbody tr.active .icon-chevron-right {background-image:url("../img/glyphicons-halflings-white.png"); }
+
+.recent-search .recent-search-item {background-color:#EEE; padding:10px; overflow: hidden; border-radius: 10px; margin-bottom: 10px;}
+.recent-search .recent-search-item-even {background-color:#F7F7F7;}
+.recent-search div span {float:left; }
+.recent-search div p > span {padding-right: 10px;}
+.recent-search div span span {width:45px; font-style: italic;}
+.recent-search div span i {float:right;}
+.recent-search div span i.icon-large.icon-google-maps {background-position: -134px -1909px;}
+.recent-search div p button {float:right; margin-right:15px;}

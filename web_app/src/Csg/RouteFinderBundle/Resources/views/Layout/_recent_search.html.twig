@@ -1,0 +1,120 @@
+<hr>
+<div class="recent-search row">
+    {% if recent_search|length %}
+    <div class="span5">
+        <h3>Recent Search</h3>
+        <div>
+            {% for item in recent_search %}
+            <div class="recent-search-item {% if (loop.index + 1) % 2 %}recent-search-item-even{% endif %}">
+                <p>
+                    <span>
+                        <span>From</span>
+                        <i class="icon-large icon-google-maps"></i>
+                    </span>
+                    {{ item.from_name }}
+                </p>
+                <p>
+                    <span>
+                        <span>To</span>
+                        <i class="icon-large icon-google-maps"></i>
+                    </span>
+                    {{ item.to_name }}
+                </p>
+                <p>
+                    <span>
+                        <span>Time</span>
+                        <i class="icon-large icon-clock"></i>
+                    </span>
+                    {{ item.start_time|date('Y-m-d H:i') }}
+                    <button type="submit" class="btn btn-info btn-small">View Search</button>
+                </p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    
+    {#<div class="span5">#}
+        {#<h3>Recent Search</h3>#}
+        {#<div>#}
+            {#<div class="recent-search-item">#}
+                {#<p>#}
+                    {#<span>#}
+                        {#<span>From</span>#}
+                        {#<i class="icon-large icon-google-maps"></i>#}
+                    {#</span>#}
+                    {#1100, Texas A&M University, Hensel Drive, College Station, Brazos, Texas, United States, 77840#}
+                {#</p>#}
+                {#<p>#}
+                    {#<span>#}
+                        {#<span>To</span>#}
+                        {#<i class="icon-large icon-google-maps"></i>#}
+                    {#</span>#}
+                    {#109 Maple ave apt B, College Station, Texas, United States, 77840<br />#}
+                {#</p>#}
+                {#<p>#}
+                    {#<span>#}
+                        {#<span>Time</span>#}
+                        {#<i class="icon-large icon-clock"></i>#}
+                    {#</span>#}
+                    {#2013-11-16 00:11#}
+                    {#<button type="submit" class="btn btn-info btn-small">View Search</button>#}
+                {#</p>#}
+            {#</div>#}
+
+            {#<div class="recent-search-item recent-search-item-even">#}
+                {#<p>#}
+                    {#<span>#}
+                        {#<span>From</span>#}
+                        {#<i class="icon-large icon-google-maps"></i>#}
+                    {#</span>#}
+                    {#1100, Texas A&M University, Hensel Drive, College Station, Brazos, Texas, United States, 77840#}
+                {#</p>#}
+                {#<p>#}
+                    {#<span>#}
+                        {#<span>To</span>#}
+                        {#<i class="icon-large icon-google-maps"></i>#}
+                    {#</span>#}
+                    {#109 Maple ave apt B, College Station, Texas, United States, 77840<br />#}
+                {#</p>#}
+                {#<p>#}
+                    {#<span>#}
+                        {#<span>Time</span>#}
+                        {#<i class="icon-large icon-clock"></i>#}
+                    {#</span>#}
+                    {#2013-11-16 00:11#}
+                    {#<button type="submit" class="btn btn-info btn-small">View Search</button>#}
+                {#</p>#}
+            {#</div>#}
+
+            {#<div class="recent-search-item">#}
+                {#<p>#}
+                    {#<span>#}
+                        {#<span>From</span>#}
+                        {#<i class="icon-large icon-google-maps"></i>#}
+                    {#</span>#}
+                    {#1100, Texas A&M University, Hensel Drive, College Station, Brazos, Texas, United States, 77840#}
+                {#</p>#}
+                {#<p>#}
+                    {#<span>#}
+                        {#<span>To</span>#}
+                        {#<i class="icon-large icon-google-maps"></i>#}
+                    {#</span>#}
+                    {#109 Maple ave apt B, College Station, Texas, United States, 77840<br />#}
+                {#</p>#}
+                {#<p>#}
+                    {#<span>#}
+                        {#<span>Time</span>#}
+                        {#<i class="icon-large icon-clock"></i>#}
+                    {#</span>#}
+                    {#2013-11-16 00:11#}
+                    {#<button type="submit" class="btn btn-info btn-small">View Search</button>#}
+                {#</p>#}
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
+    <div class="span5">
+        <h3>Nearby Restaurants</h3>
+        <div></div>
+    </div>
+</div>

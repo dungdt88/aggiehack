@@ -2,6 +2,7 @@
 
 namespace Csg\RouteFinderBundle\Controller;
 
+use Csg\RouteFinderBundle\Service\RecentSearch;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,15 +16,25 @@ use Csg\RouteFinderBundle\Service\RouteFinder;
 class DefaultController extends Controller
 {
     /**
+     * Main search view
+     * 
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction()
     {
+        /** @var $recentSearchService RecentSearch */
+        $recentSearchService = $this->get('csg_route_finder.service.recent_search');
         
-        return $this->render('CsgRouteFinderBundle:Default:index.html.twig');
+        $recentSearch = $recentSearchService->getAll();
+        
+        return $this->render('CsgRouteFinderBundle:Default:index.html.twig', array(
+            'recent_search' => $recentSearch,
+        ));
     }
 
     /**
+     * Ajax searching function
+     * 
      * @return Response
      */
     public function ajaxCalculateRouteAction()
@@ -52,6 +63,10 @@ class DefaultController extends Controller
             $data['to_coordinate_long'],
             $data['start_time']
         );
+
+        /** @var $recentSearchService RecentSearch */
+        $recentSearchService = $this->get('csg_route_finder.service.recent_search');
+        $recentSearchService->add($data);
 
 //        $routes = $routeFinder->findRoutes(10, 20, 30, 40, 50);
         

@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <title>Bus Route Finder Application</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.icon-large.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-responsive.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-timepicker.min.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap-sortable.css') }}" />
@@ -35,6 +36,7 @@
             <div class="span10">
                 {% block content %}{% endblock %}
 
+                {% include 'CsgRouteFinderBundle:Layout:_recent_search.html.twig' %}
                 {% include 'CsgRouteFinderBundle:Layout:_footer.html.twig' %}
             </div>
             <div class="span1"></div>
