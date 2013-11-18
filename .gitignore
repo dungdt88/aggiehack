@@ -16,7 +16,7 @@ sublime-project
 .idea
 *sublime-*
 *.pyc
-/route_calculator/constants.py
+/route_calculator/local_constants.py
 <<<<<<< HEAD
 /route_calculator/pickle_files/*.pkl
 =======
