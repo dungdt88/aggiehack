@@ -1,9 +1,3 @@
-orgLat = '30.638226';
-orgLong = '-96.32246';
-desLat = '30.612771';
-desLong = '-96.342081';
-time = '11:11 PM';
-
 var geocoder = new google.maps.Geocoder();
 var totalMarkers = 0;
 var busMarkers = [];
@@ -186,7 +180,7 @@ $(document).ready(function() {
     google.maps.event.addDomListener(window, 'load', initialize);
 
     if (isInitSearch()) {
-        $('#start-time').val(time);
+        $('#start-time').val(t);
     }
     $('#start-time').timepicker();
 
