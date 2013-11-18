@@ -70,9 +70,7 @@ def get_results(lat1, long1, lat2, long2, start_time):
     print "Finish initialization in %6.3f seconds" % (end - start)
 
     start = clock();
-    start_state = State(start_node, start_time, None, None)
-
-    path_list = calculator.search(start_state, goal_node, start_time, K_SHORTEST)
+    path_list = calculator.search(start_node, goal_node, start_time, K_SHORTEST)
     end = clock();
     print "Finish searching in %6.3f seconds" % (end - start)
     

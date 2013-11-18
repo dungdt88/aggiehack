@@ -126,11 +126,11 @@ class RouteCalculator:
                     results.append(path)
 
         #return only the the shortest duration
-        shortest_index = durations_list.index(min(durations_list))
-        return [results[shortest_index]]
+        # shortest_index = durations_list.index(min(durations_list))
+        # return [results[shortest_index]]
 
-        #return all results
-        # return results[:k_shortest]
+        # return all results
+        return results[:k_shortest]
 
 #get path from start to goal
 def get_path(final_state):
