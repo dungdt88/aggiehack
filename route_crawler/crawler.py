@@ -119,7 +119,7 @@ def delete_file(file_name):
 		print ("Warning: %s - %s." % (e.filename,e.strerror))
 
 if __name__ == '__main__':
-        # schedule = []
-        # get_data_from_page(schedule)
-        # update_db(schedule)
+        schedule = []
+        get_data_from_page(schedule)
+        update_db(schedule)
         generate_pickle_files()
