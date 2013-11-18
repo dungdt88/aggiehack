@@ -112,16 +112,24 @@ class RouteCalculator:
             end_time = datetime.datetime(s_time.year, s_time.month, s_time.day, 23, 59, 59)
 
         results = []
+        durations_list = []
         for start_time in start_time_list:
             start_state = State(start_node, start_time, None, None)
-            path = self.a_search(start_state, goal, start_time, None)
-            last_state = path[-1]
+            path = self.a_search(start_state, goal, start_time, None) # call a*
             if path != None:
+                last_state = path[-1]
                 if last_state.arrived_time > end_time:
                     break
                 else:
+                    d = (last_state.arrived_time - start_time).seconds
+                    durations_list.append(d)
                     results.append(path)
 
+        #return only the the shortest duration
+        # shortest_index = durations_list.index(min(durations_list))
+        # return [results[shortest_index]]
+
+        # return all results
         return results[:k_shortest]
 
 #get path from start to goal
