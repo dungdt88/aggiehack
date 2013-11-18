@@ -2,97 +2,138 @@ import util
 import data_structure
 import data_manager
 import json, sys, random
-from data_structure import *
 from data_manager import *
-from time import clock
+from data_structure import *
 
 class RouteCalculator:
 
-    def __init__(self, _from, _to, _start_time):
-        self.start_node = _from
-        self.goal_node = _to
-        self.start_time = _start_time
+    def __init__(self):
         self.data_manager = DataManager()
 
-    def a_search(self):
-    	found = False
-    	resign = False
-    	pQueue = PriorityQueue()
+    def search(self, start_node, goal, start_time, k_shortest):
+        path_list = [] # each list consists of path, which is a list of states
+        start_state = State(start_node, start_time, None, None)
+        path_found = self.a_search(start_state, goal, start_time)
+        # path_found.print_info()
+        path_list.append(path_found)
 
-    	start_step = Step(self.start_node, self.start_node, self.start_time, self.start_time)
-    	pQueue.push(start_step, 0)
-    	explored = []
-    	final_step = None
+        potential_path_list = PriorityQueue()
+        prev_prohibited_states = []
+        
+        for k in range(1, k_shortest): #from 1 to k
+            
+            if len(path_list) >= k:
+                #remove each state of the final path from the graph
+                temp_prohibited_states = []
 
-    	while not found and not resign:
+                for spur_node in reversed(path_list[k-1]):
+                    # print "Spur"
+                    # spur_node.print_info()
+                    temp_prohibited_states.append(spur_node)
+
+                    prohibited_states = prev_prohibited_states
+                    prohibited_states.append(spur_node)
+                    # print "prohibited length", len(prohibited_states)
+
+                    alternate_path = self.a_search(start_state, goal, start_time, prohibited_states)
+                    # print "Alternate"
+                    # alternate_path.print_info()
+
+                    if potential_path_list.search(alternate_path) == False:
+                        # print "Pushed"
+                        path_cost = get_path_cost(alternate_path.get_last(), start_time)
+                        potential_path_list.push(alternate_path, path_cost)
+
+                if not potential_path_list.isEmpty(): 
+                    path_found = potential_path_list.pop()
+                    # path_found.print_info()
+                    path_list.append(path_found)
+                    prev_prohibited_states = prev_prohibited_states + temp_prohibited_states
+            
+        return path_list
+
+    def a_search(self, start_state, goal, start_time, prohibited_states=[]):
+        found = False
+        resign = False
+        pQueue = PriorityQueue()
+
+        pQueue.push(start_state, 0)
+        # explored = []
+        final_state = None
+
+        count = 0
+        while not found and not resign:
+            count = count + 1
+
             if pQueue.isEmpty():
                 resign = True
             else:
-                current_step = pQueue.pop()
-                explored.append(current_step.start_node.id)
+                current_state = pQueue.pop()
+                # explored.append(current_state.node.id)
+                # print "Pop", count
+                # current_state.print_info()
+                # print
 
-                if current_step.is_goal(self.goal_node):
+                if current_state.is_goal(goal):
                     found = True
-                    final_step = current_step
-                    path = get_path(final_step)
-                    return path
+                    final_state = current_state
+                    #path = get_path(final_state)
+                    #return path
+                    #break
                 else:
-                    next_steps_and_durations = self.data_manager.get_next_steps_and_durations(current_step, self.goal_node) #(next_steps, total_time)
-                    for s, t in next_steps_and_durations:
-                        if (s.end_node.id not in explored and pQueue.search(s.end_node) == False):
-                            f = t + s.heuristic(self.goal_node) #f = g + h
+                    next_states = self.data_manager.get_next_states(current_state, goal)
+ 
+                    for s in next_states:
+                        if prohibited_states is None or s not in prohibited_states:
+                            f = (s.arrived_time - start_time).total_seconds() + s.heuristic(goal) #f = g + h
                             pQueue.push(s, f)
+                            # s.print_info()
 
-        path = None
+                        # if (s.node.id not in explored and pQueue.search(s.node) == False):
+                        #     f = (s.arrived_time - start_time).total_seconds() + s.heuristic(goal) #f = g + h
+                        #     pQueue.push(s, f)
+
+
+        path = None # list of states
         #processing result
         if found:
-            path = get_path(final_step) 
+            path = get_path(final_state) 
+            # print 'Total time: %s' %(final_state.arrived_time - start_time).total_seconds() 
 
         return path
-        
 
-# def main(lat1, long1, lat2, long2, start_time):
+    def shortest_duration_search(self, start_node, goal, k_shortest, start_time_list, end_time=None):
+        #sort start_time_list
+        start_time_list = sorted(start_time_list)
 
-#     start_node = Node(-1, "start", lat1, long1)
-#     goal_node = Node(-2, "goal", lat2, long2)
+        #add constraint for end time
+        if end_time == None:
+            s_time = start_time_list[0]
+            end_time = datetime.datetime(s_time.year, s_time.month, s_time.day, 23, 59, 59)
 
-#     calculator = RouteCalculator(start_node, goal_node, start_time)
-#     path = calculator.a_search()
+        results = []
+        for start_time in start_time_list:
+            start_state = State(start_node, start_time, None, None)
+            path = self.a_search(start_state, goal, start_time, None)
+            last_state = path[-1]
+            if path != None:
+                if last_state.arrived_time > end_time:
+                    break
+                else:
+                    results.append(path)
 
-#     print path
+        return results[:k_shortest]
 
+#get path from start to goal
+def get_path(final_state):
+    path = []
+    prv = final_state
+    while prv.previous_state != None:
+        path.append(prv)
+        prv = prv.previous_state
 
-#SUFFER NO MORE
+    path.reverse()
+    return Path(path) 
 
-# def default(str):
-#     return str + ' [Default: %default]'
-
-# def readCommand(argv):
-#     from optparse import OptionParser
-#     usageStr = """
-#     USAGE:      python RouteCalculator.py <options>
-#     EXAMPLES:   (1) python RouteCalculator.py -a 5 -b 3 -c 1 -d 2 -s 10
-#     """
-#     parser = OptionParser(usageStr)
-#     parser.add_option('-a', '--lata', dest='lata', type='float',
-#         help=default('d'), metavar='LATA', default=0)
-#     parser.add_option('-b', '--longa', dest='longa', type='float',
-#         help=default('d'), metavar='LONGA', default=0)
-#     parser.add_option('-c', '--latb', dest='latb', type='float',
-#         help=default('d'), metavar='LATB', default=0)
-#     parser.add_option('-d', '--longb', dest='longb', type='float',
-#         help=default('d'), metavar='LONGB', default=0)
-#     parser.add_option('-s', '--start', dest='start', type='float',
-#         help=default('d'), metavar='START', default=0)
-
-#     options, otherjunk = parser.parse_args(argv)
-#     if len(otherjunk) != 0:
-#         raise Exception('Command line input not understood: ' + str(otherjunk))
-#     #parser is incomplete - further enhancement required
-#     return options
-
-# if __name__ == '__main__':
-#     #args = readCommand(sys.argv[1:])
-#     #main(args.lata, args.longa, args.latb, args.longb, args.start)
-#     get_results(10, 10, 10, 10, 10)
-
+def get_path_cost(last_state, start_time):
+    return (last_state.arrived_time - start_time).total_seconds()
