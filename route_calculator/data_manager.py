@@ -63,9 +63,8 @@ class DataManager:
         return next_steps
 
 # Utility functions outside DataManager class
-def initialize_bus_steps():
+def initialize_bus_steps(file_name = PICKLE_FILE_BUS):
     #load from pickle file if already exists
-    file_name = "pickle_files/bus.pkl"
     if os.path.exists(file_name):
         pfile = open(file_name, 'rb')
         bus_steps = cPickle.load(pfile)
@@ -79,9 +78,8 @@ def initialize_bus_steps():
 
     return bus_steps
 
-def initialize_walking_times():
+def initialize_walking_times(file_name = PICKLE_FILE_WALK):
     #load from pickle file if already exists
-    file_name = "pickle_files/walk.pkl"
     if os.path.exists(file_name):
         pfile = open(file_name, 'rb')
         walking_times = cPickle.load(pfile)
@@ -95,9 +93,8 @@ def initialize_walking_times():
 
     return walking_times
 
-def initialize_locations():
+def initialize_locations(file_name = PICKLE_FILE_LOCATION):
     #load from pickle file if already exists
-    file_name = "pickle_files/location.pkl"
     if os.path.exists(file_name):
         pfile = open(file_name, 'rb')
         locations = cPickle.load(pfile)
