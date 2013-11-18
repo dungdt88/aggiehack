@@ -1,6 +1,7 @@
 import MySQLdb
 import data_structure
 from constants import *
+from local_constants import *
 from data_structure import *
 import datetime
 

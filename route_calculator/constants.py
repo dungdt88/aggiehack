@@ -1,8 +1,3 @@
-HOST = "localhost"
-USERNAME = "root"
-PASSWORD = "triplec"
-DBNAME = "aggiehack"
-
 MAX_DISTANCE = 2 #km
 WALKING_TYPE = "walking"
 BUS_TYPE = "bus"
@@ -14,3 +9,8 @@ LATITUDE_UPPER_BOUND = 30.746475
 LATITUDE_LOWER_BOUND = 30.559814
 LONGTITUDE_LEFT_BOUND = -96.463036
 LONGTITUDE_RIGHT_BOUND = -96.276269
+
+K_SHORTEST = 5
+PICKLE_FILE_BUS = "pickle_files/bus.pkl"
+PICKLE_FILE_WALK = "pickle_files/walk.pkl"
+PICKLE_FILE_LOCATION = "pickle_files/location.pkl"

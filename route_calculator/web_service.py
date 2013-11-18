@@ -13,7 +13,6 @@ from db_util import *
 from RouteCalculator import *
 from time import clock
 
-K_SHORTEST = 3
 
 app = Flask(__name__)
 
@@ -58,6 +57,7 @@ def convert_results_to_json(path_list):
         results_list.append(steps)
     return results_list
 
+
 #Call AI engine to get the shortest path
 def get_results(lat1, long1, lat2, long2, start_time):
 
@@ -79,6 +79,7 @@ def get_results(lat1, long1, lat2, long2, start_time):
     else:
         results = convert_results_to_json(path_list)
         return {"results": results, "status": "OK"}
+
 
 @app.route('/orgLat/<lat1>/orgLong/<long1>/desLat/<lat2>/desLong/<long2>/time/<start_time>')
 def api_long(lat1, long1, lat2, long2, start_time):
