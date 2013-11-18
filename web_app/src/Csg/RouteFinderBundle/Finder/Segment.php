@@ -32,6 +32,11 @@ class Segment
     protected $type;
 
     /**
+     * @var string
+     */
+    protected $busNumber;
+
+    /**
      * @var float
      */
     protected $duration;
@@ -131,6 +136,31 @@ class Segment
     {
         return $this->type;
     }
+
+    /**
+     * @param string $busNumber
+     */
+    public function setBusNumber($busNumber)
+    {
+        $this->busNumber = $busNumber;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBusNumber()
+    {
+        return $this->busNumber;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBus()
+    {
+        return self::TP_BUS === $this->type;
+    }
+
 
     /**
      * @param float $duration

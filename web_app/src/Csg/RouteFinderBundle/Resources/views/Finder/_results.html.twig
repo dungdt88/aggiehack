@@ -46,7 +46,7 @@
                             <i>Start At:</i> {{ segment.time|date('Y-m-d H:i') }}<br />
                             <i>Duration:</i> {{ segment.niceDuration }}
                         </td>
-                        <td>{{ segment.type|capitalize }}</td>
+                        <td>{{ segment.isBus ? 'Bus No. ' ~ segment.busNumber : segment.type|capitalize }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

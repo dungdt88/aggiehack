@@ -43,6 +43,11 @@ class FinderClient
 //                $_time = new \DateTime('now');
                 
                 $segment = new Segment($_start, $_end, $_time, $_segment['type'], $_segment['duration']);
+                
+                if (!empty($_segment['bus_number'])) {
+                    $segment->setBusNumber($_segment['bus_number']);
+                }
+                
                 $route->addSegment($segment);
             }
             
@@ -70,69 +75,68 @@ class FinderClient
             number_format($from->getLatitude(), 8), number_format($from->getLongitude(), 8),
             number_format($to->getLatitude(), 8), number_format($to->getLongitude(), 8), 
 //            $startingTime->getTimestamp()
-            strtotime('2013-11-07 14:48:05.442433')
+            strtotime('2013-11-10 10:25:05')
         );
         
-//        $requestPath = '/orgLat/30.61393756/orgLong/-96.33965217/desLat/30.62095300/desLong/-96.33822100/time/2013-11-07%2014:48:05.442433';
+        $response = $client->get($requestPath)->send();
         
-//        $response = $client->get($requestPath)->send();
-//        
-//        if (200 === $response->getStatusCode()) {
-//            $responseObj = json_decode($response->getBody());
-//            
-//            if (!empty($responseObj->results)) {
-//                foreach ($responseObj->results as $result) {
-//                    $route = array();
-//                    foreach ($result as $segment) {
-//                        $route[] = array(
-//                            'start' => array(
-//                                'longitude' => $segment->start->long,
-//                                'latitude' => $segment->start->lat,
-//                                'name' => $segment->start->name,
-//                            ),
-//                            'end' => array(
-//                                'longitude' => $segment->end->long,
-//                                'latitude' => $segment->end->lat,
-//                                'name' => $segment->end->name,
-//                            ),
-//                            'time' => strtotime($segment->start_time),
-//                            'type' => $segment->type,
-//                            'duration' => $segment->duration,
-//                        );
-//                    }
-//                    
-//                    $routes[] = $route;
-//                }
-//            } 
-//        }
-        
-        $types = array('bus', 'walking');
-        
-        for ($i = 0; $i < 3; $i ++) {
-            $route = array();
+        if (200 === $response->getStatusCode()) {
+            $responseObj = json_decode($response->getBody());
             
-            for ($j = 0; $j < rand(2, 6); $j++) {
-                $segment = array(
-                    'start' => array(
-                        'latitude' => 30.6215,
-                        'longitude' => -96.3274,
-                        'name' => 'Fish Pond',
-                    ),
-                    'end' => array(
-                        'latitude' => 30.6206,
-                        'longitude' => -96.3212,
-                        'name' => 'Aggie Station',
-                    ),
-                    'time' => strtotime('2013-10-27 00:00:00'),
-                    'type' => $types[rand(0, 1)],
-                    'duration' => rand(50, 5000),
-                );
-                
-                $route[] = $segment;
-            }
-            
-            $routes[] = $route;
+            if (!empty($responseObj->results)) {
+                foreach ($responseObj->results as $result) {
+                    $route = array();
+                    foreach ($result as $segment) {
+                        $route[] = array(
+                            'start' => array(
+                                'longitude' => $segment->start->long,
+                                'latitude' => $segment->start->lat,
+                                'name' => $segment->start->name,
+                            ),
+                            'end' => array(
+                                'longitude' => $segment->end->long,
+                                'latitude' => $segment->end->lat,
+                                'name' => $segment->end->name,
+                            ),
+                            'time' => strtotime($segment->start_time),
+                            'type' => $segment->type,
+                            'bus_number' => $segment->bus_number,
+                            'duration' => $segment->duration,
+                        );
+                    }
+                    
+                    $routes[] = $route;
+                }
+            } 
         }
+        
+//        $types = array('bus', 'walking');
+//        
+//        for ($i = 0; $i < 3; $i ++) {
+//            $route = array();
+//            
+//            for ($j = 0; $j < rand(2, 6); $j++) {
+//                $segment = array(
+//                    'start' => array(
+//                        'latitude' => 30.6215,
+//                        'longitude' => -96.3274,
+//                        'name' => 'Fish Pond',
+//                    ),
+//                    'end' => array(
+//                        'latitude' => 30.6206,
+//                        'longitude' => -96.3212,
+//                        'name' => 'Aggie Station',
+//                    ),
+//                    'time' => strtotime('2013-10-27 00:00:00'),
+//                    'type' => $types[rand(0, 1)],
+//                    'duration' => rand(50, 5000),
+//                );
+//                
+//                $route[] = $segment;
+//            }
+//            
+//            $routes[] = $route;
+//        }
         
         return $routes;
     }
