@@ -119,7 +119,75 @@ class Route implements \Iterator
         
         return $duration;
     }
-    
+
+    /**
+     * @return string
+     */
+    public function getNiceDuration()
+    {
+        $duration = $this->getDuration();
+        $niceDuration = '';
+        $mapping = array(
+            86400 => 'd',
+            3600 => 'h',
+            60 => 'm',
+        );
+        
+        foreach ($mapping as $threshold => $text) {
+            if ($duration >= $threshold) {
+                $niceDuration .= (int) ($duration / $threshold) . "$text ";
+                $duration = $duration % $threshold;
+            }
+        }
+        
+        if ($duration > 0) {
+            $niceDuration .= $duration . 's';
+        }
+        
+        return $niceDuration;
+    }
+
+    /**
+     * @return string
+     */
+    public function getJsonBusStops()
+    {
+        $allStops = array();
+        
+        foreach ($this->segments as $segment) {
+            /** @var $segment Segment */
+            foreach (array($segment->getStart(), $segment->getEnd()) as $stop) {
+                /** @var $stop StopPoint */
+                $isExisting = false;
+                foreach ($allStops as $_stop) {
+                    if ($stop->equals($_stop)) {
+                        $isExisting = true;
+                        break;
+                    }
+                }
+                
+                if (!$isExisting) {
+                    $allStops[] = $stop;
+                }
+            }
+        }
+        
+        $allStopsArray = array();
+        
+        foreach ($allStops as $stop) {
+            $allStopsArray[] = array(
+                'name' => $stop->getName(),
+                'latitude' => $stop->getLatitude(),
+                'longitude' => $stop->getLongitude(),
+            );
+        }
+        
+        return json_encode($allStopsArray);
+    }
+
+    /**
+     * @return int
+     */
     public function getSegmentCount()
     {
         return sizeof($this->segments);
