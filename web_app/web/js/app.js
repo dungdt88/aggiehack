@@ -1,7 +1,20 @@
+orgLat = '30.638226';
+orgLong = '-96.32246';
+desLat = '30.612771';
+desLong = '-96.342081';
+time = '11:11 PM';
+
 var geocoder = new google.maps.Geocoder();
 var totalMarkers = 0;
 var busMarkers = [];
 var map = null;
+
+function isInitSearch()
+{
+    return typeof ft !== 'undefined' && typeof fg !== 'undefined'
+        && typeof tt !== 'undefined' && typeof tg !== 'undefined'
+        && typeof t !== 'undefined';
+}
 
 function initialize() 
 {
@@ -16,6 +29,15 @@ function initialize()
 
     var input = document.getElementById('target');
     var searchBox = new google.maps.places.SearchBox(input);
+
+    // initialize locations when viewing recent search
+    if (isInitSearch()) {
+        placeMarker('mk1', new google.maps.LatLng(ft, fg), map);
+        placeMarker('mk2', new google.maps.LatLng(tt, tg), map);
+        window.setTimeout(function() {
+            $('#route-form').submit();
+        }, 1500);
+    }
 
     google.maps.event.addListener(map, 'click', function(e) {
         if (totalMarkers >= 2) {
@@ -163,6 +185,9 @@ function removeBusMarkers()
 $(document).ready(function() {
     google.maps.event.addDomListener(window, 'load', initialize);
 
+    if (isInitSearch()) {
+        $('#start-time').val(time);
+    }
     $('#start-time').timepicker();
 
     $('#route-form').submit(function() {

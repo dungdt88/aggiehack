@@ -1,13 +1,13 @@
 <div class="search-results" id="search-results">
     <div class="row">
-        <div class="span4">
+        <div class="span5">
             <table class="table sortable route-list">
                 <thead>
                     <tr>
-                        <th data-defaultsort="asc">#</th>
+                        <th>#</th>
                         <th>Duration</th>
                         <th>Paths Count</th>
-                        <th>End Time</th>
+                        <th data-defaultsort="asc">Est. Arrival Time</th>
                         <th>&nbsp;</th>
                     </tr>
                 </thead>
@@ -18,14 +18,14 @@
                         <td data-value="{{ loop.index }}">{{ loop.index }}</td>
                         <td data-value="{{ route.duration }}">{{ route.niceDuration }}</td>
                         <td data-value="{{ route.segmentCount }}">{{ route.segmentCount }}</td>
-                        <td>&nbsp;</td>
+                        <td data-value="{{ route.arrivalTime.timeStamp }}">{{ route.arrivalTime|date('Y-m-d H:i') }}</td>
                         <td><i class="icon-chevron-right"></i></td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
-        <div class="span6">
+        <div class="span5">
             <table class="table table-striped route-details">
                 <thead>
                     <tr>

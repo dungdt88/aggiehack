@@ -24,12 +24,37 @@ class DefaultController extends Controller
     {
         /** @var $recentSearchService RecentSearch */
         $recentSearchService = $this->get('csg_route_finder.service.recent_search');
+        $data = array();
         
-        $recentSearch = $recentSearchService->getAll();
+        $queries = $this->getRequest()->query->all();
+        $data['init_search'] = false;
+
+        if (isset($queries['ft']) && isset($queries['fg']) && isset($queries['tt']) 
+            && isset($queries['tg']) && isset($queries['t'])) {
+            $data['from_latitude'] = (float) $queries['ft'];
+            $data['from_longitude'] = (float) $queries['fg'];
+            $data['to_latitude'] = (float) $queries['tt'];
+            $data['to_longitude'] = (float) $queries['tg'];
+            $data['time'] = new \DateTime('@' . (int) $queries['t']);
+
+            $data['init_search'] = true;
+        }
+
+        $data['recent_search'] = $recentSearchService->getAll();
         
-        return $this->render('CsgRouteFinderBundle:Default:index.html.twig', array(
-            'recent_search' => $recentSearch,
-        ));
+        foreach ($data['recent_search'] as $i => $recentSearchItem) {
+            $urlData = array(
+                'ft' => $recentSearchItem['from_coordinate_lat'],
+                'fg' => $recentSearchItem['from_coordinate_long'],
+                'tt' => $recentSearchItem['to_coordinate_lat'],
+                'tg' => $recentSearchItem['to_coordinate_long'],
+                't' => $recentSearchItem['start_time'],
+            );
+            
+            $data['recent_search'][$i]['url'] = http_build_query($urlData);
+        }
+        
+        return $this->render('CsgRouteFinderBundle:Default:index.html.twig', $data);
     }
 
     /**

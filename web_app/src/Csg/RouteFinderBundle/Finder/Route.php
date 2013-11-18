@@ -192,4 +192,24 @@ class Route implements \Iterator
     {
         return sizeof($this->segments);
     }
+
+
+    /**
+     * @return \DateTime
+     */
+    public function getArrivalTime()
+    {
+        if (sizeof($this->segments)) {
+            /** @var $lastSegment Segment */
+            $lastSegment = null;
+            
+            foreach ($this->segments as $segment) {
+                $lastSegment = $segment;
+            }
+            
+            return new \DateTime('@' . ($lastSegment->getTime()->getTimestamp() + $lastSegment->getDuration())); 
+        }
+        
+        return null;
+    }
 }

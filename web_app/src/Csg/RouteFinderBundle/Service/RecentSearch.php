@@ -78,9 +78,9 @@ class RecentSearch
             'to_coordinate_lat' => $newRecentSearchItem['to_coordinate_lat'],
             'to_coordinate_long' => $newRecentSearchItem['to_coordinate_long'],
             'start_time' => $newRecentSearchItem['start_time'],
-            'from_name' => isset($newRecentSearchItem['from_name']) ? $newRecentSearchItem['from_name']
+            'from_name' => !empty($newRecentSearchItem['from_name']) ? $newRecentSearchItem['from_name']
                     : $newRecentSearchItem['from_coordinate_lat'] . ', ' . $newRecentSearchItem['from_coordinate_long'],
-            'to_name' => isset($newRecentSearchItem['to_name']) ? $newRecentSearchItem['to_name']
+            'to_name' => !empty($newRecentSearchItem['to_name']) ? $newRecentSearchItem['to_name']
                 : $newRecentSearchItem['to_coordinate_lat'] . ', ' . $newRecentSearchItem['to_coordinate_long'],
         ));
         

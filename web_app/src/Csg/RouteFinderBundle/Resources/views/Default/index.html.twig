@@ -1,6 +1,16 @@
 {% extends 'CsgRouteFinderBundle::layout.html.twig' %}
 
 {% block content %}
+    {% if init_search %}
+        <script>
+            ft = '{{ from_latitude }}';
+            fg = '{{ from_longitude }}';
+            tt = '{{ to_latitude }}';
+            tg = '{{ to_longitude }}';
+            t = '{{ time|date('h:i A') }}';
+        </script>
+    {% endif %}
+    
     <div class="row">
         <div class="span5">
             <div id="map-canvas"></div>

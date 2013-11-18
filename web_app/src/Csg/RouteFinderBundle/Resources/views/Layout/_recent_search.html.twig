@@ -26,7 +26,7 @@
                         <i class="icon-large icon-clock"></i>
                     </span>
                     {{ item.start_time|date('Y-m-d H:i') }}
-                    <button type="submit" class="btn btn-info btn-small">View Search</button>
+                    <button type="button" class="btn btn-info btn-small" onclick="window.location = '{{ url('csg_route_finder.default.index') ~ '?' ~ item.url }}'">View Search</button>
                 </p>
             </div>
             {% endfor %}
