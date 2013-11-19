@@ -13,7 +13,10 @@ from db_util import *
 from RouteCalculator import *
 from time import clock
 
-import pytz
+import pytz, time, os
+
+os.environ['TZ'] = 'US/Central'
+time.tzset()
 
 local_timezone = pytz.timezone("US/Central")
 
