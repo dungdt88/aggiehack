@@ -19,13 +19,14 @@ if __name__ == '__main__':
 	start_node_2 = Node(-1, "Start at Home", 30.638226, -96.32246)
 	start_node_3 = Node(-1, "Start at Aggie Station", 30.624064,-96.354003)
 
-	start_time = datetime.datetime(2013, 11, 10, 10, 30, 0, 0)
+	start_time = datetime.datetime(2013, 11, 19, 10, 30, 0, 0)
 
-	start_time2 = datetime.datetime(2013, 11, 10, 10, 40, 0, 0)
-	start_time3 = datetime.datetime(2013, 11, 10, 10, 45, 0, 0)
-	start_time4 = datetime.datetime(2013, 11, 10, 10, 0, 0, 0)
+	start_time2 = datetime.datetime(2013, 11, 19, 10, 40, 0, 0)
+	start_time3 = datetime.datetime(2013, 11, 19, 10, 45, 0, 0)
+	start_time4 = datetime.datetime(2013, 11, 19, 10, 0, 0, 0)
+	start_time5 = datetime.datetime(2013, 11, 19, 10, 55, 0, 0)
 
-	time_list = [start_time, start_time2, start_time3, start_time4]
+	time_list = [start_time, start_time2, start_time3, start_time4, start_time5]
 
 	start = clock();
 	calculator = RouteCalculator()
@@ -42,9 +43,7 @@ if __name__ == '__main__':
 	#print "From Home to MSC"
 	start = clock();
 	# path_list = calculator.search(start_node_2, goal_node_1, start_time, K_SHORTEST)
-
 	path_list = calculator.shortest_duration_search(start_node_2, goal_node_1, K_SHORTEST, time_list, None)
-
 	end = clock();
 	print "Finish searching in %6.3f seconds" % (end - start)	
 	#print "Found", len(path_list)

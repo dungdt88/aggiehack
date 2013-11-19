@@ -52,13 +52,14 @@ class RouteCalculator:
             
         return path_list
 
+
     def a_search(self, start_state, goal, start_time, prohibited_states=[]):
         found = False
         resign = False
         pQueue = PriorityQueue()
 
         pQueue.push(start_state, 0)
-        # explored = []
+        explored = []
         final_state = None
 
         count = 0
@@ -69,7 +70,8 @@ class RouteCalculator:
                 resign = True
             else:
                 current_state = pQueue.pop()
-                # explored.append(current_state.node.id)
+                explored.append(current_state)
+
                 # print "Pop", count
                 # current_state.print_info()
                 # print
@@ -82,14 +84,13 @@ class RouteCalculator:
                     #break
                 else:
                     next_states = self.data_manager.get_next_states(current_state, goal)
- 
                     for s in next_states:
-                        if prohibited_states is None or s not in prohibited_states:
+                        if (prohibited_states is None or s not in prohibited_states) and (s not in explored) and (not pQueue.search(s)):
                             f = (s.arrived_time - start_time).total_seconds() + s.heuristic(goal) #f = g + h
                             pQueue.push(s, f)
                             # s.print_info()
 
-                        # if (s.node.id not in explored and pQueue.search(s.node) == False):
+                        # if (s not in explored) and (not pQueue.search(s)) :
                         #     f = (s.arrived_time - start_time).total_seconds() + s.heuristic(goal) #f = g + h
                         #     pQueue.push(s, f)
 

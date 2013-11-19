@@ -17,6 +17,7 @@ from time import clock
 app = Flask(__name__)
 
 
+#validate time input
 def validate_datetime(s_time):
     now = datetime.datetime.now()
     if s_time < now:
@@ -26,6 +27,7 @@ def validate_datetime(s_time):
         return False
     return True
 
+#validate coordinate input
 def validate_long_lat(longitute, latitude):
     if float(longitute) < LONGTITUDE_LEFT_BOUND or float(longitute) > LONGTITUDE_RIGHT_BOUND:
         print 'long exceed'
@@ -35,6 +37,8 @@ def validate_long_lat(longitute, latitude):
         return False
     return True
 
+
+#convert pathlist to json for web service
 def convert_results_to_json(path_list):
     results_list = []
     for path in path_list:
@@ -108,6 +112,7 @@ def api_long(lat1, long1, lat2, long2, start_time):
     return resp
 
 
+#handle not found error
 @app.errorhandler(404)
 def not_found(error=None):
     message = {
@@ -119,7 +124,7 @@ def not_found(error=None):
 
     return resp
 
-
+#handle internal server error
 @app.errorhandler(500)
 def internal_error(error=None):
     message = {
@@ -131,6 +136,7 @@ def internal_error(error=None):
     return resp
 
 
+#main
 if __name__ == '__main__':
     #print validate_datetime(str(datetime.datetime.now()))
     app.run(host='0.0.0.0')

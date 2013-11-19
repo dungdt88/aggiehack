@@ -5,8 +5,8 @@ import datetime
 
 def add_secs(dt, secs):
     if secs is not None:
-        fulldate = datetime.datetime(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second, 2)
-        fulldate = fulldate + datetime.timedelta(seconds=secs)
+        fulldate = datetime.datetime(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
+        fulldate = fulldate + datetime.timedelta(seconds = int(secs))
         return fulldate
 
 def convert_sql_datetime_to_datetime(str_value):

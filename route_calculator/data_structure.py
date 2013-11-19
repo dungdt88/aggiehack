@@ -119,7 +119,8 @@ class State:
     def __eq__(self, other):
         return self.node == other.node and \
                self.arrived_time == other.arrived_time and \
-               ((self.previous_step is None and other.previous_step is None) or (self.previous_step is not None and other.previous_step is not None and self.previous_step == other.previous_step))
+               ((self.previous_step is None and other.previous_step is None) or 
+                    (self.previous_step is not None and other.previous_step is not None and self.previous_step == other.previous_step))
 
     #Heuristic function based on Euclidean distance
     def heuristic(self, goal_node):

@@ -24,9 +24,10 @@ class DataManager:
 
         for step in next_steps:
             # step.print_info()
-            new_node = step.end_node
-            new_state = State(new_node, step.end_time, step, current_state)
-            next_states.append(new_state) 
+            if step.end_time > current_state.arrived_time:
+                new_node = step.end_node
+                new_state = State(new_node, step.end_time, step, current_state)
+                next_states.append(new_state) 
 
         return next_states
 
