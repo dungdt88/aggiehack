@@ -128,6 +128,7 @@ def not_found(error=None):
 
     return resp
 
+
 #handle internal server error
 @app.errorhandler(500)
 def internal_error(error=None):

@@ -1,6 +1,5 @@
 import math
 import heapq, random, sys
-import gmap_api
 import datetime
 
 def add_secs(dt, secs):
