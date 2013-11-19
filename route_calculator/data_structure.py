@@ -40,8 +40,8 @@ class Path:
         else:
             for i in range(len(self.state_list)):
                 if not self.state_list[i] == other.state_list[i]:
-                    self.state_list[i].print_info()
-                    other.state_list[i].print_info()
+                    #self.state_list[i].print_info()
+                    #other.state_list[i].print_info()
                     return False
             return True
 

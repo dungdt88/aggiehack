@@ -5,6 +5,7 @@ from data_manager import *
 from RouteCalculator import *
 from time import clock
 
+
 if __name__ == '__main__':
 
 	K_SHORTEST = 5
@@ -20,6 +21,8 @@ if __name__ == '__main__':
 	start_node_3 = Node(-1, "Start at Aggie Station", 30.624064,-96.354003)
 
 	start_time = datetime.datetime(2013, 11, 19, 10, 30, 0, 0)
+
+	print start_time
 
 	start_time2 = datetime.datetime(2013, 11, 19, 10, 40, 0, 0)
 	start_time3 = datetime.datetime(2013, 11, 19, 10, 45, 0, 0)
@@ -42,12 +45,17 @@ if __name__ == '__main__':
 
 	#print "From Home to MSC"
 	start = clock();
-	# path_list = calculator.search(start_node_2, goal_node_1, start_time, K_SHORTEST)
-	path_list = calculator.shortest_duration_search(start_node_2, goal_node_1, K_SHORTEST, time_list, None)
+	path_list = calculator.search(start_node_2, goal_node_1, start_time, K_SHORTEST)
+	# path_list = calculator.shortest_duration_search(start_node_2, goal_node_1, K_SHORTEST, time_list, None)
 	end = clock();
 	print "Finish searching in %6.3f seconds" % (end - start)	
 	#print "Found", len(path_list)
 
+
+	# import time
+	# import datetime
+	# n = datetime.datetime.now()
+	# unix_time = time.mktime(n.timetuple())
 
 	# print "From Aggie Station to MSC"
 	# start = clock();

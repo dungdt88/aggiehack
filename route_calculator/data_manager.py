@@ -2,8 +2,6 @@ import data_structure
 from data_structure import *
 from constants import *
 from db_util import *
-import igraph
-from igraph import *
 import os.path
 import cPickle
 
@@ -62,6 +60,12 @@ class DataManager:
         next_steps.append(to_goal_step)
 
         return next_steps
+
+
+    def get_time_window(self, current_state, start_time):
+        time_window = []
+
+        return time_window
 
 # Utility functions outside DataManager class
 def initialize_bus_steps(file_name = PICKLE_FILE_BUS):

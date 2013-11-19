@@ -14,3 +14,5 @@ K_SHORTEST = 5
 PICKLE_FILE_BUS = "pickle_files/bus.pkl"
 PICKLE_FILE_WALK = "pickle_files/walk.pkl"
 PICKLE_FILE_LOCATION = "pickle_files/location.pkl"
+
+SEARCHING_WINDOW = 5 #minutes

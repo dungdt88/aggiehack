@@ -13,6 +13,9 @@ from db_util import *
 from RouteCalculator import *
 from time import clock
 
+import pytz
+
+local_timezone = pytz.timezone("US/Central")
 
 app = Flask(__name__)
 
@@ -48,14 +51,15 @@ def convert_results_to_json(path_list):
                 p  = state.previous_step
                 start = {'name': p.start_node.name, 'long': str(p.start_node.longitude), 'lat': str(p.start_node.latitude)}
                 end = {'name': p.end_node.name, 'long': str(p.end_node.longitude), 'lat': str(p.end_node.latitude)}
-                start_time = p.start_time
+                start_time = local_timezone.localize(p.start_time)
+                time_string = start_time.strftime("%A %Y-%m-%d %H:%M:%S %Z%z")
                 duration = (p.end_time - p.start_time).seconds
                 typn = p.type
                 bus_number = ""
                 if typn is not WALKING_TYPE:
                     bus_number = typn
                     typn = BUS_TYPE
-                one_step = {'start': start, 'end':end, 'type':typn, 'bus_number': bus_number, 'duration': duration, "start_time": start_time}
+                one_step = {'start': start, 'end':end, 'type':typn, 'bus_number': bus_number, 'duration': duration, "start_time": time_string}
 
                 steps.append(one_step)
         results_list.append(steps)
@@ -104,7 +108,7 @@ def api_long(lat1, long1, lat2, long2, start_time):
     #     error = "Date time is out of boundary"
     #     return not_found(error)
 
-    print lat1, long1, lat2, long2, s_time
+    # print lat1, long1, lat2, long2, s_time
 
     message = get_results(float(lat1), float(long1), float(lat2), float(long2), s_time)
     resp = jsonify(message)
