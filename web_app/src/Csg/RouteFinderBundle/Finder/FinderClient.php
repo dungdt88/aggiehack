@@ -74,8 +74,8 @@ class FinderClient
         $requestPath = sprintf('/orgLat/%s/orgLong/%s/desLat/%s/desLong/%s/time/%s', 
             number_format($from->getLatitude(), 8), number_format($from->getLongitude(), 8),
             number_format($to->getLatitude(), 8), number_format($to->getLongitude(), 8), 
-//            $startingTime->getTimestamp()
-            strtotime('2013-11-10 10:25:05')
+            $startingTime->getTimestamp()
+//            strtotime('2013-11-10 10:25:05')
         );
         
         $response = $client->get($requestPath)->send();
