@@ -81,8 +81,9 @@ class DataManager:
         moving_time_to_NN = util.get_moving_time(dist, WALKING_VELOCITY)
 
         for i in self.bus_steps:
-            if i.start_node.id == nearest_node.id and i.start_time >= start_time:
-                time_window.append(util.add_secs(i.start_time, -1 * moving_time_to_NN))
+            if i.start_node.id == nearest_node.id and (i.start_time >= util.add_secs(start_time, moving_time_to_NN)):
+                # time_window.append(util.add_secs(i.start_time, -1 * moving_time_to_NN)) # well may be we do not need this
+                time_window.append(i.start_time)
 
         return time_window
 

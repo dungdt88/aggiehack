@@ -124,7 +124,7 @@ class RouteCalculator:
             end_time = datetime.datetime(s_time.year, s_time.month, s_time.day, 23, 59, 59)
 
         results = []
-        durations_list = []
+        # durations_list = []
         for j, start_time in enumerate(start_time_list):
             start = clock()
             print '%d-th iterations' %(j)
@@ -136,8 +136,8 @@ class RouteCalculator:
                 if last_state.arrived_time > end_time:
                     break
                 else:
-                    d = (last_state.arrived_time - start_time).seconds
-                    durations_list.append(d)
+                    # d = (last_state.arrived_time - start_time).seconds
+                    # durations_list.append(d)
                     results.append(path)
 
             end = clock()

@@ -23,9 +23,6 @@ if __name__ == '__main__':
 	start_node_3 = Node(-1, "Start at Aggie Station", 30.624064,-96.354003)
 
 	start_time = datetime.datetime(2013, 11, 19, 17, 30, 0, 0)
-
-	print start_time
-
 	start_time2 = datetime.datetime(2013, 11, 19, 10, 40, 0, 0)
 	start_time3 = datetime.datetime(2013, 11, 19, 10, 45, 0, 0)
 	start_time4 = datetime.datetime(2013, 11, 19, 10, 0, 0, 0)
