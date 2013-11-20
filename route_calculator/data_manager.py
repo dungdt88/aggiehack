@@ -62,8 +62,27 @@ class DataManager:
         return next_steps
 
 
-    def get_time_window(self, current_state, start_time):
+    def get_nearest_bus_top(self, current_node):
+        min_dist = None
+        nearest_node = None
+        for next_node in self.locations:
+            dist = util.distance(next_node.latitude, next_node.longitude, current_node.latitude, current_node.longitude)
+            if min_dist == None or min_dist > dist:
+                min_dist = dist
+                nearest_node = next_node
+
+        # print 'nearest node: ', nearest_node.name
+        return [nearest_node, min_dist]
+
+
+    def get_time_window(self, current_node, start_time):
         time_window = []
+        nearest_node, dist = self.get_nearest_bus_top(current_node)
+        moving_time_to_NN = util.get_moving_time(dist, WALKING_VELOCITY)
+
+        for i in self.bus_steps:
+            if i.start_node.id == nearest_node.id and i.start_time >= start_time:
+                time_window.append(util.add_secs(i.start_time, -1 * moving_time_to_NN))
 
         return time_window
 

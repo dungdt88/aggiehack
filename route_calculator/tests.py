@@ -15,12 +15,14 @@ if __name__ == '__main__':
 
 	goal_node_1 = Node(-1, "End at MSC", 30.612771,-96.342081) 
 	goal_node_2 = Node(-1, "End at Wisenbaker", 30.62095300, -96.33822100)
+	goal_node_3 = Node(-1, "BJ", 30.6265931, -96.3044857)
+
 
 	start_node_1 = Node(-1, "Start at Applebee's", 30.629807,-96.337523) 
-	start_node_2 = Node(-1, "Start at Home", 30.638226, -96.32246)
+	start_node_2 = Node(-1, "Start at Home", 30.618118430576768, -96.3505482673645)
 	start_node_3 = Node(-1, "Start at Aggie Station", 30.624064,-96.354003)
 
-	start_time = datetime.datetime(2013, 11, 19, 10, 30, 0, 0)
+	start_time = datetime.datetime(2013, 11, 19, 17, 30, 0, 0)
 
 	print start_time
 
@@ -45,8 +47,8 @@ if __name__ == '__main__':
 
 	#print "From Home to MSC"
 	start = clock();
-	path_list = calculator.search(start_node_2, goal_node_1, start_time, K_SHORTEST)
-	# path_list = calculator.shortest_duration_search(start_node_2, goal_node_1, K_SHORTEST, time_list, None)
+	# path_list = calculator.search(start_node_2, goal_node_3, start_time, K_SHORTEST)
+	path_list = calculator.shortest_duration_search(start_node_2, goal_node_3, K_SHORTEST, start_time, None)
 	end = clock();
 	print "Finish searching in %6.3f seconds" % (end - start)	
 	#print "Found", len(path_list)
@@ -66,4 +68,5 @@ if __name__ == '__main__':
 	# print "Found", len(path_list)
 
 	for p in path_list:
-		p.print_info()
+		if p is not None:
+			p.print_info()
