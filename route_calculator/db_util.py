@@ -46,7 +46,15 @@ class SqlHelper:
 			t = WalkingTime(row[0], row[1], row[2])
 			all_walking_times.append(t)
 		cur.close()
-		return all_walking_times		
+		return all_walking_times	
+
+	def get_all_route_names(self):
+		cur = self.query("SELECT short_name FROM `route` WHERE url <> '' ORDER BY short_name")
+		all_routes = []
+		for row in cur.fetchall():
+			all_routes.append(row[0])
+		cur.close()
+		return all_routes	
 
 	# #get next bus steps from current state 
 	# #started_time of bus-steps get from DB, and always has to >= (arrived_time of current_step)
