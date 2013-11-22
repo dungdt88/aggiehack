@@ -14,8 +14,18 @@ function initialize()
 {
     var mapOptions = {
         zoom: 15,
-        disableDefaultUI: true,
+        // disableDefaultUI: true,
+        
         center: new google.maps.LatLng(30.627904, -96.334927),
+        mapTypeControl: false,
+        panControl: false,
+        scaleControl: false,
+        streetViewControl: false,
+        zoomControl: true,
+        zoomControlOptions: {
+            style: google.maps.ZoomControlStyle.LARGE,
+            position: google.maps.ControlPosition.LEFT_TOP
+        },
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById('map-canvas'),
@@ -183,6 +193,10 @@ $(document).ready(function() {
         $('#start-time').val(t);
     }
     $('#start-time').timepicker();
+
+    $('.user-instruction').tooltip({
+        trigger: 'hover'
+    });
 
     $('#route-form').submit(function() {
         $form = $(this);

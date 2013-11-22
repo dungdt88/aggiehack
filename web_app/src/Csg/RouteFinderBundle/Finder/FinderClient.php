@@ -107,7 +107,7 @@ class FinderClient
                     
                     $routes[] = $route;
                 }
-            } 
+            }
         }
         
 //        $types = array('bus', 'walking');

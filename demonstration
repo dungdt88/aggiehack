@@ -16,7 +16,7 @@ Demonstration
 			. Our web app offers an interactive way for the user to select their locations: a map to click on, then drag and drop to re-select.
 			. Mobile friendly feature: responsive design on all 3 types of device: PC, tablet, and mobile.
 	3. Technologies
-		- Python for back-end, php for front-end, mySQL for database, Apache for web server. 
+		- Python for back-end, php for front-end, MySQL for database, Apache for web server. 
 		- Search algorithm
 			. A* best first search to find the lowest cost path in terms of time. For example, if the user have to walk but if it can minimize the waiting time, then our algorithm will pick it.
 		- Bus route database

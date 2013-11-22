@@ -12,7 +12,7 @@
     {% endif %}
     
     <div class="row">
-        <div class="span5">
+        <div class="span7">
             <div id="map-canvas"></div>
             <div class="form-inline search-location">
                 <div class="form-group">
@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <div class="span5">
+        <div class="span3">
             <form action="{{ url('csg_route_finder.default.ajax_calculate_route') }}" id="route-form" action="post" onsubmit="return false;">
                 <input type="hidden" id="from-coordinate-lat" name="from_coordinate_lat" />
                 <input type="hidden" id="from-coordinate-long" name="from_coordinate_long" />
@@ -31,22 +31,30 @@
                 <fieldset>
                     <legend>Calculate Route</legend>
                     <div class="form-group">
-                        <label for="from-location">From Location:</label>
+                        <label for="from-location">
+                            From Location <i class="icon-info-sign user-instruction" data-toggle="tooltip" title="From location is selected on map">&nbsp;</i>
+                            <i><a href="javascript:void(0)" id="reset-from">reset</a></i>
+                        </label>
                         <input type="text" readonly class="form-control input-xlarge" name="from_name" id="from-location" value="">
                     </div>
                     <div class="form-group">
-                        <label for="to-location">To Location:</label>
+                        <label for="to-location">
+                            To Location
+                            <i class="icon-info-sign user-instruction" data-toggle="tooltip" title="To location is selected on map">&nbsp;</i>
+                            <i><a href="javascript:void(0)" id="reset-to">reset</a></i>
+                        </label>
                         <input type="text" readonly class="form-control input-xlarge" name="to_name" id="to-location" value="">
                     </div>
                     
                     <div class="form-group">
-                        <label for="start-time">Expected Start Time:</label>
+                        <label for="start-time">Expected Start Time <i class="icon-info-sign user-instruction" data-toggle="tooltip" title="Select start time below">&nbsp;</i></label>
                         <div class="input-append bootstrap-timepicker">
                             <input id="start-time" name="start_time" type="text" class="input-small">
                             <span class="add-on"><i class="icon-time"></i></span>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Calculate Route</button>
+                    <button type="submit" class="btn" onclick="window.location.reload();">Reset</button>
                 </fieldset>
             </form>
         </div>
