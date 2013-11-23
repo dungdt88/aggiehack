@@ -13,7 +13,10 @@ from db_util import *
 from RouteCalculator import *
 from time import clock
 
-import pytz
+import pytz, time, os
+
+os.environ['TZ'] = 'US/Central'
+time.tzset()
 
 local_timezone = pytz.timezone("US/Central")
 
@@ -91,6 +94,9 @@ def get_results(lat1, long1, lat2, long2, start_time):
 
 @app.route('/orgLat/<lat1>/orgLong/<long1>/desLat/<lat2>/desLong/<long2>/time/<start_time>')
 def api_long(lat1, long1, lat2, long2, start_time):
+
+    print request.url
+    
     #req = 'lat1: ' + lat1 + ' long1:' + long1 + ' lat2: ' + lat2 + 'long2: ' + long2 + 'time: ' + start_time
 
     #data validation

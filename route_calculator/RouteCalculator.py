@@ -5,6 +5,8 @@ import json, sys, random
 from data_manager import *
 from data_structure import *
 
+from time import clock
+
 class RouteCalculator:
 
     def __init__(self):
@@ -103,18 +105,30 @@ class RouteCalculator:
 
         return path
 
-    def shortest_duration_search(self, start_node, goal, k_shortest, start_time_list, end_time=None):
-        #sort start_time_list
-        start_time_list = sorted(start_time_list)
+    def shortest_duration_search(self, start_node, goal, k_shortest, start_time, end_time=None):
 
-        #add constraint for end time
+        # start = clock()
+
+        start_time_list = self.data_manager.get_time_window(start_node, start_time)
+        start_time_list = sorted(start_time_list) #sort start_time_list
+
+        # end = clock()
+        # print "Finish find nearby location time list in %6.3f seconds" % (end - start)
+        # print 'len of time list: ', len(start_time_list)
+        # print 'time list: ', start_time_list
+
+        # add default end_time
+        # time must be between start_time and end of the day, if not specified
         if end_time == None:
             s_time = start_time_list[0]
             end_time = datetime.datetime(s_time.year, s_time.month, s_time.day, 23, 59, 59)
 
         results = []
-        durations_list = []
-        for start_time in start_time_list:
+        # durations_list = []
+        for j, start_time in enumerate(start_time_list):
+            start = clock()
+            print '%d-th iterations' %(j)
+
             start_state = State(start_node, start_time, None, None)
             path = self.a_search(start_state, goal, start_time, None) # call a*
             if path != None:
@@ -122,9 +136,12 @@ class RouteCalculator:
                 if last_state.arrived_time > end_time:
                     break
                 else:
-                    d = (last_state.arrived_time - start_time).seconds
-                    durations_list.append(d)
+                    # d = (last_state.arrived_time - start_time).seconds
+                    # durations_list.append(d)
                     results.append(path)
+
+            end = clock()
+            print "Finish %d-th iterations in %6.3f seconds" % (j, end - start)
 
         #return only the the shortest duration
         # shortest_index = durations_list.index(min(durations_list))
