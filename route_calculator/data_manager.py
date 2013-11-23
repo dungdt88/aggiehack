@@ -16,7 +16,7 @@ class DataManager:
     def get_next_states(self, current_state, goal_node):
         next_bus_steps = self.get_next_bus_steps(current_state)
         next_walking_steps = self.get_next_walking_steps(current_state, goal_node)
-        
+
         next_steps = (next_bus_steps + next_walking_steps)
         next_states = []
 
@@ -25,7 +25,7 @@ class DataManager:
             if step.end_time > current_state.arrived_time:
                 new_node = step.end_node
                 new_state = State(new_node, step.end_time, step, current_state)
-                next_states.append(new_state) 
+                next_states.append(new_state)
 
         return next_states
 
@@ -38,7 +38,7 @@ class DataManager:
     def get_next_walking_steps(self, current_state, goal_node):
         next_steps = []
         # get next nodes of starting node
-        if current_state.node.id == START_NODE_ID: 
+        if current_state.node.id == START_NODE_ID:
             for next_node in self.locations:
                 dist = util.distance(next_node.latitude, next_node.longitude, current_state.node.latitude, current_state.node.longitude)
                 if dist <= MAX_DISTANCE:
@@ -46,7 +46,7 @@ class DataManager:
                     step = Step(current_state.node, next_node, current_state.arrived_time, util.add_secs(current_state.arrived_time, moving_time), WALKING_TYPE)
                     next_steps.append(step)
         else:
-            times = [i for i in self.walking_times if i.start_loc_id == current_state.node.id] 
+            times = [i for i in self.walking_times if i.start_loc_id == current_state.node.id]
             for t in times:
                 moving_time = t.time
                 next_node = [i for i in self.locations if i.id == t.end_loc_id][0]
@@ -134,6 +134,34 @@ def initialize_locations(file_name = PICKLE_FILE_LOCATION):
 
     return locations
 
+# update nodes in file location.pkl with their x, y coordinators
+def update_xy_coord_for_locations(file_name = PICKLE_FILE_LOCATION):
+    if os.path.exists(file_name):
+        pfile = open(file_name, 'rb')
+        locations = cPickle.load(pfile)
+
+        updated_locations = []
+        for node in locations:
+            x, y = util.get_xy_coord(node.latitude, node.longitude)
+            node = Node(node.id, node.name, node.latitude, node.longitude, x, y)
+            updated_locations.append(node)
+
+        pfile = open(file_name, 'wb')
+        cPickle.dump(updated_locations, pfile)
+        pfile.close()
+
+def write_pickle_file(file_name = PICKLE_FILE_LOCATION):
+    if os.path.exists(file_name):
+        pfile = open(file_name, 'rb')
+        locations = cPickle.load(pfile)
+        for node in locations:
+            if node.x_coord is not None:
+                print(node.id, node.x_coord, node.y_coord)
+            else:
+                print(node.id)
+        pfile.close()
+
+
 # def process_duration(duration):
 #     days, seconds = duration.days, duration.seconds
 #     hours = days * 24 + seconds // 3600
@@ -143,3 +171,9 @@ def initialize_locations(file_name = PICKLE_FILE_LOCATION):
 #     return {'days':days, 'hours':hours, 'minutes':minutes, 'seconds':seconds}
 
 
+if __name__ == '__main__':
+    #write_pickle_file()
+    print("start")
+    update_xy_coord_for_locations()
+    print("end")
+    write_pickle_file()

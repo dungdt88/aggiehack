@@ -1,5 +1,6 @@
 import math
 import heapq, random, sys
+import constants
 import datetime
 
 def add_secs(dt, secs):
@@ -19,7 +20,7 @@ def distance(lat1, lon1, lat2, lon2):
     on the earth (specified in decimal degrees)
     """
     # convert decimal degrees to radians 
-    lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
+    lon1, lat1, lon2, lat2 = map(radians, [float(lon1), float(lat1), float(lon2), float(lat2)])
     # haversine formula 
     dlon = lon2 - lon1 
     dlat = lat2 - lat1 
@@ -27,6 +28,11 @@ def distance(lat1, lon1, lat2, lon2):
     c = 2 * asin(sqrt(a)) 
     km = 6367 * c
     return km
+
+def  get_xy_coord(lat, lon):
+    x = distance(lat, lon, lat, constants.LONGTITUDE_LEFT_BOUND)
+    y = distance(lat, lon, constants.LATITUDE_UPPER_BOUND, lon)
+    return x, y
 
 def get_moving_time(distance, velocity):
     return float(distance / velocity) * 3600
