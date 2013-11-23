@@ -7,8 +7,8 @@ from util import *
 file_name = "live_data/bus.json"
 sample_bus_id = "cb227902-a30c-4c00-b9c1-c3af9321769d" #a bus instance id of route 15 on Sat 11/23/13
 sample_route_name = "15"
-sample_start_time = "13-11-23-13-00-00"
-sample_end_time = "13-11-23-14-00-00"
+sample_start_time = "13-11-23-13-30-00"
+sample_end_time = "13-11-23-14-30-00"
 
 def get_bus_instance_data(bus_id, start_time_str, end_time_str):
   	bus_instance_data = [] # data [(time, dict of {key, lat, long, nextStop, estDepart}] for a particular bus ID
