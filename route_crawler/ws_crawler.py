@@ -11,7 +11,7 @@ import os
 import threading
 from threading import *
 
-DATA_DIR = "live_data"
+DATA_DIR = "../route_calculator/live_data"
 
 class TransportationServiceAPI(): 
     def __init__(self):
