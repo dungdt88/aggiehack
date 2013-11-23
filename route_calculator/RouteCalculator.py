@@ -110,7 +110,9 @@ class RouteCalculator:
         # start = clock()
 
         start_time_list = self.data_manager.get_time_window(start_node, start_time)
-        start_time_list = sorted(start_time_list) #sort start_time_list
+
+        if len(start_time_list) == 0:
+            return []
 
         # end = clock()
         # print "Finish find nearby location time list in %6.3f seconds" % (end - start)
