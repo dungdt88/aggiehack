@@ -56,6 +56,14 @@ class SqlHelper:
 		cur.close()
 		return all_routes	
 
+	def get_all_routes(self):
+		cur = self.query("SELECT uid, short_name, name, url FROM `route`")
+		all_routes = []
+		for row in cur.fetchall():
+			all_routes.append((row[0], row[1], row[2], row[3]))
+		cur.close()
+		return all_routes	
+
 	# #get next bus steps from current state 
 	# #started_time of bus-steps get from DB, and always has to >= (arrived_time of current_step)
 	# def get_next_bus_steps(self, current_state):

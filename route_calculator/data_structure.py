@@ -65,19 +65,17 @@ class Path:
                 st = p.start_time
                 et = p.end_time
                 type = p.type
-
+                
                 string += s + ', ' + e + ', ' + str(st) + ', ' + str(et) + ', ' + type + "\n"
         print "Path:\n", string    
 
 #Datastructure for node
 class Node:
-    def __init__(self, _id, _name, _lat, _long, _x_coord=None, _ycoord=None):
+    def __init__(self, _id, _name, _lat, _long):
         self.id = _id
         self.name = _name
         self.latitude = float(_lat)
         self.longitude = float(_long)
-        self.x_coord = _x_coord
-        self.y_coord = _ycoord
 
     def __eq__(self, other):
         return self.id == other.id
