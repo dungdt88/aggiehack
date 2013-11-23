@@ -29,9 +29,9 @@ def distance(lat1, lon1, lat2, lon2):
     km = 6367 * c
     return km
 
-def  get_xy_coord(lat, lon):
+def get_xy_coord(lat, lon):
     x = distance(lat, lon, lat, constants.LONGTITUDE_LEFT_BOUND)
-    y = distance(lat, lon, constants.LATITUDE_UPPER_BOUND, lon)
+    y = distance(constants.LATITUDE_LOWER_BOUND, lon, lat, lon)
     return x, y
 
 def get_moving_time(distance, velocity):

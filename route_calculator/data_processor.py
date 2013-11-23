@@ -70,5 +70,5 @@ def get_route_shapes(route_name):
 if __name__ == '__main__':
 
 	shapes = get_route_shapes(sample_route_name)
-	print shapes
+	pprint.pprint(shapes)
 	print len(shapes)
