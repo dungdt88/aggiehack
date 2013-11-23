@@ -21,12 +21,13 @@ if __name__ == '__main__':
 	start_node_1 = Node(-1, "Start at Applebee's", 30.629807,-96.337523) 
 	start_node_2 = Node(-1, "Start at Home", 30.618118430576768, -96.3505482673645)
 	start_node_3 = Node(-1, "Start at Aggie Station", 30.624064,-96.354003)
+	start_node_4 = Node(-1, "Start at Van's Home", 30.638226, -96.32246)
 
-	start_time = datetime.datetime(2013, 11, 19, 17, 30, 0, 0)
-	start_time2 = datetime.datetime(2013, 11, 19, 10, 40, 0, 0)
-	start_time3 = datetime.datetime(2013, 11, 19, 10, 45, 0, 0)
-	start_time4 = datetime.datetime(2013, 11, 19, 10, 0, 0, 0)
-	start_time5 = datetime.datetime(2013, 11, 19, 10, 55, 0, 0)
+	start_time = datetime.datetime(2013, 11, 22, 10, 0, 0, 0)
+	start_time2 = datetime.datetime(2013, 11, 22, 10, 40, 0, 0)
+	start_time3 = datetime.datetime(2013, 11, 22, 10, 45, 0, 0)
+	start_time4 = datetime.datetime(2013, 11, 22, 10, 0, 0, 0)
+	start_time5 = datetime.datetime(2013, 11, 22, 10, 55, 0, 0)
 
 	time_list = [start_time, start_time2, start_time3, start_time4, start_time5]
 
@@ -42,14 +43,19 @@ if __name__ == '__main__':
 	# end = clock();
 	# print "Finish searching in %6.3f seconds" % (end - start)
 
-	#print "From Home to MSC"
+	# #print "From Home to MSC"
+	# start = clock();
+	# # path_list = calculator.search(start_node_2, goal_node_1, start_time, K_SHORTEST)
+	# path_list = calculator.shortest_duration_search(start_node_2, goal_node_3, K_SHORTEST, start_time, None)
+	# end = clock();
+	# print "Finish searching in %6.3f seconds" % (end - start)	
+	# #print "Found", len(path_list)
+
+	print "From Home to MSC"
 	start = clock();
-	# path_list = calculator.search(start_node_2, goal_node_3, start_time, K_SHORTEST)
-	path_list = calculator.shortest_duration_search(start_node_2, goal_node_3, K_SHORTEST, start_time, None)
+	path_list = calculator.search(start_node_4, goal_node_1, start_time, K_SHORTEST)
 	end = clock();
 	print "Finish searching in %6.3f seconds" % (end - start)	
-	#print "Found", len(path_list)
-
 
 	# import time
 	# import datetime

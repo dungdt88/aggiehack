@@ -137,7 +137,7 @@ class matrix:
 
 ########################################
 
-def filter(x, P):
+def filter(measurements, x, u, P, F, H, R, I):
     for n in range(len(measurements)):
         
         # prediction
@@ -159,26 +159,26 @@ def filter(x, P):
 
 ########################################
 
-print "### 4-dimensional example ###"
+# print "### 4-dimensional example ###"
 
-measurements = [[5., 10.], [6., 8.], [7., 6.], [8., 4.], [9., 2.], [10., 0.]]
-initial_xy = [4., 12.]
+# measurements = [[5., 10.], [6., 8.], [7., 6.], [8., 4.], [9., 2.], [10., 0.]]
+# initial_xy = [4., 12.]
 
-# measurements = [[1., 4.], [6., 0.], [11., -4.], [16., -8.]]
-# initial_xy = [-4., 8.]
+# # measurements = [[1., 4.], [6., 0.], [11., -4.], [16., -8.]]
+# # initial_xy = [-4., 8.]
 
-# measurements = [[1., 17.], [1., 15.], [1., 13.], [1., 11.]]
-# initial_xy = [1., 19.]
+# # measurements = [[1., 17.], [1., 15.], [1., 13.], [1., 11.]]
+# # initial_xy = [1., 19.]
 
-dt = 0.1
+# dt = 0.1
 
-x = matrix([[initial_xy[0]], [initial_xy[1]], [0.], [0.]]) # initial state (location and velocity)
-u = matrix([[0.], [0.], [0.], [0.]]) # external motion
+# x = matrix([[initial_xy[0]], [initial_xy[1]], [0.], [0.]]) # initial state (location and velocity)
+# u = matrix([[0.], [0.], [0.], [0.]]) # external motion
 
-P =  matrix([[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,1000.,0.],[0.,0.,0.,1000.]])# initial uncertainty
-F =  matrix([[1.,0.,dt,0.],[0.,1.,0.,dt],[0.,0.,1.,0.],[0.,0.,0.,1.]])# next state function
-H =  matrix([[1.,0.,0.,0.],[0.,1.,0.,0.]])# measurement function
-R =  matrix([[0.1,0.],[0.,.1]])# measurement uncertainty
-I =  matrix([[1.,0.,0.,0.],[0.,1.,0.,0.],[0.,0.,1.,0.],[0.,0.,0.,1.]])# identity matrix
+# P =  matrix([[0.,0.,0.,0.],[0.,0.,0.,0.],[0.,0.,1000.,0.],[0.,0.,0.,1000.]])# initial uncertainty
+# F =  matrix([[1.,0.,dt,0.],[0.,1.,0.,dt],[0.,0.,1.,0.],[0.,0.,0.,1.]])# next state function
+# H =  matrix([[1.,0.,0.,0.],[0.,1.,0.,0.]])# measurement function
+# R =  matrix([[0.1,0.],[0.,.1]])# measurement uncertainty
+# I =  matrix([[1.,0.,0.,0.],[0.,1.,0.,0.],[0.,0.,1.,0.],[0.,0.,0.,1.]])# identity matrix
 
-filter(x, P)
+# filter(x, P)

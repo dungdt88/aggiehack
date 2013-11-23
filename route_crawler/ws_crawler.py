@@ -34,13 +34,13 @@ def get_live_data(ts_api, route_names):
 
 	#get data
 	now = datetime.datetime.now().strftime("%y-%m-%d-%H-%M-%S")
-	data = {}
+	data = []
 
 	file_name = DATA_DIR + '/bus.json'
 
 	if os.path.exists(file_name):
 		with open(file_name) as f:
-			data = json.load(f) # dict {datetime, dict {route name, [bus instance data]}}
+			data = json.load(f) # [datetime, dict {route name, [bus instance data]}}
 			f.close()
 
 	route_dict = {}
@@ -51,7 +51,7 @@ def get_live_data(ts_api, route_names):
 		if len(route_json) > 0:
 			route_dict[route_name] = route_json
 
-	data[now] = route_dict	
+	data.append((now, route_dict))	
 		
 	with open(file_name, 'w') as f:	
 		f.write(json.dumps(data))

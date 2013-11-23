@@ -5,7 +5,7 @@ import string
 import db_util
 from db_util import *
 
-sample_route_name = "12" # hard code route name for now to get sample data
+sample_route_name = "15" # hard code route name for now to get sample data
 shapes_file = "../data/TS/shapes.txt"
 trips_file = "../data/TS/trips.txt"
 
@@ -55,21 +55,20 @@ def build_route_shapes(route_shape_dict):
 			tf.close()
 
 
-	# print route_segment_dict.keys()
 
-
-def get_route_shapes(route_name):
+def get_route_shape(route_name):
 	
 	route_shape_dict = {} #dictionary {route_id, [(shape_id, lat, long, x, y, sequence, distance)]}
 	build_route_shapes(route_shape_dict) 
 
-	shapes = [] # [(shape_id, lat, long, x, y, sequence, distance)]
+	shape = [] # [(shape_id, lat, long, x, y, sequence, distance)]
 	if route_name in route_shape_dict:
-		shapes = sorted(route_shape_dict[route_name], key=lambda item: int(item[5])) # sort list by sequence
-	return shapes
+		shape = sorted(route_shape_dict[route_name], key=lambda item: int(item[5])) # sort list by sequence
+	return shape
 
 
 if __name__ == '__main__':
 
-	shapes = get_route_shapes(sample_route_name)
-	print shapes
+	shape = get_route_shape(sample_route_name)
+	pprint.pprint(shape)
+	print len(shape)
