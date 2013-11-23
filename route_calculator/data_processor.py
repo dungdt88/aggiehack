@@ -28,7 +28,7 @@ def build_route_segment_list(route_segment_dict):
 					shape_id = shape_item[0]
 
 					x, y = util.get_xy_coord(shape_item[1], shape_item[2])
-					shape_tuple = (shape_item[0], shape_item[1], shape_item[2],  x, y, shape_item[3], shape_item[4])
+					shape_tuple = (shape_item[0], shape_item[1], shape_item[2], x, y, shape_item[3], shape_item[4])
 
 					if shape_id in shape_dict:
 						shapes = shape_dict[shape_id]
@@ -39,13 +39,13 @@ def build_route_segment_list(route_segment_dict):
 						shape_dict[shape_id] = shapes
 			sf.close()
 			
+
 			for i, line in enumerate(tf):
 				if i > 0:
 					line = replace_redundant_char(line)
 					trip_item = line.split(',')
 					route_id = trip_item[0]
 					shape_id = trip_item[3]
-
 					
 					found = [i for i in routes if i[0]==route_id]
 					if len(found) > 0:
