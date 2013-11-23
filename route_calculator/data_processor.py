@@ -14,7 +14,7 @@ def replace_redundant_char(line):
 	line = line.replace('\r', '')
 	return line
 
-def build_route_segment_list(route_segment_dict):
+def build_route_shapes(route_shape_dict):
 	if os.path.exists(trips_file) and os.path.exists(shapes_file):
 		sql_helper = SqlHelper()
 		routes = sql_helper.get_all_routes()
@@ -51,25 +51,25 @@ def build_route_segment_list(route_segment_dict):
 					if len(found) > 0:
 						if shape_id in shape_dict:
 							route_name = found[0][1]
-							route_segment_dict[route_name] = shape_dict[shape_id]
+							route_shape_dict[route_name] = shape_dict[shape_id]
 			tf.close()
 
 
 	# print route_segment_dict.keys()
 
 
-def get_route_segments(route_name):
+def get_route_shapes(route_name):
 	
-	route_segment_dict = {} #dictionary {route_id, [(shape_id, lat, long, x, y, sequence, distance)]}
-	build_route_segment_list(route_segment_dict) 
+	route_shape_dict = {} #dictionary {route_id, [(shape_id, lat, long, x, y, sequence, distance)]}
+	build_route_shapes(route_shape_dict) 
 
-	segments = []
-	if route_name in route_segment_dict:
-		segments = sorted(route_segment_dict[route_name], key=lambda item: int(item[5])) # sort list by sequence
-	return segments
+	shapes = [] # [(shape_id, lat, long, x, y, sequence, distance)]
+	if route_name in route_shape_dict:
+		shapes = sorted(route_shape_dict[route_name], key=lambda item: int(item[5])) # sort list by sequence
+	return shapes
 
 
 if __name__ == '__main__':
 
-	segments = get_route_segments(sample_route_name)
-	print segments
+	shapes = get_route_shapes(sample_route_name)
+	print shapes
