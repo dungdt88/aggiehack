@@ -31,7 +31,7 @@ def distance(lat1, lon1, lat2, lon2):
 
 def  get_xy_coord(lat, lon):
     x = distance(lat, lon, lat, constants.LONGTITUDE_LEFT_BOUND)
-    y = distance(lat, lon, constants.LATITUDE_UPPER_BOUND, lon)
+    y = distance(lat, lon, constants.LATITUDE_LOWER_BOUND, lon)
     return x, y
 
 def get_moving_time(distance, velocity):
