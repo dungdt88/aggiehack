@@ -81,9 +81,7 @@ class RouteCalculator:
                 if current_state.is_goal(goal):
                     found = True
                     final_state = current_state
-                    #path = get_path(final_state)
-                    #return path
-                    #break
+                    break
                 else:
                     next_states = self.data_manager.get_next_states(current_state, goal)
                     for s in next_states:
