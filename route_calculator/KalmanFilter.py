@@ -157,6 +157,8 @@ def filter(measurements, x, u, P, F, H, R, I):
     print 'P= '
     P.show()
 
+    return x
+
 ########################################
 
 # print "### 4-dimensional example ###"

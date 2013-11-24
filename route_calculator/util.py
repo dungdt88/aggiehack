@@ -31,13 +31,17 @@ def distance(lat1, lon1, lat2, lon2):
 
 def get_xy_coord(lat, lon):
     x = distance(lat, lon, lat, constants.LONGTITUDE_LEFT_BOUND)
-    y = distance(constants.LATITUDE_LOWER_BOUND, lon, lat, lon)
+    y = distance(lat, lon, constants.LATITUDE_LOWER_BOUND, lon)
     return x, y
 
 def get_moving_time(distance, velocity):
     return float(distance / velocity) * 3600
 
+def from_datetime_to_str(datetime_value):
+    return datetime_value.strftime("%y-%m-%d-%H-%M-%S")
 
+def from_str_to_datetime(str_value):
+    return datetime.datetime.strptime(str_value, "%y-%m-%d-%H-%M-%S")
 
 
 
