@@ -37,11 +37,11 @@ def  get_xy_coord(lat, lon):
 def get_moving_time(distance, velocity):
     return float(distance / velocity) * 3600
 
-def from_datetime_to_str(datetime_value):
-    return datetime_value.strftime("%y-%m-%d-%H-%M-%S")
+def from_datetime_to_str(datetime_value, format="%y-%m-%d-%H-%M-%S"):
+    return datetime_value.strftime(format)
 
-def from_str_to_datetime(str_value):
-    return datetime.datetime.strptime(str_value, "%y-%m-%d-%H-%M-%S")
+def from_str_to_datetime(str_value, format="%y-%m-%d-%H-%M-%S"):
+    return datetime.datetime.strptime(str_value, format)
 
 
 
