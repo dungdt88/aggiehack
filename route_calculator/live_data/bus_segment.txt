@@ -1,0 +1,17 @@
+MSC - * - 30.61293 - -96.3422 - 30.61342 - -96.3415
+* - Fish Pond - 30.61293 - -96.3422 - 30.61613 - -96.34337
+Fish Pond - College Main Parking Garage - 30.61293 - -96.3422 - 30.61937 - -96.34662
+College Main Parking Garage - Spruce St. - 30.61293 - -96.3422 - 30.62195 - -96.34932
+Spruce St. - Aggie Station - 30.61293 - -96.3422 - 30.62572 - -96.35355
+Aggie Station - Village on the Creek - 30.61293 - -96.3422 - 30.62542 - -96.3565
+Village on the Creek - The Islands - 30.61293 - -96.3422 - 30.62723 - -96.35872
+The Islands - Reveille Ranch - 30.61293 - -96.3422 - 30.63075 - -96.36193
+Reveille Ranch - Wellborn @ Tee - 30.61293 - -96.3422 - 30.63463 - -96.3656
+Wellborn @ Tee - Villa Maria @ Green St.  - 30.61293 - -96.3422 - 30.63867 - -96.3605
+Villa Maria @ Green St.  - Blinn Athletics - 30.61293 - -96.3422 - 30.63375 - -96.35432
+Blinn Athletics - Academic Village - 30.61293 - -96.3422 - 30.63042 - -96.35462
+Academic Village - Aggie Station - 30.61293 - -96.3422 - 30.62477 - -96.35245
+Aggie Station - Spruce St. - 30.61293 - -96.3422 - 30.62147 - -96.3488
+Spruce St. - College Main Parking Garage - 30.61293 - -96.3422 - 30.61935 - -96.3466
+College Main Parking Garage - Fish Pond - 30.61293 - -96.3422 - 30.61638 - -96.34355
+Fish Pond - MSC - 30.61293 - -96.3422 - 30.6129 - -96.34218
