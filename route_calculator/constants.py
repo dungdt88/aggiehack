@@ -16,3 +16,4 @@ PICKLE_FILE_WALK = "pickle_files/walk.pkl"
 PICKLE_FILE_LOCATION = "pickle_files/location.pkl"
 
 SEARCHING_WINDOW = 5 #minutes
+TIME_FRAME_LIMIT = 10 #get only 10 start time from nearest bus stop

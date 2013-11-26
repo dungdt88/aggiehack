@@ -85,7 +85,8 @@ class DataManager:
                 # time_window.append(util.add_secs(i.start_time, -1 * moving_time_to_NN)) # well may be we do not need this
                 time_window.append(i.start_time)
 
-        return time_window
+        time_window = sorted(time_window)
+        return time_window[:TIME_FRAME_LIMIT] #return only a limited start time
 
 # Utility functions outside DataManager class
 def initialize_bus_steps(file_name = PICKLE_FILE_BUS):
