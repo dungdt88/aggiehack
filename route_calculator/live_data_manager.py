@@ -81,9 +81,11 @@ def stat_duration_per_segment(ls_live_data):
     return ret_dict
 
 #------------------------------------------------------------------------------------------
-def get_remain_segments_from_location(lat, lng, next_stop):
+def get_remain_segments_from_location(lat, lng, seq):
     ls_remain_segments = []
     ls_segments = get_all_segments()
+    ls_shapes = get_all_shapes()
+    next_stop = ls_shapes[seq][3]
     i = 0
     min_dev = 1000000
     min_index = -1
@@ -102,6 +104,23 @@ def get_remain_segments_from_location(lat, lng, next_stop):
             ls_remain_segments.append((item[0], item[1]))
         return ls_remain_segments
 
+#------------------------------------------------------------------------------------------
+# Results have to be ordered by seq
+def get_all_shapes():
+    ls_shapes = []
+    file_path = "live_data/bus_shape_stop.txt"
+
+    if os.path.exists(file_path):
+        with open(file_path, 'r') as data_file:
+            for i, line in enumerate(data_file):
+                line = line.rstrip('\n')
+                line_items = line.split(' , ')
+                if line_items[3] == '*': # process for busStop ''
+                    line_items[3] = ''
+                ls_shapes.append((line_items[0],line_items[1],line_items[2],line_items[3])) # lat, lng, seq, nextStop
+    #print ls_shapes
+
+    return ls_shapes
 
 #------------------------------------------------------------------------------------------
 # Results have to be ordered
@@ -173,7 +192,7 @@ if __name__ == '__main__':
     #sample_route_name = "15" # hard code route name for now to get sample data
     #shape = data_processor.get_route_shape(sample_route_name)
     #for s in shape:
-    #    print s[1],',',s[2]
+    #    print s[1],',',s[2],',',s[5]
     #print(shape)
 
     ##2 Test update_running_list():
@@ -198,9 +217,10 @@ if __name__ == '__main__':
     #
     #get_all_segments()
 
-    #ls = get_remain_segments_from_location(30.61293, -96.3422, 'Fish Pond')
-    ls = get_remain_segments_from_location(30.61293, -96.3422, 'MSC') # finish route
-
+    ls = get_remain_segments_from_location(30.61293, -96.3422, 1)
+    #ls = get_remain_segments_from_location(30.61293, -96.3422, 37) # finish route
     print ls
+
+    #get_all_shapes()
 
     print("end")
