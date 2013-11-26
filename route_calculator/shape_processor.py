@@ -80,12 +80,6 @@ def process_to_pass_next_seq(list_live_data, cur_live_data_item_index, list_shap
     return None
 
 
-def get_difft_time(_end_time, _start_time):
-    start_timetype = datetime.strptime(_start_time, "%y-%m-%d-%H-%M-%S")
-    end_timetype   = datetime.strptime(_end_time, "%y-%m-%d-%H-%M-%S")
-    return (end_timetype - start_timetype).seconds
-
-
 if __name__ == '__main__':
     print("start")
 

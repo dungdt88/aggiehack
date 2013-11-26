@@ -1,7 +1,7 @@
 import math
 import heapq, random, sys
 import constants
-import datetime
+from datetime import datetime
 
 def add_secs(dt, secs):
     if secs is not None:
@@ -43,7 +43,10 @@ def from_datetime_to_str(datetime_value, format="%y-%m-%d-%H-%M-%S"):
 def from_str_to_datetime(str_value, format="%y-%m-%d-%H-%M-%S"):
     return datetime.datetime.strptime(str_value, format)
 
-
+def get_difft_time(_end_time, _start_time):
+    start_timetype = datetime.strptime(_start_time, "%y-%m-%d-%H-%M-%S")
+    end_timetype   = datetime.strptime(_end_time, "%y-%m-%d-%H-%M-%S")
+    return (end_timetype - start_timetype).seconds
 
 
 

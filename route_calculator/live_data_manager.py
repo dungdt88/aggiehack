@@ -1,6 +1,7 @@
 import json
 import os
 import data_processor
+import sample_data_generator
 import util
 
 __author__ = 'DucNguyen'
@@ -31,6 +32,51 @@ def update_running_list(running_list, lat, lng, shape):
     running_list.append((x, y, lat, lng, seq))
     return running_list, is_turn, dist_remain
 
+
+#------------------------------------------------------------------------------------------
+# INPUT:
+#   . list_live_data = [(time, {key_bus_id, lat, lng, nextStop, estDepart})]
+# {key_bus#: [{"direction": "324", "nextStop": "Fish Pond", "route": "04N", "estDepart": "13:31"
+#            , "occupancy": "0 %", "key": "3e239a54-b74e-4e7f-9010-b99ca1549224"
+#            , "lat": "30.614", "lng": "-96.34162"}]
+# }
+# OUTPUT:
+#   . {(start_bus_stop, end_bus_stop):[(start_time, duration)]}
+BUS_NUMBER = '15'
+def stat_duration_per_segment(ls_live_data):
+    ret_dict = {}
+    first_start_bus_stop = 'temp_bus_stop'
+    first_end_bus_stop = None
+    cur_start_bus_stop = first_start_bus_stop
+    cur_end_bus_stop = None
+
+    for live_data_item in ls_live_data:
+        if live_data_item[1].has_key(BUS_NUMBER):
+            next_bus_stop = live_data_item[1][BUS_NUMBER][0]['nextStop']
+            if cur_end_bus_stop is None:
+                cur_end_bus_stop = next_bus_stop
+                first_end_bus_stop = next_bus_stop # for deleting first segment after complete process
+                cur_start_time = live_data_item[0]
+            if next_bus_stop != cur_end_bus_stop:
+                cur_end_time = live_data_item[0]
+                duration = util.get_difft_time(cur_end_time, cur_start_time)
+                if not ret_dict.has_key((cur_start_bus_stop, cur_end_bus_stop)):
+                    ret_dict[(cur_start_bus_stop, cur_end_bus_stop)] = [(cur_start_time, duration)]
+                else:
+                    ret_dict[(cur_start_bus_stop, cur_end_bus_stop)].append((cur_start_time, duration))
+                # Reset values
+                cur_start_bus_stop = cur_end_bus_stop
+                cur_end_bus_stop = next_bus_stop
+                cur_start_time = cur_end_time
+
+    # delete 1st segment since it is incomplete
+    del ret_dict[(first_start_bus_stop, first_end_bus_stop)]
+
+    return ret_dict
+
+
+def collect_bus_stop_in_route():
+    return None
 
 #------------------------------------------------------------------------------------------
 def get_seq_from_lat_lng(latitude, longitude, shape, start_seq, end_seq):
@@ -64,23 +110,39 @@ def calc_deviation(lat, lng, start_shape, end_shape):
 if __name__ == '__main__':
     print("start")
 
+    #TASK: test update_running_list() function
     #1 Process Data:
-    file_name = "../route_calculator/live_data/live_data.json"
+    ls_live_data = []
+    file_name = "../route_crawler/live_data/bus.json"
     if os.path.exists(file_name):
         with open(file_name) as f:
             ls_live_data = json.load(f) # [datetime, dict {route name, [bus instance data]}}
             f.close()
 
-    sample_route_name = "15" # hard code route name for now to get sample data
-    shape = data_processor.get_route_shape(sample_route_name)
-    print(shape)
+    #sample_route_name = "15" # hard code route name for now to get sample data
+    #shape = data_processor.get_route_shape(sample_route_name)
+    #print(shape)
+    #
+    ##2 Test update_running_list():
+    #running_list = []
+    #for live_data_item in ls_live_data:
+    #    lat = live_data_item[0]
+    #    lng = live_data_item[1]
+    #    running_list = update_running_list(running_list, lat, lng, shape)[0]
+    #    print running_list[len(running_list)-1]
 
-    #2 Test update_running_list():
-    running_list = []
-    for live_data_item in ls_live_data:
-        lat = live_data_item[0]
-        lng = live_data_item[1]
-        running_list = update_running_list(running_list, lat, lng, shape)[0]
-        print running_list[len(running_list)-1]
+
+    #TASK: test group_live_data_to_segment() function
+    #file_name = "../route_crawler/live_data/bus.json"
+    #sample_bus_id = "cb227902-a30c-4c00-b9c1-c3af9321769d"
+    #sample_start_time_str = "13-11-23-08-00-00"
+    #sample_end_time_str = "13-11-23-17-35-00"
+    #
+    #ls_live_data = sample_data_generator.get_bus_instance_data(sample_bus_id, sample_start_time_str, sample_end_time_str)
+    result = stat_duration_per_segment(ls_live_data)
+    for k in result.keys():
+        print "key = ", k, " - value = ", result[k]
+
+
 
     print("end")
