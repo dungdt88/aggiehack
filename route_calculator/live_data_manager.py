@@ -57,12 +57,18 @@ def stat_duration_per_segment(ls_live_data):
                 cur_end_bus_stop = next_bus_stop
                 first_end_bus_stop = next_bus_stop # for deleting first segment after complete process
                 cur_start_time = live_data_item[0]
+                cur_start_loc = (live_data_item[1][BUS_NUMBER][0]['lat'],live_data_item[1][BUS_NUMBER][0]['lng'])
             if next_bus_stop != cur_end_bus_stop:
+                #print next_bus_stop
                 cur_end_time = live_data_item[0]
                 duration = util.get_difft_time(cur_end_time, cur_start_time)
+
                 if not ret_dict.has_key((cur_start_bus_stop, cur_end_bus_stop)):
                     ret_dict[(cur_start_bus_stop, cur_end_bus_stop)] = [(cur_start_time, duration)]
+                    cur_end_loc = (live_data_item[1][BUS_NUMBER][0]['lat'],live_data_item[1][BUS_NUMBER][0]['lng'])
+                    print cur_start_bus_stop,'-',cur_end_bus_stop,'-',cur_start_loc[0],'-',cur_start_loc[1],'-',cur_end_loc[0],'-',cur_end_loc[1]
                 else:
+                    print "existed"
                     ret_dict[(cur_start_bus_stop, cur_end_bus_stop)].append((cur_start_time, duration))
                 # Reset values
                 cur_start_bus_stop = cur_end_bus_stop
@@ -74,9 +80,49 @@ def stat_duration_per_segment(ls_live_data):
 
     return ret_dict
 
+#------------------------------------------------------------------------------------------
+def get_remain_segments_from_location(lat, lng, next_stop):
+    ls_remain_segments = []
+    ls_segments = get_all_segments()
+    i = 0
+    min_dev = 1000000
+    min_index = -1
+    while i < len(ls_segments):
+        item = ls_segments[i]
+        dev = calc_deviation(lat, lng, item[2], item[3], item[4], item[5])
+        if item[1] == next_stop and dev < min_dev:
+            min_dev = dev
+            min_index = i
+        i += 1
 
-def collect_bus_stop_in_route():
-    return None
+    if min_index == len(ls_segments) - 1: # finish route
+        return []
+    else:
+        for item in ls_segments[min_index+1:]:
+            ls_remain_segments.append((item[0], item[1]))
+        return ls_remain_segments
+
+
+#------------------------------------------------------------------------------------------
+# Results have to be ordered
+def get_all_segments():
+    ls_segments = []
+    file_path = "live_data/bus_segment.txt"
+
+    if os.path.exists(file_path):
+        with open(file_path, 'r') as data_file:
+            for i, line in enumerate(data_file):
+                line = line.rstrip('\n')
+                line_items = line.split(' - ')
+                if line_items[0] == '*': # process for busStop ''
+                    line_items[0] = ''
+                if line_items[1] == '*':
+                    line_items[1] = ''
+                ls_segments.append((line_items[0],line_items[1],line_items[2],line_items[3],line_items[4],line_items[5]))
+    #print ls_segments
+
+    return ls_segments
+
 
 #------------------------------------------------------------------------------------------
 def get_seq_from_lat_lng(latitude, longitude, shape, start_seq, end_seq):
@@ -105,6 +151,11 @@ def calc_deviation(lat, lng, start_shape, end_shape):
            - util.distance(start_shape[1], start_shape[2], end_shape[1], end_shape[2]))\
            / util.distance(start_shape[1], start_shape[2], end_shape[1], end_shape[2])
 
+def calc_deviation(lat, lng, start_lat, start_lng, end_lat, end_lng):
+    return  (util.distance(lat, lng, start_lat, start_lng) \
+           + util.distance(lat, lng, end_lat, end_lng) \
+           - util.distance(start_lat, start_lng, end_lat, end_lng))\
+           / util.distance(start_lat, start_lng, end_lat, end_lng)
 
 #------------------------------------------------------------------------------------------
 if __name__ == '__main__':
@@ -112,17 +163,19 @@ if __name__ == '__main__':
 
     #TASK: test update_running_list() function
     #1 Process Data:
-    ls_live_data = []
-    file_name = "../route_crawler/live_data/bus.json"
-    if os.path.exists(file_name):
-        with open(file_name) as f:
-            ls_live_data = json.load(f) # [datetime, dict {route name, [bus instance data]}}
-            f.close()
+    #ls_live_data = []
+    #file_name = "../route_crawler/live_data/bus.json"
+    #if os.path.exists(file_name):
+    #    with open(file_name) as f:
+    #        ls_live_data = json.load(f) # [datetime, dict {route name, [bus instance data]}}
+    #        f.close()
 
     #sample_route_name = "15" # hard code route name for now to get sample data
     #shape = data_processor.get_route_shape(sample_route_name)
+    #for s in shape:
+    #    print s[1],',',s[2]
     #print(shape)
-    #
+
     ##2 Test update_running_list():
     #running_list = []
     #for live_data_item in ls_live_data:
@@ -139,10 +192,15 @@ if __name__ == '__main__':
     #sample_end_time_str = "13-11-23-17-35-00"
     #
     #ls_live_data = sample_data_generator.get_bus_instance_data(sample_bus_id, sample_start_time_str, sample_end_time_str)
-    result = stat_duration_per_segment(ls_live_data)
-    for k in result.keys():
-        print "key = ", k, " - value = ", result[k]
+    #result = stat_duration_per_segment(ls_live_data)
+    #for k in result.keys():
+    #    print "key = ", k, " - value = ", result[k]
+    #
+    #get_all_segments()
 
+    #ls = get_remain_segments_from_location(30.61293, -96.3422, 'Fish Pond')
+    ls = get_remain_segments_from_location(30.61293, -96.3422, 'MSC') # finish route
 
+    print ls
 
     print("end")
