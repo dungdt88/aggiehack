@@ -89,7 +89,7 @@ def get_remain_segments_from_location(lat, lng, next_stop):
     min_index = -1
     while i < len(ls_segments):
         item = ls_segments[i]
-        dev = calc_deviation(lat, lng, item[2], item[3], item[4], item[5])
+        dev = calc_deviation2(lat, lng, item[2], item[3], item[4], item[5])
         if item[1] == next_stop and dev < min_dev:
             min_dev = dev
             min_index = i
@@ -151,7 +151,7 @@ def calc_deviation(lat, lng, start_shape, end_shape):
            - util.distance(start_shape[1], start_shape[2], end_shape[1], end_shape[2]))\
            / util.distance(start_shape[1], start_shape[2], end_shape[1], end_shape[2])
 
-def calc_deviation(lat, lng, start_lat, start_lng, end_lat, end_lng):
+def calc_deviation2(lat, lng, start_lat, start_lng, end_lat, end_lng):
     return  (util.distance(lat, lng, start_lat, start_lng) \
            + util.distance(lat, lng, end_lat, end_lng) \
            - util.distance(start_lat, start_lng, end_lat, end_lng))\
